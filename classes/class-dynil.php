@@ -25,6 +25,8 @@ class Intk_init_class
 		return $this->get_all_page( $args );
 
 	}
+
+	
 }
 
 
