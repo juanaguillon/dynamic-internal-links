@@ -1,5 +1,4 @@
 <?php 
-
 /**
 * 
 * @package Dyn Internal Links
@@ -15,12 +14,11 @@ if( ! defined( 'DYNIL_PATH')){
 }
 
 if ( ! defined ('DYNIL_DOMAIN')){
-	define( 'DYNIL_DOMAIN' , 'interk');
+	define( 'DYNIL_DOMAIN' , 'dynil');
 }
 
+include_once DYNIL_PATH . '/admin/admin-options.php';
 include_once DYNIL_PATH . '/classes/class-dynil.php';
-
-
 
 
 ?>
