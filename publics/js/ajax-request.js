@@ -1,32 +1,30 @@
-(function( $ ){
+"use strict";
 
-	"use strict";
+var Ajax_request = function( act, show ){
 
-	var actions = {		
+	Ar = Ajax_request;
 
-		showin: '',
-		setShow:function( elem ){
-			this.showin = elem
+	Ar.showin = show || '';
+	Ar.act = act;	
+
+
+}
+Ajax_request.fn = Ajax_request.prototype;
+
+Ajax_request.fn.exec = function( method ){
+
+	jQuery.ajax({
+		url: '/wp-admin/admin-ajax.php',
+		type: method,
+		data: {
+			'action': this.act
+		},		
+		success:function( resp ){
+			jQuery( this.showin ).append( resp )
 		}
-		createAction: function( act ){
+	})
 
-			$.ajax({
-				url : 'wp-admin/admin-ajax.php',
-				type: 'POST',
-				data: {
-					"action" : act
-				},
-				success:function( resp ){
+}
 
-					if ( this.showin.length > 0 ){
+	
 
-						$( this.showin ).append( resp );
-					}
-
-				}
-			});
-		}
-
-	}
-
-})(jQuery)

@@ -9,6 +9,18 @@ class Dynil_init_class
 	// Version de plugin.
 	const DYNIL_VERSION = "1.0";	
 
+	private $props = array();
+
+
+	/** 
+	* @since 1.0
+	* Constructor de clase*/
+	private function __construct( $name , $output = OBJECT ){
+
+		$this->props[ 'name' ] = $name;
+		$this->props[ 'output' ] = $name;
+
+	}
 
 	/**
 	* @since 1.0
@@ -17,7 +29,7 @@ class Dynil_init_class
 	* 
 	* Regresará un array con las páginas en el sitio.  
 	*/
-	public function get_all_pages( $argum = array() ){
+	public function get_all_pages(  ){
 
 		if ( ! is_array( $argum )){
 			throw new Exception( __('The arguments for pages is not array', DYNIL_DOMAIN));
@@ -28,15 +40,14 @@ class Dynil_init_class
 	}
 
 	/** 
-	* @package Dyn Internal Links
+	* 
 	* @since 1.0
-	* @param $name: Nombre que se buscara
-	* 			 $output: Salida de informacion, array o objeto.
+	* 
 	* Regresar un el nombre de la pagina
 	*/
-	public function get_name_page( $name, $output = "" ){
+	public function get_name_page( ){
 
-		$page_return = get_page_by_title( $name , $output );
+		$page_return = get_page_by_title( $this->props[ 'name' ] , $this->props[ 'output '] );
 		return $page_return;
 	}
 

@@ -10,17 +10,23 @@ class Class_ajax_dynil extends Dynil_init_class
 	// Verificar existensia de id_ajax
 	private $ajax = array();
 
+	// Todos las acciones. 
+	public $actions = array();
+
 	/** 
 	* @since 1.0
 	* @param $id_ajax: Nombre unico para ingresar un ajax
 	* Crea un nombre unico para cada ajax con una accion.
-	* Recomendablemente, es mejor tener una accion tambien unica.
+	* Es necesario tambien crear un action único.
 	*/
 	public function set_ajax_request( $id_ajax , $action ){
 
-		if ( ! array_key_exists($id_ajax, $this->ajax ) ){
+		if ( ! array_key_exists($id_ajax, $this->ajax ) && 
+				 ! array_key_exists( $action , $this->actions ) ){
 			
-			$this->ajax[ $id_ajax ] = $action;
+			$this->actions[ $action ] = $action;
+			$this->ajax[ $id_ajax ] = $action;		
+
 
 		}
 
@@ -41,6 +47,13 @@ class Class_ajax_dynil extends Dynil_init_class
 
 			return $this->ajax[ $id_ajax ];
 		}
+
+	}
+
+	public function ajax_request( $id , $act ){
+
+		
+		$this->set_ajax_request( $id , $act );
 
 	}
 	
