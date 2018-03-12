@@ -4,56 +4,67 @@
 * @version 1.0
 * Creador de la clase base para el plugin Interk
 */
-class Dynil_init_class
+class Class_dynil
 {
 	// Version de plugin.
-	const DYNIL_VERSION = "1.0";	
 
-	private $props = array();
+	protected $version = "1.0";
 
+	// ¿Se ha creado el objecto?
+
+	private $_is_run = false;	
+
+	// Importar clases.
+
+	public static $classes = array();
+
+	// Scripts disponibles y cargados
+
+	private $scripts = array();
 
 	/** 
 	* @since 1.0
-	* Constructor de clase*/
-	private function __construct( $name , $output = OBJECT ){
+	* Constructor de clase
+	*/
+	public function __construct(  ){
 
-		$this->props[ 'name' ] = $name;
-		$this->props[ 'output' ] = $name;
+		if ( empty ($this->_is_run) ){
+			// El sistema corre.
+			// Toda llamada a esta clase, sera omitido el constructor.
+			$this->_is_run = true;
+
+			$this->get_classes();
+
+		}
 
 	}
 
 	/**
 	* @since 1.0
-	* @param $argum: Un array que indicara el orden a seguir.
-	* @see https://codex.wordpress.org/Function_Reference/get_pages para mas info.
-	* 
-	* Regresará un array con las páginas en el sitio.  
+	* Cargar las clases necesarias. Este metodo solo se cargara en el constructor.
 	*/
-	public function get_all_pages(  ){
+	public static function get_classes( ){
 
-		if ( ! is_array( $argum )){
-			throw new Exception( __('The arguments for pages is not array', DYNIL_DOMAIN));
-			exit;
+		self::$classes['ajax'] = new Class_ajax_dynil;
+		self::$classes['pages'] = new Class_page_dynil;
+
+	}
+
+	public function import_script( $base_url, $hande_script ){
+
+		$this->scripts[ $hande_script ] = DYNIL_PATH . $base_url;
+
+	}
+
+	public function load_scripts( ){
+
+		foreach ($this->scripts as $name_sr => $path_sr ) {
+			wp_enqueue_script( $name_sr , $path_sr );
 		}
 
-		return get_pages( $argum  );		
-	}
-
-	/** 
-	* 
-	* @since 1.0
-	* 
-	* Regresar un el nombre de la pagina
-	*/
-	public function get_name_page( ){
-
-		$page_return = get_page_by_title( $this->props[ 'name' ] , $this->props[ 'output '] );
-		return $page_return;
 	}
 
 
-
-	
 }
 
 

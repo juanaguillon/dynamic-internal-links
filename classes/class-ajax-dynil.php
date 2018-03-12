@@ -5,7 +5,7 @@
 * @since 1.0
 * Ejecuciones ajax.
 */
-class Class_ajax_dynil extends Dynil_init_class
+class Class_ajax_dynil extends Class_dynil
 {
 	// Verificar existensia de id_ajax
 	private $ajax = array();

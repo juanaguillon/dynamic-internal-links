@@ -11,11 +11,6 @@
 function dynil_admin_options(){
 
 ?>
-	<?php 
-	
-	// dynil_ajax_request( 'show_pages','show_pages', array( new Dynil_init_class(  ) ))
-
-	 ?>
 	<div id="conter_dynil">	
 		<div class="dynil_title_options">
 			<h2><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h2>
