@@ -18,7 +18,19 @@ function dynil_admin_options(){
 		<div class="content">
 			<input type="text" name="asdkjalsdj" id="dynil_anex_pages">
 		</div>
+		<div class="respond">
+			
+		</div>
 	</div>	
+	<script>
+		jQuery('#dynil_anex_pages').keypress(function(){
+
+			Ajax_request('show_pages','.respond',{'action':'show_pages','name': $(this).val() }).exec();
+
+		})
+	</script>
+
+
 	
 	<?php
 }

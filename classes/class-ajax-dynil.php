@@ -13,12 +13,34 @@ class Class_ajax_dynil extends Class_dynil
 	// Todos las acciones. 
 	public $actions = array();
 
+	// ¿Se ha instanciado esta clase?
+
+	private static $init = null;
+
+
 	/** 
 	* @since 1.0
 	* @param $id_ajax: Nombre unico para ingresar un ajax
 	* Crea un nombre unico para cada ajax con una accion.
 	* Es necesario tambien crear un action único.
 	*/
+
+	public function __construct(){
+
+		$this->import_admin_ajax_scripts();
+
+		
+	}
+
+
+	public static function init_class(){
+
+		if ( empty(self::$init )){
+			self::$init = new self();
+		}
+		return self::$init;
+	}
+
 	public function set_ajax_request( $id_ajax , $action ){
 
 		if ( ! array_key_exists($id_ajax, $this->ajax ) && 
@@ -29,6 +51,15 @@ class Class_ajax_dynil extends Class_dynil
 
 
 		}
+
+	}
+
+	public function import_admin_ajax_scripts( ){
+
+		$this->import_script( script_path( 'ajax-request' ),'ajax-request' );
+
+		
+		add_action('wp_enqueue_scripts', array( $this , 'load_scripts') );
 
 	}
 

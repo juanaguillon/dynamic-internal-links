@@ -14,28 +14,39 @@ class Class_dynil
 
 	private $_is_run = false;	
 
+	// ¿Se ha instanciado esta clase?
+
+	private static $init = null;
+
 	// Importar clases.
 
-	public static $classes = array();
+	public $classes = array();
 
 	// Scripts disponibles y cargados
 
 	private $scripts = array();
 
+
+	public static function init_class(){
+
+		if ( empty( self::$init ) ){
+			self::$init = new self();
+		}
+
+
+		return self::$init;
+
+	}
+
+
 	/** 
 	* @since 1.0
 	* Constructor de clase
 	*/
-	public function __construct(  ){
+	public function __construct( ){
 
-		if ( empty ($this->_is_run) ){
-			// El sistema corre.
-			// Toda llamada a esta clase, sera omitido el constructor.
-			$this->_is_run = true;
-
-			$this->get_classes();
-
-		}
+		$this->get_classes();		
+		
 
 	}
 
@@ -43,22 +54,28 @@ class Class_dynil
 	* @since 1.0
 	* Cargar las clases necesarias. Este metodo solo se cargara en el constructor.
 	*/
-	public static function get_classes( ){
+	private function get_classes( ){
 
-		self::$classes['ajax'] = new Class_ajax_dynil;
-		self::$classes['pages'] = new Class_page_dynil;
+		$this->classes['ajax'] = Class_ajax_dynil::init_class();
+		$this->classes['pages'] = Class_ajax_dynil::init_class();
 
 	}
 
 	public function import_script( $base_url, $hande_script ){
 
-		$this->scripts[ $hande_script ] = DYNIL_PATH . $base_url;
+		if ( ! array_key_exists($hande_script , $this->scripts )){
+			$this->scripts[ $hande_script ] = $base_url;
+			
+		}
+
 
 	}
 
-	public function load_scripts( ){
+	public function load_scripts( ){		
 
 		foreach ($this->scripts as $name_sr => $path_sr ) {
+			
+
 			wp_enqueue_script( $name_sr , $path_sr );
 		}
 

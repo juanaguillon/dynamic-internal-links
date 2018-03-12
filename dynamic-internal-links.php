@@ -22,9 +22,8 @@ if ( ! defined ('DYNIL_DOMAIN')){
 // Llamada de archivo, en el cual se llamas nuevos archivos necesarios.
 include_once DYNIL_PATH . '/admin/requires.php';
 function dynil(){
-	return new Class_dynil;
+	return Class_dynil::init_class();
 }
-
 
 
 ?>

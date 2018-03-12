@@ -12,6 +12,23 @@ class Class_pages_dynil extends Class_dynil
 	// Propiedades 
 	public $props = array();
 
+	// ¿Se ha instanciado esta clase?
+	private static $init = null;
+
+	public function __construct(){
+
+	}
+
+	public static function init_class( ){
+
+		if ( empty( self::$init )){
+
+			self::$init = new self();
+		}
+		return self::$init;
+
+	}
+
 	
 	
 	/**
@@ -25,6 +42,7 @@ class Class_pages_dynil extends Class_dynil
 
 		
 	}
+	
 
 	/** 
 	* 
@@ -35,9 +53,9 @@ class Class_pages_dynil extends Class_dynil
 	public function get_name_page( ){
 
 		$name = $_POST['name'];
-		$output = $_POST['name'] || OBJECT;
+		
 
-		$page_return = get_page_by_title( $name , $output );
+		$page_return = get_page_by_title( $name );
 		echo $page_return;
 	}
 }
