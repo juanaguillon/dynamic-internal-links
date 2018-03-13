@@ -1,27 +1,23 @@
-"use strict";
-alert(' estoy aqi cabore');
+
 var Ajax_request = function( act, show, data_ ){
 
-	Ar = Ajax_request;
-
-	Ar.showin = $(show) || '';
-	Ar.act = act;	
-	Ar.data = data_
-
+	this.showin = show;
+	this.act = act;	
+	this.data = data_
 
 }
-Ajax_request.fn = Ajax_request.prototype;
 
-Ajax_request.fn.exec = function(  ){
 
+Ajax_request.prototype.exec = function( ){
+	console.log( this.showin );
 	jQuery.ajax({
-		url: '/wp-admin/admin-ajax.php',
+		url: 'admin-ajax.php',
 		type: 'post',
-		data: this.data_,		
+		data: this.data,		
 		success:function( resp ){
-			jQuery( this.showin ).append( resp )
+			 jQuery( 'body').append( 'hell' )
 		}
-	})
+	});
 
 }
 

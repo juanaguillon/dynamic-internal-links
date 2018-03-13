@@ -54,13 +54,32 @@ class Class_ajax_dynil extends Class_dynil
 
 	}
 
+	/**
+	* @since 1.0
+	* 
+	* Nuevos scripts para la seccion administrativa.*/
+
 	public function import_admin_ajax_scripts( ){
 
-		$this->import_script( script_path( 'ajax-request' ),'ajax-request' );
+		$this->import_script( script_path( 'ajax-request' ),'ajax-request' , 'admin' );
 
 		
-		add_action('wp_enqueue_scripts', array( $this , 'load_scripts') );
+		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_admin') );
 
+	}
+
+	/** 
+	* @since 1.0 
+	* 
+	* Nuevos scripts para para el sitio.
+	**/
+
+	public function import_site_ajax_script(){
+
+		$this->import_script( script_path( 'ajax-request' ),'ajax-request' , 'site' );
+
+		
+		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_site') );
 	}
 
 	/**

@@ -22,9 +22,14 @@ class Class_dynil
 
 	public $classes = array();
 
-	// Scripts disponibles y cargados
+	// Scripts disponibles para el sitio.
 
-	private $scripts = array();
+	private $scripts_site = array();
+
+	// Scripts para la seccion de administador.
+
+	private $scripts_admin = array();
+
 
 
 	public static function init_class(){
@@ -61,22 +66,45 @@ class Class_dynil
 
 	}
 
-	public function import_script( $base_url, $hande_script ){
+	public function import_script( $base_url, $hande_script, $type ){
 
-		if ( ! array_key_exists($hande_script , $this->scripts )){
-			$this->scripts[ $hande_script ] = $base_url;
-			
-		}
+		switch ( $type ) {
+			case 'admin':
+
+				/**  Cargar scrpits desde el administrador */
+				if ( is_array( $this->scripts_admin ) && 
+						! array_key_exists( $hande_script , $this->scripts_admin ) ){
+						$this->scripts_admin[ $hande_script ] = $base_url;					
+				}
+				break;	
+
+				/** Cargar scripts desde el sitio. */
+			case 'site':
+				if ( ! array_key_exists($hande_script , $this->scripts_site ) ){
+					$this->scripts_site[ $hande_script ] = $base_url;					
+				}
+				break;
+		}		
 
 
 	}
 
-	public function load_scripts( ){		
+	public function load_scripts_site( ){		
 
-		foreach ($this->scripts as $name_sr => $path_sr ) {
-			
+
+		foreach ($this->scripts_site as $name_sr => $path_sr ) {			
 
 			wp_enqueue_script( $name_sr , $path_sr );
+		}
+
+	}
+
+	public function load_scripts_admin(){
+
+		foreach ( $this->scripts_admin as $name_sr => $path_sr ){
+
+			wp_enqueue_script( $name_sr , $path_sr);
+
 		}
 
 	}
