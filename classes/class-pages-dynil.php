@@ -50,14 +50,23 @@ class Class_pages_dynil extends Class_dynil
 	* 
 	* Regresar un el nombre de la pagina
 	*/
+
 	public function get_name_page( ){
 
-		$name = $_POST['name'];
-		
+		global $wpdb;
+		$name = $_POST['name'];		
+		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
+		$resultes = create_wpdb( $sql );
 
-		$page_return = get_page_by_title( $name );
-		echo $page_return;
+		foreach ( $resultes as $result ) {
+			echo wrap_content( $result->post_title, array(
+				'class' => 'names_pages'
+			) );
+		}
+		die();
 	}
 }
+
+
 
  ?>

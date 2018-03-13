@@ -23,13 +23,20 @@ function dynil_admin_options(){
 		</div>
 	</div>	
 	<script>
-		jQuery('#dynil_anex_pages').keypress(function(){
+		jQuery('#dynil_anex_pages').keyup(function(){
 
-			var request = new Ajax_request('show_pages','#respond',{
-				'action':'show_pages',
-				'name': jQuery(this).val() 
-			});
-			request.exec();
+			if( jQuery( this ).val( ) == ""){
+				jQuery('#respond').empty();
+			}else{
+
+				var request = new Ajax_request('show_pages',{
+					'action':'show_pages',
+					'name': capitalizeFirstLetter( jQuery( this).val()) 
+				}, function( resp ){
+					jQuery('#respond').append( resp );
+				});
+				request.exec();
+			}
 
 		})
 	</script>
