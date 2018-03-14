@@ -1,11 +1,11 @@
 <?php 
 
-function script_path( $name ){
+function dynil_script_path( $name ){
 
 	return plugins_url( 'publics/js/' .$name . '.js', dirname(__FILE__) );
 }
 
-function wrap_content( $content, $attrs = array() ){
+function dynil_wrap_content( $content, $attrs = array() ){
 
 	$defaults = array(
 		'wrap_content' => 'div',
@@ -26,7 +26,7 @@ function wrap_content( $content, $attrs = array() ){
 
 }
 
-function create_wpdb ( $sql, $output = OBJECT ){
+function dynil_create_wpdb ( $sql, $output = OBJECT ){
 
 	global $wpdb;
 	return $wpdb->get_results( $sql , $output );

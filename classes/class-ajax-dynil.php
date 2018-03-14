@@ -61,7 +61,7 @@ class Class_ajax_dynil extends Class_dynil
 
 	public function import_admin_ajax_scripts( ){
 
-		$this->import_script( script_path( 'ajax-request' ),'ajax-request' , 'admin' );
+		$this->import_script( dynil_script_path( 'ajax-request' ),'ajax-request' , 'admin' );
 
 		
 		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_admin') );
@@ -76,7 +76,7 @@ class Class_ajax_dynil extends Class_dynil
 
 	public function import_site_ajax_script(){
 
-		$this->import_script( script_path( 'ajax-request' ),'ajax-request' , 'site' );
+		$this->import_script( dynil_script_path( 'ajax-request' ),'ajax-request' , 'site' );
 
 		
 		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_site') );
