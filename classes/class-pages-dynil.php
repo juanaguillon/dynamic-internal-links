@@ -6,20 +6,23 @@
 * Llamada de Paginas
 */
 class Class_pages_dynil extends Class_dynil
-{
-
-	// Propiedades 
-	public $props = array();
+{	
 
 	// ¿Se ha instanciado esta clase?
-	private static $init = null;
+	public static $init = null;
 
 
 	/**
 	* @since 1.0
 	* Bajo que parametros se mostraran todas las paginas.
 	*/
-	public $criteria = array();
+	public $criteria = array( );
+
+	/**
+	* @since 1.0
+	* Paginas de ejecucion.
+	* Hay que aclarar que esta propiedad no obtiene todas las paginas del sitio. Obtiene las paginas que son necesarias para una correcta ejecucion. Por Ejemplo: Paginas de WooCommerce*/
+	public $pages_execute = array( );
 
 
 	/**
@@ -27,6 +30,8 @@ class Class_pages_dynil extends Class_dynil
 	* Constructor de clase
 	*/
 	public function __construct(){
+
+		$this->set_woo_pages();
 
 	}
 
@@ -53,7 +58,7 @@ class Class_pages_dynil extends Class_dynil
 	*/
 	public function set_criteria( $arg , $value ){
 
-		$this->criteria[ $arg ] = $value ;
+		$this->criteria[ $arg ] = $value;
 
 	}
 
@@ -83,7 +88,6 @@ class Class_pages_dynil extends Class_dynil
 	* @since 1.0 
 	* Regresar un el nombre de la pagina
 	*/
-
 	public function get_name_page( ){
 
 		global $wpdb;
@@ -98,6 +102,31 @@ class Class_pages_dynil extends Class_dynil
 		}
 		die();
 	}
+
+	public function set_woo_pages( ){
+
+		if ( dynil_woo_exists() ){
+
+			$woo_pages = array(
+				'shop',
+				'myaccount',
+				'checkout',
+				'cart'
+			);
+
+			for ( $i = 0; $i < count( $woo_pages ); $i++){
+				$this->pages_execute['woocommerce'][ $woo_pages[ $i ] ] = wc_get_page_id( $woo_pages[ $i ] );
+			}
+		}
+	}
+
+	public function exclude_woo_pages( ){
+		
+		$this->criteria['exclude'] = $this->pages_execute['woocommerce'];
+
+
+	}
 }
+
 
  ?>

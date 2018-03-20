@@ -33,5 +33,13 @@ function dynil_create_wpdb ( $sql, $output = OBJECT ){
 
 }
 
+function dynil_woo_exists( ){
+
+	if( class_exists('WooCommerce') ){
+		return true;
+	}
+	return false;
+}
+
 
  ?>

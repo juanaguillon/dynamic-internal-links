@@ -1,13 +1,8 @@
 <?php 
 
-$show_page = new_ajax_request('show_pages','show_pages');
-add_action('wp_ajax_' . $show_page  , array(
-	new Class_pages_dynil , 'get_name_page'
-) );
-add_action( 'wp_ajax_nopriv_' . $show_page, array(
-	new Class_pages_dynil , 'get_name_page'
-)  );
+new_ajax_request('show_pages','show_pages');
 
+add_action( 'wp_enqueue_scripts' , array( dynil() , 'load_scripts_site' ) );
+add_action( 'admin_enqueue_scripts' , array( dynil() , 'load_scripts_admin') );
 
-
- ?>
+?>

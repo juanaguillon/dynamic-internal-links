@@ -7,28 +7,26 @@
 * 
 */
 
+function dynil_get_pages_by_ajax( ){
 
-function dynil_admin_options(){
-
-?>
-	<div id="conter_dynil">	
+		dynil()->import_script( dynil_script_path( 'admin-script') , 'admin-script' , 'admin' );
+	?>
+	
 		<div class="dynil_title_options">
 			<h2><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h2>
 		</div>	
 		<div class="content">
 			<input type="text" name="asdkjalsdj" id="dynil_anex_pages">
 		</div>
-		<div id="respond">
-			
+		<div id="respond">			
 		</div>
-	</div>	
+	
 	<script>
 		jQuery('#dynil_anex_pages').keyup(function(){
 
 			if( jQuery( this ).val( ) == ""){
 				jQuery('#respond').empty();
 			}else{
-
 				var request = new Ajax_request('show_pages',{
 					'action':'show_pages',
 					'name': capitalizeFirstLetter( jQuery( this).val()) 
@@ -40,10 +38,16 @@ function dynil_admin_options(){
 
 		})
 	</script>
-
-
-	
 	<?php
+}
+
+function dynil_admin_options(){
+	?>
+	<div id="conter_dynil">
+		<?php dynil_get_pages_by_ajax(); ?>
+	</div>
+	<?php
+
 }
 
 /**

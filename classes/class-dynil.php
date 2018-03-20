@@ -16,7 +16,7 @@ class Class_dynil
 
 	// ¿Se ha instanciado esta clase?
 
-	private static $init = null;
+	protected static $init = null;
 
 	// Importar clases.
 
@@ -34,11 +34,9 @@ class Class_dynil
 
 	public static function init_class(){
 
-		if ( empty( self::$init ) ){
+		if ( is_null( self::$init ) ){
 			self::$init = new self();
 		}
-
-
 		return self::$init;
 
 	}
@@ -62,7 +60,7 @@ class Class_dynil
 	private function get_classes( ){
 
 		$this->classes['ajax'] = Class_ajax_dynil::init_class();
-		$this->classes['pages'] = Class_ajax_dynil::init_class();
+		$this->classes['pages'] = Class_pages_dynil::init_class();
 
 	}
 
@@ -72,9 +70,8 @@ class Class_dynil
 			case 'admin':
 
 				/**  Cargar scrpits desde el administrador */
-				if ( is_array( $this->scripts_admin ) && 
-						! array_key_exists( $hande_script , $this->scripts_admin ) ){
-						$this->scripts_admin[ $hande_script ] = $base_url;					
+				if ( ! array_key_exists( $hande_script , $this->scripts_admin ) ){
+								$this->scripts_admin[ $hande_script ] = $base_url;					
 				}
 				break;	
 
@@ -84,7 +81,7 @@ class Class_dynil
 					$this->scripts_site[ $hande_script ] = $base_url;					
 				}
 				break;
-		}		
+			}		
 
 
 	}

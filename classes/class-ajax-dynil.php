@@ -10,12 +10,9 @@ class Class_ajax_dynil extends Class_dynil
 	// Verificar existensia de id_ajax
 	private $ajax = array();
 
-	// Todos las acciones. 
-	public $actions = array();
-
 	// ¿Se ha instanciado esta clase?
 
-	private static $init = null;
+	public static $init = null;
 
 
 	/** 
@@ -26,12 +23,15 @@ class Class_ajax_dynil extends Class_dynil
 	*/
 
 	public function __construct(){
-
-		$this->import_admin_ajax_scripts();
-
+		$this->import_scripts();
+				
 		
 	}
 
+	/**
+	* @since 1.0
+	* Instanciador de clase.
+	*/
 
 	public static function init_class(){
 
@@ -41,45 +41,30 @@ class Class_ajax_dynil extends Class_dynil
 		return self::$init;
 	}
 
-	public function set_ajax_request( $id_ajax , $action ){
+	/**
+	* @since 1.0
+	* Importar scripts correspondientes para el debido proceso AJAX.
+	*/
 
-		if ( ! array_key_exists($id_ajax, $this->ajax ) && 
-				 ! array_key_exists( $action , $this->actions ) ){
-			
-			$this->actions[ $action ] = $action;
-			$this->ajax[ $id_ajax ] = $action;		
-
-
-		}
-
+	private function import_scripts(){
+		$this->import_script( dynil_script_path('ajax-request') , 'ajax-request', 'admin' );
 	}
 
 	/**
-	* @since 1.0
-	* 
-	* Nuevos scripts para la seccion administrativa.*/
-
-	public function import_admin_ajax_scripts( ){
-
-		$this->import_script( dynil_script_path( 'ajax-request' ),'ajax-request' , 'admin' );
-
-		
-		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_admin') );
-
-	}
-
-	/** 
 	* @since 1.0 
-	* 
-	* Nuevos scripts para para el sitio.
-	**/
+	* @param $id_ajax [string] El nombre identificativo del ajax
+	* @param $action [string] El valor que sera ingresado en el array  
+	* Ingresar idenficiativo ajax a el array de Clase.
+	*/
 
-	public function import_site_ajax_script(){
+	public function set_ajax_request( $id_ajax , $action ){
 
-		$this->import_script( dynil_script_path( 'ajax-request' ),'ajax-request' , 'site' );
+		if ( ! array_key_exists($id_ajax, $this->ajax ) ){
 
-		
-		add_action('admin_enqueue_scripts', array( $this , 'load_scripts_site') );
+			$this->actions[ $action ] = $action;			
+
+		}
+
 	}
 
 	/**
@@ -97,13 +82,6 @@ class Class_ajax_dynil extends Class_dynil
 
 			return $this->ajax[ $id_ajax ];
 		}
-
-	}
-
-	public function ajax_request( $id , $act ){
-
-		
-		$this->set_ajax_request( $id , $act );
 
 	}
 	
