@@ -28,9 +28,7 @@ class Class_dynil
 
 	// Scripts para la seccion de administador.
 
-	private $scripts_admin = array();
-
-
+	public $scripts_admin = array();
 
 	public static function init_class(){
 
@@ -41,26 +39,38 @@ class Class_dynil
 
 	}
 
-
 	/** 
 	* @since 1.0
 	* Constructor de clase
 	*/
 	public function __construct( ){
+		$this->upload_files();
+		$this->set_classes();				
 
-		$this->get_classes();		
+	}
+	
+
+	public function upload_files(){
 		
+		// Importando funciones 
+		include_once DYNIL_PATH . '/inc/dynil_all_templates.php';
 
+		// Improtanto archivos de clases
+		include_once DYNIL_PATH . '/classes/class-ajax-dynil.php';
+		include_once DYNIL_PATH . '/classes/class-pages-dynil.php';
+		include_once DYNIL_PATH . '/classes/class-admin-dynil.php';
+		
 	}
 
 	/**
 	* @since 1.0
 	* Cargar las clases necesarias. Este metodo solo se cargara en el constructor.
 	*/
-	private function get_classes( ){
+	private function set_classes( ){
 
 		$this->classes['ajax'] = Class_ajax_dynil::init_class();
 		$this->classes['pages'] = Class_pages_dynil::init_class();
+		$this->classes['admin'] = Class_admin_dynil::instance();
 
 	}
 
@@ -71,7 +81,8 @@ class Class_dynil
 
 				/**  Cargar scrpits desde el administrador */
 				if ( ! array_key_exists( $hande_script , $this->scripts_admin ) ){
-								$this->scripts_admin[ $hande_script ] = $base_url;					
+								$this->scripts_admin[ $hande_script ] = $base_url;	
+
 				}
 				break;	
 
@@ -98,19 +109,22 @@ class Class_dynil
 
 	public function load_scripts_admin(){
 
+
 		foreach ( $this->scripts_admin as $name_sr => $path_sr ){
 
 			wp_enqueue_script( $name_sr , $path_sr);
 
-		}
+		}		
+		
 
 	}
 
 
+	public function enqueue_scripts(){		
+		
+		add_action('wp_enqueue_scripts' , array( $this , 'load_scripts_site' ) );
+		add_action('admin_enqueue_scripts' , array( $this , 'load_scripts_admin') );
+	}
+
 }
 
-
-
-
-
- ?>

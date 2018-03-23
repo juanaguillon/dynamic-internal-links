@@ -32,9 +32,11 @@ class Class_pages_dynil extends Class_dynil
 	public function __construct(){
 
 		$this->set_woo_pages();
+		
 
 	}
 
+	
 
 	/**
 	* @since 1.0
@@ -125,7 +127,7 @@ class Class_pages_dynil extends Class_dynil
 		$this->criteria['exclude'] = $this->pages_execute['woocommerce'];
 
 
-	}
+	}	
 }
 
 

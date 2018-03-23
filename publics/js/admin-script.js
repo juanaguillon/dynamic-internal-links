@@ -1,5 +1,5 @@
 (function($){
-
+	alert('lkajsd');
 $('#dynil_anex_pages').keyup(function(){
 
 			if( $( this ).val( ) == ""){

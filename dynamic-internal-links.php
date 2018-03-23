@@ -15,12 +15,10 @@ if( ! defined( 'DYNIL_PATH')){
 }
 
 // Llamada de archivo, en el cual se llamas nuevos archivos necesarios.
-include_once DYNIL_PATH . '/admin/requires.php';
+include_once DYNIL_PATH . '/classes/class-dynil.php';
 
 function dynil(){
 	return Class_dynil::init_class();
 }
 
 $GLOBALS['dynil'] = dynil();
-
-?>
