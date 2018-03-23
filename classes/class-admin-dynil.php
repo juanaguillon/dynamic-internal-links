@@ -26,10 +26,10 @@ class Class_admin_dynil extends Class_dynil
 	public function __construct(){
 
 		$this->hooks_actions();
-		$this->scripts();
+		$this->scripts();				
 		
-
-	}	
+	}	 
+	
 
 	private function scripts( ){
 		

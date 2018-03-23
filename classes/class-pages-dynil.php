@@ -9,7 +9,7 @@ class Class_pages_dynil extends Class_dynil
 {	
 
 	// ¿Se ha instanciado esta clase?
-	public static $init = null;
+	public static $instance = null;
 
 
 	/**
@@ -43,13 +43,13 @@ class Class_pages_dynil extends Class_dynil
 	* @return Esta clase	
 	* Devuelve su misma clase
 	*/
-	public static function init_class( ){
+	public static function instance( ){
 
-		if ( empty( self::$init )){
+		if ( empty( self::$instance )){
 
-			self::$init = new self();
+			self::$instance = new self();
 		}
-		return self::$init;
+		return self::$instance;
 
 	}
 	

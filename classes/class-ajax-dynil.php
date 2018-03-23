@@ -12,7 +12,7 @@ class Class_ajax_dynil extends Class_dynil
 
 	// ¿Se ha instanciado esta clase?
 
-	public static $init = null;
+	public static $instance = null;
 
 
 	/** 
@@ -32,12 +32,12 @@ class Class_ajax_dynil extends Class_dynil
 	* Instanciador de clase.
 	*/
 
-	public static function init_class(){
+	public static function instance(){
 
-		if ( empty(self::$init )){
-			self::$init = new self();
+		if ( empty(self::$instace )){
+			self::$instace = new self();
 		}
-		return self::$init;
+		return self::$instace;
 	}
 	
 

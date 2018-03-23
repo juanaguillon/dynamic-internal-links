@@ -10,15 +10,11 @@ class Class_dynil
 
 	protected $version = "1.0";
 
-	// ¿Se ha creado el objecto?
-
-	private $_is_run = false;	
-
 	// ¿Se ha instanciado esta clase?
 
 	protected static $init = null;
 
-	// Importar clases.
+	// Clases hijas.
 
 	public $classes = array();
 
@@ -29,6 +25,11 @@ class Class_dynil
 	// Scripts para la seccion de administador.
 
 	public $scripts_admin = array();
+
+	/**
+	* @since 1.0
+	* Intanciador de clase.
+	*/
 
 	public static function init_class(){
 
@@ -45,11 +46,12 @@ class Class_dynil
 	*/
 	public function __construct( ){
 		$this->upload_files();
-		$this->set_classes();				
-
 	}
-	
 
+	/**
+	* @since 1.0
+	* Inclue los archivos base, tales como clases y funciones princpales
+	*/
 	public function upload_files(){
 		
 		// Importando funciones 
@@ -60,20 +62,17 @@ class Class_dynil
 		include_once DYNIL_PATH . '/classes/class-pages-dynil.php';
 		include_once DYNIL_PATH . '/classes/class-admin-dynil.php';
 		
-	}
+	}	
 
 	/**
 	* @since 1.0
-	* Cargar las clases necesarias. Este metodo solo se cargara en el constructor.
+	* @param $base_url [string] Url de script
+	* @param $handle_script [string] Id unico de script
+	* @param $type [string] => 'admin' | 'site' En donde se ejecutara y cargara el script, con opcion   de ser en el sitio o en la seccion de administrador.
+	*  
+	* Importara los scripts correspondientes del programa.
+	* Las clases hijas, llamaran este metodo para cargar su propio script
 	*/
-	private function set_classes( ){
-
-		$this->classes['ajax'] = Class_ajax_dynil::init_class();
-		$this->classes['pages'] = Class_pages_dynil::init_class();
-		$this->classes['admin'] = Class_admin_dynil::instance();
-
-	}
-
 	public function import_script( $base_url, $hande_script, $type ){
 
 		switch ( $type ) {
@@ -97,6 +96,12 @@ class Class_dynil
 
 	}
 
+	/**
+	* @since 1.0
+	* @see import_script Method
+	* Cargara los scripts en la seccion se sitio. 
+	* Tal manera que se han cargado en el metodo import_script mediante ha ejecutado el programa
+	*/
 	public function load_scripts_site( ){		
 
 
@@ -107,6 +112,11 @@ class Class_dynil
 
 	}
 
+	/**
+	* @since 1.0
+	* @see import_script Method
+	* Cargara los scripts en la seccion se admin. 	
+	*/
 	public function load_scripts_admin(){
 
 
@@ -114,17 +124,35 @@ class Class_dynil
 
 			wp_enqueue_script( $name_sr , $path_sr);
 
-		}		
-		
+		}				
 
 	}
 
-
+	/**
+	* @since 1.0
+	* Enlazara los scripts importados anteriormente, anhadiendo a su respecivo hook
+	*/
 	public function enqueue_scripts(){		
 		
 		add_action('wp_enqueue_scripts' , array( $this , 'load_scripts_site' ) );
 		add_action('admin_enqueue_scripts' , array( $this , 'load_scripts_admin') );
 	}
 
-}
+	/**
+	* @since 1.0
+	* Ingresa clase AJAX a las propiedad {classes}
+	*/
+	protected function class_ajax(){
+		$this->classes['ajax'] = Class_ajax_dynil::instance();
+	}
 
+	/**
+	* @since 1.0
+	* Ingresa clase PAGES a las propiedad {classes}
+	*/
+	protected function class_pages(){
+		$this->classes['pages'] = Class_pages_dynil::instance();
+	}
+
+
+}
