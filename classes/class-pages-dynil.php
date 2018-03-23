@@ -7,8 +7,10 @@
 */
 class Class_pages_dynil extends Class_dynil
 {	
-
-	// ¿Se ha instanciado esta clase?
+	/** 
+	* @since 1.0
+	* Intancia de clase.
+	*/	
 	public static $instance = null;
 
 
@@ -31,17 +33,14 @@ class Class_pages_dynil extends Class_dynil
 	*/
 	public function __construct(){
 
-		$this->set_woo_pages();
-		
+		$this->set_woo_pages();		
 
-	}
-
-	
+	}	
 
 	/**
 	* @since 1.0
-	* @return Esta clase	
-	* Devuelve su misma clase
+	* @return Esta clase $this	
+	* Intanciacion de clase | Singleton
 	*/
 	public static function instance( ){
 
@@ -82,29 +81,13 @@ class Class_pages_dynil extends Class_dynil
 		}
 
 		
-	}
-	
+	}	
 
 	/** 
-	* 
-	* @since 1.0 
-	* Regresar un el nombre de la pagina
+	* @since 1.0
+	* Ingresa a la clase {pages_execute} las paginas correspondientes de woocommerce
 	*/
-	public function get_name_page( ){
-
-		global $wpdb;
-		$name = $_POST['name'];		
-		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
-		$resultes = dynil_create_wpdb( $sql );
-
-		foreach ( $resultes as $result ) {
-			echo dynil_wrap_content( $result->post_title, array(
-				'class' => 'names_pages'
-			) );
-		}
-		die();
-	}
-
+	
 	public function set_woo_pages( ){
 
 		if ( dynil_woo_exists() ){
@@ -121,7 +104,11 @@ class Class_pages_dynil extends Class_dynil
 			}
 		}
 	}
-
+	/** 
+	* @since 1.0
+	* @see this->criteria property
+	* Excluir paginas de woocommerce
+	*/
 	public function exclude_woo_pages( ){
 		
 		$this->criteria['exclude'] = $this->pages_execute['woocommerce'];

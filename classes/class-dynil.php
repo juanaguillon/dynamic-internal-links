@@ -46,6 +46,8 @@ class Class_dynil
 	*/
 	public function __construct( ){
 		$this->upload_files();
+		self::class_admin();
+
 	}
 
 	/**
@@ -139,7 +141,7 @@ class Class_dynil
 	}
 
 	/**
-	* @since 1.0
+	* @since 1.0	
 	* Ingresa clase AJAX a las propiedad {classes}
 	*/
 	protected function class_ajax(){
@@ -152,6 +154,14 @@ class Class_dynil
 	*/
 	protected function class_pages(){
 		$this->classes['pages'] = Class_pages_dynil::instance();
+	}
+
+	/**
+	* @since 1.0
+	* Ingresa clase ADMIN a las propiedad {classes}
+	*/
+	protected function class_admin(){
+		$this->classes['admin'] = Class_admin_dynil::instance();
 	}
 
 

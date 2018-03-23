@@ -23,14 +23,23 @@ class Class_admin_dynil extends Class_dynil
 		return self::$intance;
 	}
 
+	/**
+	* @since 1.0
+	* Constructor
+	*/
 	public function __construct(){
 
 		$this->hooks_actions();
-		$this->scripts();				
+		$this->scripts();	
+		$this->enqueue_scripts();	
+	 	$this->class_ajax();		
 		
-	}	 
-	
+	}
 
+	/** 
+	* @since 1.0
+	* Importar scripts de esta clase
+	*/
 	private function scripts( ){
 		
 		$this->import_script( dynil_script_path( 'ajax-request' ) , 'ajax-request' , 'admin' );
@@ -42,8 +51,7 @@ class Class_admin_dynil extends Class_dynil
 	* Buscar paginas por medio de Ajax.
 	*/
 	public function content_admin(){
-
-		$this->import_script( dynil_script_path( 'admin-script') , 'admin-script' , 'admin');
+		
 		// Contenido html en el admin.
 		?>
 		<div class="dynil_title_options">
@@ -57,11 +65,20 @@ class Class_admin_dynil extends Class_dynil
 		<?php
 	}
 
+	/** 
+	* @since 1.0
+	* Agregar Menu a el menu lateral de wp
+	*/
 	public function add_menus(){
 
 		add_menu_page( __('Dyn Internal Links Options', DYNIL_DOMAIN )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( $this , 'content_admin' ) , 'dashicons-star-filled' , 70 );	
 	}
 
+	/** 
+	* @since 1.0
+	* @see add_menus method
+	* Hooks de la clase
+	*/
 	private function hooks_actions( ){
 
 		add_action( 'admin_menu' , array( $this , 'add_menus' ) );
