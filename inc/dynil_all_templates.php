@@ -1,8 +1,8 @@
 <?php 
 
-function dynil_script_path( $name ){
+function dynil_script_path( $name, $typ ){
 
-	return plugins_url( 'publics/js/' .$name . '.js', dirname(__FILE__) );
+	return plugins_url( 'publics/' . $typ . '/' .$name . '.' . $typ , dirname(__FILE__) );
 }
 
 function dynil_wrap_content( $content, $attrs = array() ){
@@ -39,6 +39,23 @@ function dynil_woo_exists( ){
 		return true;
 	}
 	return false;
+}
+
+function dynil_clean_pages( $pages ){
+
+	if ( is_array( $pages ) ){
+		$html_pages = "" ;
+		for( $i = 0 ; $i< sizeof( $pages ); $i++){
+			$current_object = $pages[$i];
+			
+			$html_pages .= "<div class='dyn_box_content dyn_box_{$current_object->ID}'>";			
+			$html_pages .= "<div class='dyn_box_data dyn_box_title'>{$current_object->post_title}</div>";
+			$html_pages .= '</div>';
+
+		}
+		return $html_pages;
+	}
+
 }
 
 

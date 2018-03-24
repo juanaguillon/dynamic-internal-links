@@ -55,6 +55,27 @@ class Class_ajax_dynil extends Class_dynil
 		$this->hooks_actions();
 
 	}
+	
+
+	/**
+	* @since 1.0 
+	* @param $function [string] 
+	* @param $action [string | array ] El valor que sera ingresado en el array  
+	* Si se ingresa un array, tomarse en cuenta que debe ser para ingresar a un hook.
+	* Ingresar idenficiativo ajax a el array de Clase.
+	* 
+	*/
+	public function set_ajax_request( $action, $func ){
+
+		if ( is_string( $func ) || is_array( $func ) ){
+
+			if ( ! array_key_exists($action, $this->ajax ) ){
+
+				$this->ajax[ $action ] = $func;
+
+			}			
+		}
+	}
 
 	/** 
 	* 
@@ -75,6 +96,7 @@ class Class_ajax_dynil extends Class_dynil
 		}
 		die();
 	}
+	
 
 	/**
 	* @since 1.0
@@ -82,28 +104,6 @@ class Class_ajax_dynil extends Class_dynil
 	* Cargar AJAX para ejecucion */
 	private function load_ajax(){
 		$this->set_ajax_request( 'show_pages' , array( $this , 'get_name_page' ) );
-	}
-	
-
-	/**
-	* @since 1.0 
-	* @param $function [string] 
-	* @param $action [string | array ] El valor que sera ingresado en el array  
-					 Si se ingresa un array, tomarse en cuenta que debe ser para ingresar a un hook.
-	* Ingresar idenficiativo ajax a el array de Clase.
-	* 
-	*/
-
-	public function set_ajax_request( $action, $func ){
-
-		if ( is_string( $func ) || is_array( $func ) ){
-
-			if ( ! array_key_exists($action, $this->ajax ) ){
-
-				$this->ajax[ $action ] = $func;
-
-			}			
-		}
 	}
 
 	/**

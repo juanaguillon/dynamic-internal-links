@@ -14,10 +14,6 @@ class Class_dynil
 
 	protected static $init = null;
 
-	// Clases hijas.
-
-	public $classes = array();
-
 	// Scripts disponibles para el sitio.
 
 	private $scripts_site = array();
@@ -25,6 +21,10 @@ class Class_dynil
 	// Scripts para la seccion de administador.
 
 	public $scripts_admin = array();
+
+	public $styles_site = array();
+
+	public $styles_admin = array();
 
 	/**
 	* @since 1.0
@@ -98,6 +98,28 @@ class Class_dynil
 
 	}
 
+	public function import_style( $base_url , $handle_style , $type){
+
+		switch ( $type ) {
+			case 'admin':
+
+				/**  Cargar styles desde el administrador */
+				if ( ! array_key_exists( $handle_style , $this->styles_admin ) ){
+								$this->styles_admin[ $handle_style ] = $base_url;	
+
+				}
+				break;	
+
+				/** Cargar styles desde el sitio. */
+			case 'site':
+				if ( ! array_key_exists($handle_style , $this->scripts_site ) ){
+					$this->scripts_site[ $handle_style ] = $base_url;					
+				}
+				break;
+			}		
+
+	}
+
 	/**
 	* @since 1.0
 	* @see import_script Method
@@ -107,10 +129,13 @@ class Class_dynil
 	public function load_scripts_site( ){		
 
 
-		foreach ($this->scripts_site as $name_sr => $path_sr ) {			
-
+		foreach ($this->scripts_site as $name_sr => $path_sr ) {	
 			wp_enqueue_script( $name_sr , $path_sr );
 		}
+
+		foreach ($this->styles_site as $name_sr => $path_sr ) {
+			wp_enqueue_style( $name_sr , $path_sr);
+		}			
 
 	}
 
@@ -123,9 +148,11 @@ class Class_dynil
 
 
 		foreach ( $this->scripts_admin as $name_sr => $path_sr ){
-
 			wp_enqueue_script( $name_sr , $path_sr);
+		}
 
+		foreach ($this->styles_admin as $name_sr => $path_sr ) {
+			wp_enqueue_style( $name_sr , $path_sr);
 		}				
 
 	}
@@ -145,15 +172,16 @@ class Class_dynil
 	* Ingresa clase AJAX a las propiedad {classes}
 	*/
 	protected function class_ajax(){
-		$this->classes['ajax'] = Class_ajax_dynil::instance();
+
+		return Class_ajax_dynil::instance();
 	}
 
 	/**
 	* @since 1.0
 	* Ingresa clase PAGES a las propiedad {classes}
 	*/
-	protected function class_pages(){
-		$this->classes['pages'] = Class_pages_dynil::instance();
+	public function class_pages(){
+		return Class_pages_dynil::instance();
 	}
 
 	/**
@@ -161,7 +189,7 @@ class Class_dynil
 	* Ingresa clase ADMIN a las propiedad {classes}
 	*/
 	protected function class_admin(){
-		$this->classes['admin'] = Class_admin_dynil::instance();
+		return Class_admin_dynil::instance();
 	}
 
 

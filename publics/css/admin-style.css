@@ -1,0 +1,13 @@
+div.dyn_box_content {
+	padding:10px;
+	width: 30%;
+	border:1px solid #E0E0E0 ;	
+	margin: 3px 7px;
+	box-shadow: 0 1px 1px 0px #DFDFDF;
+	display: inline-block;
+	box-sizing: border-box;
+}
+div.dyn_box_data{
+	color: #414141;
+	font-size: 1.2em;
+}

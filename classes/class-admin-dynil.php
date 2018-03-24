@@ -9,7 +9,26 @@
 class Class_admin_dynil extends Class_dynil
 {
 	
+	/** 
+	* @since 1.0
+	* Intancia de clase
+	*/
 	public static $intance = null;
+
+
+	/** 
+	* @since 1.0
+	* Clase Ajax
+	*/
+	public static $ajax = null;
+
+
+	/** 
+	* @since 1.0
+	* Clase Pages
+	*/
+	public static $pages = null;
+
 
 	/**
 	* @since 1.0
@@ -29,10 +48,12 @@ class Class_admin_dynil extends Class_dynil
 	*/
 	public function __construct(){
 
-		$this->hooks_actions();
+		self::$ajax = parent::class_ajax();
+		self::$pages = parent::class_pages();
+		$this->hooks_actions();		
 		$this->scripts();	
 		$this->enqueue_scripts();	
-	 	$this->class_ajax();		
+	 	
 		
 	}
 
@@ -40,29 +61,48 @@ class Class_admin_dynil extends Class_dynil
 	* @since 1.0
 	* Importar scripts de esta clase
 	*/
-	private function scripts( ){
-		
-		$this->import_script( dynil_script_path( 'ajax-request' ) , 'ajax-request' , 'admin' );
-		$this->import_script( dynil_script_path( 'admin-script' ) , 'admin-script' , 'admin' );
+	private function scripts( ){		
+		$this->import_script( dynil_script_path( 'ajax-request' , 'js' ) , 'ajax-request' , 'admin' );
+		$this->import_script( dynil_script_path( 'admin-script' , 'js' ) , 'admin-script' , 'admin' );
+		$this->import_style( dynil_script_path( 'admin-style' , 'css'), 'admin-style' , 'admin' );
 	}
+
+	/** 
+	* @since 1.0
+	* HTML de ajax
+	*/
+	private static function content_ajax(){
+		
+		?>
+			<div class="dynil_title_options">
+				<h2><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h2>
+			</div>	
+			<div class="content">
+				<input type="text" name="asdkjalsdj" id="dynil_anex_pages">
+			</div>
+			<div id="respond">			
+			</div>
+		<?php
+	}
+
+
+	/** 
+	* @since 1.0
+	* HTML seleccion de paginas.
+	*/
+	private static function content_pages(){
+		$all_pages = self::$pages->get_all_pages();
+		echo dynil_clean_pages( $all_pages );	
+	} 
+
 
 	/**
 	* @since 1.0
 	* Buscar paginas por medio de Ajax.
 	*/
 	public function content_admin(){
-		
-		// Contenido html en el admin.
-		?>
-		<div class="dynil_title_options">
-			<h2><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h2>
-		</div>	
-		<div class="content">
-			<input type="text" name="asdkjalsdj" id="dynil_anex_pages">
-		</div>
-		<div id="respond">			
-		</div>	
-		<?php
+		self::content_ajax();	
+		self::content_pages();		
 	}
 
 	/** 

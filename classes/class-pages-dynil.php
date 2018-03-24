@@ -22,18 +22,17 @@ class Class_pages_dynil extends Class_dynil
 
 	/**
 	* @since 1.0
-	* Paginas de ejecucion.
-	* Hay que aclarar que esta propiedad no obtiene todas las paginas del sitio. Obtiene las paginas que son necesarias para una correcta ejecucion. Por Ejemplo: Paginas de WooCommerce*/
-	public $pages_execute = array( );
+	* Paginas de exlusion
+	*/	
+	public $pages_exclude = array( );
+	
 
 
 	/**
 	* @since 1.0	
 	* Constructor de clase
 	*/
-	public function __construct(){
-
-		$this->set_woo_pages();		
+	public function __construct(){			
 
 	}	
 
@@ -72,23 +71,18 @@ class Class_pages_dynil extends Class_dynil
 	*/
 	public function get_all_pages( ){
 
-		$all_pages = get_pages( $this->criteria );
-
-		foreach ($all_pages as $page => $pages) {
-			foreach ($pages as $p => $i) {
-				echo '<div> ' .  $p . ' => ' . $i . ' </div>';
-			}
-		}
-
+		$this->exclude_woo_pages();		
+		return get_pages( $this->criteria );	
 		
 	}	
+	
 
 	/** 
 	* @since 1.0
-	* Ingresa a la clase {pages_execute} las paginas correspondientes de woocommerce
+	* @see this->criteria property
+	* Excluir paginas de woocommerce
 	*/
-	
-	public function set_woo_pages( ){
+	public function exclude_woo_pages( ){
 
 		if ( dynil_woo_exists() ){
 
@@ -100,20 +94,11 @@ class Class_pages_dynil extends Class_dynil
 			);
 
 			for ( $i = 0; $i < count( $woo_pages ); $i++){
-				$this->pages_execute['woocommerce'][ $woo_pages[ $i ] ] = wc_get_page_id( $woo_pages[ $i ] );
+				$page_exclude[] = wc_get_page_id( $woo_pages[ $i ] );
 			}
+			$this->criteria['exclude'] = $page_exclude;			
+
 		}
-	}
-	/** 
-	* @since 1.0
-	* @see this->criteria property
-	* Excluir paginas de woocommerce
-	*/
-	public function exclude_woo_pages( ){
-		
-		$this->criteria['exclude'] = $this->pages_execute['woocommerce'];
-
-
 	}	
 }
 
