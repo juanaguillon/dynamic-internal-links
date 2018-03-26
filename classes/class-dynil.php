@@ -6,24 +6,46 @@
 */
 class Class_dynil
 {
-	// Version de plugin.
+	/**
+	* @since 1.0
+	* Version actual de plugin
+	*/
 
 	protected $version = "1.0";
 
-	// ¿Se ha instanciado esta clase?
+	/**
+	* @since 1.0
+	* ¿Se ha instanciado esta clase?
+	*/ 
 
 	protected static $init = null;
 
-	// Scripts disponibles para el sitio.
+
+	/**
+	* @since 1.0
+	* Scripts que seran cargados en el sitio
+	*/ 
 
 	private $scripts_site = array();
 
-	// Scripts para la seccion de administador.
-
+	/**
+	* @since 1.0
+	* Scripts que seran cargados en el admin
+	*/
 	public $scripts_admin = array();
 
+
+	/**
+	* @since 1.0
+	* Estilos que seran cargados en el sitio
+	*/
 	public $styles_site = array();
 
+
+	/**
+	* @since 1.0
+	* Estilos que seran cargados en el admin
+	*/
 	public $styles_admin = array();
 
 	/**
@@ -47,7 +69,6 @@ class Class_dynil
 	public function __construct( ){
 		$this->upload_files();
 		self::class_admin();
-
 	}
 
 	/**
@@ -70,7 +91,7 @@ class Class_dynil
 	* @since 1.0
 	* @param $base_url [string] Url de script
 	* @param $handle_script [string] Id unico de script
-	* @param $type [string] => 'admin' | 'site' En donde se ejecutara y cargara el script, con opcion   de ser en el sitio o en la seccion de administrador.
+	* @param $type [string] => ('admin' | 'site') En donde se ejecutara y cargara el script, con opcion   de ser en el sitio o en la seccion de administrador.
 	*  
 	* Importara los scripts correspondientes del programa.
 	* Las clases hijas, llamaran este metodo para cargar su propio script
@@ -165,6 +186,7 @@ class Class_dynil
 		
 		add_action('wp_enqueue_scripts' , array( $this , 'load_scripts_site' ) );
 		add_action('admin_enqueue_scripts' , array( $this , 'load_scripts_admin') );
+		
 	}
 
 	/**

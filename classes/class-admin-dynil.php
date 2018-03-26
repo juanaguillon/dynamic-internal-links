@@ -91,8 +91,9 @@ class Class_admin_dynil extends Class_dynil
 	* HTML seleccion de paginas.
 	*/
 	private static function content_pages(){
-		$all_pages = self::$pages->get_all_pages();
-		echo dynil_clean_pages( $all_pages );	
+		$all_pages = self::$pages->get_all_pages();		
+		echo dynil_clean_pages( $all_pages );
+
 	} 
 
 
@@ -102,7 +103,10 @@ class Class_admin_dynil extends Class_dynil
 	*/
 	public function content_admin(){
 		self::content_ajax();	
-		self::content_pages();		
+		self::content_pages();
+		update_option( 'my_option', array( 'uno' => 'jeje','dos'=> 'doxxxxs') );	
+		$ar =  get_option('my_option');
+		echo $ar['dos'];	
 	}
 
 	/** 

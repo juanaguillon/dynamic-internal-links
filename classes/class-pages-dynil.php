@@ -86,12 +86,7 @@ class Class_pages_dynil extends Class_dynil
 
 		if ( dynil_woo_exists() ){
 
-			$woo_pages = array(
-				'shop',
-				'myaccount',
-				'checkout',
-				'cart'
-			);
+			$woo_pages = array( 'shop', 'myaccount', 'checkout', 'cart' );
 
 			for ( $i = 0; $i < count( $woo_pages ); $i++){
 				$page_exclude[] = wc_get_page_id( $woo_pages[ $i ] );

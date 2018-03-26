@@ -124,5 +124,3 @@ class Class_ajax_dynil extends Class_dynil
 	}
 	
 }
-
- ?>

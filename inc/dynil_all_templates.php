@@ -48,8 +48,9 @@ function dynil_clean_pages( $pages ){
 		for( $i = 0 ; $i< sizeof( $pages ); $i++){
 			$current_object = $pages[$i];
 			
-			$html_pages .= "<div class='dyn_box_content dyn_box_{$current_object->ID}'>";			
+			$html_pages .= "<div class='dyn_box_content dyn_box_{$current_object->ID}'>";		
 			$html_pages .= "<div class='dyn_box_data dyn_box_title'>{$current_object->post_title}</div>";
+			$html_pages .= "<input type='checkbox' name='dynil_set_pages_{$current_object->ID}'>";	
 			$html_pages .= '</div>';
 
 		}
