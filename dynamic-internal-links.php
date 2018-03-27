@@ -14,6 +14,10 @@ if( ! defined( 'DYNIL_PATH')){
 	define( 'DYNIL_PATH', dirname(__FILE__));
 }
 
+if ( ! defined( 'DYNIL_CLASSES') ) {
+	define ( 'DYNIL_CLASSES' , DYNIL_PATH . '/classes/' );
+}
+
 // Llamada de archivo, en el cual se llamas nuevos archivos necesarios.
 include_once DYNIL_PATH . '/classes/class-dynil.php';
 

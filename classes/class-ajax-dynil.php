@@ -75,27 +75,7 @@ class Class_ajax_dynil extends Class_dynil
 
 			}			
 		}
-	}
-
-	/** 
-	* 
-	* @since 1.0 
-	* Regresar un el nombre de la pagina
-	*/
-	public function get_name_page( ){
-
-		global $wpdb;
-		$name = $_POST['name'];		
-		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
-		$resultes = dynil_create_wpdb( $sql );
-
-		foreach ( $resultes as $result ) {
-			echo dynil_wrap_content( $result->post_title, array(
-				'class' => 'names_pages'
-			) );
-		}
-		die();
-	}
+	}	
 	
 
 	/**
@@ -103,7 +83,8 @@ class Class_ajax_dynil extends Class_dynil
 	* @see set_ajax_request
 	* Cargar AJAX para ejecucion */
 	private function load_ajax(){
-		$this->set_ajax_request( 'show_pages' , array( $this , 'get_name_page' ) );
+		include_once DYNIL_CLASSES . 'class-request-dynil.php';
+		$this->set_ajax_request( 'show_pages' , array( Class_request_dynil::instance(), 'get_name_page' ) );
 	}
 
 	/**
