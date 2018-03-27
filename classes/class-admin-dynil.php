@@ -89,6 +89,24 @@ class Class_admin_dynil extends Class_dynil
 		<?php
 	}
 
+	private static function content_table_result(){
+
+		?>
+			
+			<table id="table_result">
+				<thead>
+					<th>*</th>
+					<th><?php _e('Page Name' , 'dynil') ?></th>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+
+		<?php
+
+	}
+
 
 	/** 
 	* @since 1.0
@@ -142,6 +160,9 @@ class Class_admin_dynil extends Class_dynil
 					?>									
 				</form>		
 				</div>
+				<div class="dynil_table_result">
+					<?php self::content_table_result(); ?>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -154,7 +175,7 @@ class Class_admin_dynil extends Class_dynil
 	*/
 	public function add_menus(){
 		
-		add_menu_page( __('Dyn Internal Links Options', DYNIL_DOMAIN )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( $this , 'content_admin' ) , 'dashicons-star-filled' , 70 );	
+		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( $this , 'content_admin' ) , 'dashicons-star-filled' , 70 );	
 	}
 
 	/** 
