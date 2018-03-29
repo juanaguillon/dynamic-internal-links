@@ -11,8 +11,35 @@ div.dyn_box_data{
 	color: #414141;
 	font-size: 1.2em;
 }
-/*.dynil_content_options{
-	padding:10px;
+
+table#table_result{
+	width: 100%;	
+	
+}
+
+table#table_result thead{	
+	background-color: #2059A7
+}
+table#table_result thead th{
+	padding: 5px 10px;
+	color:#F1F1F1;
+}
+.dynil_table_result{
+	background: #EBEBEB;
+	border: 1px #D9D9D9;
+	height: 300px;
+	display: block;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.dynil_table_check{
+	width: 5%;
+}
+.dynil_table_name{
+	width: 85%;	
+}
+.dynil_content_options div.content{
+	padding: 15px;
 	background-color: white;
-	border:1px solid #E9E9E9;
-}*/
+}

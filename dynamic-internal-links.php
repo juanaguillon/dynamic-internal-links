@@ -19,7 +19,7 @@ if ( ! defined( 'DYNIL_CLASSES') ) {
 }
 
 // Llamada de archivo, en el cual se llamas nuevos archivos necesarios.
-include_once DYNIL_PATH . '/classes/class-dynil.php';
+include_once DYNIL_CLASSES . 'class-dynil.php';
 
 function dynil(){
 	return Class_dynil::init_class();

@@ -26,7 +26,7 @@ class Class_dynil
 	* Scripts que seran cargados en el sitio
 	*/ 
 
-	private $scripts_site = array();
+	public $scripts_site = array();
 
 	/**
 	* @since 1.0
@@ -67,8 +67,11 @@ class Class_dynil
 	* Constructor de clase
 	*/
 	public function __construct( ){
-		$this->upload_files();
-		self::class_admin();
+		if ( is_admin( ) ){
+
+			$this->upload_files();
+			self::class_admin();
+		}
 	}
 
 	/**
@@ -80,10 +83,10 @@ class Class_dynil
 		// Importando funciones 
 		include_once DYNIL_PATH . '/inc/dynil_all_templates.php';
 
-		// Improtanto archivos de clases
-		include_once DYNIL_PATH . '/classes/class-ajax-dynil.php';
-		include_once DYNIL_PATH . '/classes/class-pages-dynil.php';
-		include_once DYNIL_PATH . '/classes/class-admin-dynil.php';
+		// Importando archivos de clases
+		include_once DYNIL_CLASSES . 'class-ajax-dynil.php';
+		include_once DYNIL_CLASSES . 'class-pages-dynil.php';
+		include_once DYNIL_CLASSES . 'class-admin-dynil.php';
 		
 	}	
 
@@ -105,6 +108,8 @@ class Class_dynil
 				if ( ! array_key_exists( $hande_script , $this->scripts_admin ) ){
 								$this->scripts_admin[ $hande_script ] = $base_url;	
 
+				}else{
+					echo '<script>alert("El escript ya existe en admin")</script>';	
 				}
 				break;	
 
@@ -112,6 +117,8 @@ class Class_dynil
 			case 'site':
 				if ( ! array_key_exists($hande_script , $this->scripts_site ) ){
 					$this->scripts_site[ $hande_script ] = $base_url;					
+				}else{
+					echo '<script>alert("El escript ya existe en admin")</script>';	
 				}
 				break;
 			}		

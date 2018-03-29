@@ -4,6 +4,8 @@
 * @version 1.0
 * @since 1.0
 *	Interfaz de usuario, capaz de dar las ordenes correspondientes para acomodar el plugin de manera deseada.
+* En esta clase, se creara la estructura general de la seccion de administrador de plugin.
+* Tanto como estilos, scripts, y estructura.
 * 
 */
 class Class_admin_dynil extends Class_dynil
@@ -18,22 +20,11 @@ class Class_admin_dynil extends Class_dynil
 
 	/** 
 	* @since 1.0
-	* Clase Ajax
-	*/
-	public static $ajax = null;
-
-
-	/** 
-	* @since 1.0
-	* Clase Pages
-	*/
-	public static $pages = null;
-
-	/** 
-	* @since 1.0
 	* Seccion de noticias para ser mostradas en admin_notices
 	*/
 	public $notices = array();
+
+	private $content = null;
 
 	/**
 	* @since 1.0
@@ -52,13 +43,12 @@ class Class_admin_dynil extends Class_dynil
 	* Constructor
 	*/
 	public function __construct(){
-
-		self::$ajax = parent::class_ajax();
-		self::$pages = parent::class_pages();
+		
+		include_once DYNIL_CLASSES . 'class-content-admin-dynil.php';
+		$this->content = Class_content_admin_dynil::instance();	
 		$this->hooks_actions();		
-		$this->scripts();	
+		$this->scripts();		
 		$this->enqueue_scripts();	
-	 	
 		
 	}
 
@@ -66,77 +56,14 @@ class Class_admin_dynil extends Class_dynil
 	* @since 1.0
 	* Importar scripts de esta clase
 	*/
-	private function scripts( ){		
+	private function scripts( ){	
+
 		$this->import_script( dynil_script_path( 'ajax-request' , 'js' ) , 'ajax-request' , 'admin' );
+		$this->import_script( dynil_script_path('tables-request', 'js' ) , 'tables-request' ,'admin' );
 		$this->import_script( dynil_script_path( 'admin-script' , 'js' ) , 'admin-script' , 'admin' );
-		$this->import_style( dynil_script_path( 'admin-style' , 'css'), 'admin-style' , 'admin' );
-	}
+		$this->import_style( dynil_script_path( 'admin-style' , 'css'), 'admin-style' , 'admin' );		
+	}	
 
-	/** 
-	* @since 1.0
-	* HTML de ajax
-	*/
-	private static function content_ajax(){
-		
-		?>	
-			
-				
-			<div class="content">
-				<input type="text" name="asdkjalsdj" id="dynil_anex_pages">
-			</div>
-			<div id="respond">			
-			</div>
-		<?php
-	}
-
-	private static function content_table_result(){
-
-		?>
-			
-			<table id="table_result">
-				<thead>
-					<th>*</th>
-					<th><?php _e('Page Name' , 'dynil') ?></th>
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-
-		<?php
-
-	}
-
-
-	/** 
-	* @since 1.0
-	* HTML seleccion de paginas.
-	*/
-	private static function content_pages(){
-		$all_pages = self::$pages->get_all_pages();		
-		echo dynil_clean_pages( $all_pages );
-
-		if ( $get_pages = get_option('dynil_set_pages') ){
-			foreach ( $get_pages as $page_id ){
-				echo $page_id . '<br>';
-			}
-		}
-
-	} 
-
-	/** 
-	* @since 1.0
-	* HTML submit el formulario
-	*/
-	private static function submit_pages(){	
-		?>
-		<div class="dynil_submit">
-			<input type="hidden" name="action" value="my_action">			
-			<input type="submit" name="submit">
-		</div>
-		<?php
-		
-	}
 
 
 	/**
@@ -144,24 +71,25 @@ class Class_admin_dynil extends Class_dynil
 	* Contenido de plugin en la seccion de Admin.
 	*/
 	public function content_admin(){
+		$content = $this->content;
 		?>
-
+		
 		<div class="wrap dynil_content_options">
 			<h1><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h1>
 			<div class="content">
 				<div class="dynil_ajax_section">					
-					<?php self::content_ajax(); ?>				
+					<?php $content::content_ajax(); ?>				
 				</div>
 				<div class="dynil_pages_section">
 					<form action="<?php echo admin_url( 'admin-post.php' ); ?>" method="POST">
 					<?php
-						self::content_pages();
-						self::submit_pages();					
+						$content::content_pages();	
+						$content::content_load_pages();								
 					?>									
 				</form>		
 				</div>
 				<div class="dynil_table_result">
-					<?php self::content_table_result(); ?>
+					<?php $content::content_table_result(); ?>
 				</div>
 			</div>
 		</div>
