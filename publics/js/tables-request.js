@@ -1,25 +1,47 @@
-var dyn_show_table = function( els ){
-	
+Object.size = function( element ){
 
-	this.els = els;
+	var size = 0, key;
 
-
-	var tr_push =  '<tr>';
-
-	for (var i = 0; i < this.els.length; i++) {
-		if ( i == this.els.length - 1 ){
-			tr_push += '<td> ' + this.els[i] + '</td>'
-		}else{
-			tr_push += '<td style="border-left:1px solid gray">' + this.els[i] + '</td>';			
+	for ( key in element ){
+		if ( element.hasOwnProperty( key ) ){
+			size++;
 		}
 	}
-	tr_push += '</tr>';
+
+	return size;
+		
+}
+var dyn_show_table = function( els ){
+
+	this.els = els;
+	var tr_push = '';
+	
+	
+	for ( var i in this.els ){
+
+		var itm = this.els[i],
+		 		incr = 0;
+
+		tr_push += '<tr>';
+		for ( var val in itm ){
+
+			if ( (Object.size( itm ) - 1) > incr ){
+				tr_push += '<td class="dynil_result_list" style="border-right:1px solid #848484">' + itm[val] + '</td>';
+			}else{
+				tr_push += '<td class="dynil_result_list">' + itm[val] + '</td>';
+			}
+			incr++
+		}
+		tr_push += '</tr>';
+		
+	}		
+	
 	this.tr_ = tr_push;
 
 }
 
 dyn_show_table.prototype.put_elements = function( place ){
 
-	place.append( this.tr_ );
+	jQuery(place).append( this.tr_ );
 
 }

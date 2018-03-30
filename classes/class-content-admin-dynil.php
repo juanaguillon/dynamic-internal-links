@@ -52,9 +52,6 @@ class Class_content_admin_dynil extends Class_dynil
 		static::$pages = parent::class_pages();
   }
 
-  
-
-
  	/** 
 	* @since 1.0
 	* HTML de ajax
@@ -70,6 +67,10 @@ class Class_content_admin_dynil extends Class_dynil
 		<?php
 	}
 
+	/** 
+	* @since 1.0
+	* HTML resultado de tablas a ser subidas.
+	*/
 	public static function content_table_result(){
 
 		?>
@@ -78,6 +79,7 @@ class Class_content_admin_dynil extends Class_dynil
 			<table id="table_result">
 				<thead>
 					<th class="dynil_table_check">&nbsp;</th>
+					<th class="dynil_table_id"> <?php _e('Page ID' , 'dynil'); ?></th>
 					<th class="dynil_table_name"><?php _e('Page Name' , 'dynil') ?></th>
 				</thead>
 				<tbody>
