@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
 	});
 
 	$('#dynil_load_pages').click(function(){
-		var checks_ = $('.dyn_box_content').children('input[type=checkbox]:checked'),
+		var checks_ = $('.dyn_box_content').children('div').next().children('input[type=checkbox]:checked'),
 				pages = {};
 
 		for (var i = 0; i < checks_.length; i++) {
@@ -27,7 +27,8 @@ jQuery(document).ready(function($) {
 			pages[i] = {
 				check: '<input type="checkbox" value="' + id + '" />',
 				id   : id,
-				name : $( checks_[i] ).prev().html()  
+				name : $( checks_[i] ).parent().prev().html(),
+				date : $( checks_[i]).parent().next().find('span').html()  
 			}
 			
 		}	

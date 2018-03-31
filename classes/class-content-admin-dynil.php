@@ -81,6 +81,7 @@ class Class_content_admin_dynil extends Class_dynil
 					<th class="dynil_table_check">&nbsp;</th>
 					<th class="dynil_table_id"> <?php _e('Page ID' , 'dynil'); ?></th>
 					<th class="dynil_table_name"><?php _e('Page Name' , 'dynil') ?></th>
+					<th class="dynil_table_date"><?php _e('Creation Date','dynil') ?></th>
 				</thead>
 				<tbody>
 					

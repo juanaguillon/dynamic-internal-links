@@ -26,14 +26,13 @@ var dyn_show_table = function( els ){
 		for ( var val in itm ){
 
 			if ( (Object.size( itm ) - 1) > incr ){
-				tr_push += '<td class="dynil_result_list" style="border-right:1px solid #848484">' + itm[val] + '</td>';
+				tr_push += '<td class="dynil_result_list" style="border-right:1px solid #C4C4C4">' + itm[val] + '</td>';
 			}else{
 				tr_push += '<td class="dynil_result_list">' + itm[val] + '</td>';
 			}
 			incr++
 		}
-		tr_push += '</tr>';
-		
+		tr_push += '</tr>';		
 	}		
 	
 	this.tr_ = tr_push;

@@ -50,7 +50,8 @@ function dynil_clean_pages( $pages ){
 			
 			$html_pages .= "<div class='dyn_box_content dyn_box_{$current_object->ID}'>";		
 			$html_pages .= "<div class='dyn_box_data dyn_box_title'>{$current_object->post_title}</div>";
-			$html_pages .= "<input type='checkbox' name='dynil_set_pages[]' value='{$current_object->ID}'>";	
+			$html_pages .= "<div><input class='dyn_box_check' type='checkbox' name='dynil_set_pages[]' value='{$current_object->ID}'></div>";	
+			$html_pages .= "<div class='dyn_box_data dyn_box_date'><strong>" . __('Creation date: ','dynil') . "</strong><span>" . $current_object->post_date . "</span></div>";			
 			$html_pages .= '</div>';
 
 		}
