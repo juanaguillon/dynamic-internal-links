@@ -61,9 +61,9 @@ class Class_content_admin_dynil extends Class_dynil
 		?>					
 			<div class="content">
 				<input type="text" id="dynil_anex_pages">
+				<div id="respond"></div>
 			</div>
-			<div id="respond">			
-			</div>
+			
 		<?php
 	}
 

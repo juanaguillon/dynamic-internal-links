@@ -7,13 +7,15 @@ var Ajax_request = function( act, data_, callback ){
 }
 
 
-Ajax_request.prototype.exec = function( ){
-	jQuery.ajax({
+Ajax_request.prototype.exec = function( others = {} ){
+	var ajax_default = {
 		url: 'admin-ajax.php',
 		type: 'post',
 		data: this.data,		
 		success: this.call	
-	});
+	}
+	var all_ajax = Object.assign( ajax_default, others )
+	jQuery.ajax( all_ajax );
 
 }
 

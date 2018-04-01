@@ -46,9 +46,12 @@ class Class_admin_dynil extends Class_dynil
 		
 		include_once DYNIL_CLASSES . 'class-content-admin-dynil.php';
 		$this->content = Class_content_admin_dynil::instance();	
-		$this->hooks_actions();		
-		$this->scripts();		
-		$this->enqueue_scripts();	
+		$this->hooks_actions();	
+		if( $_GET["page"] == 'dynil_menu_admin' ){
+			$this->scripts();		
+			$this->enqueue_scripts();	
+		}	
+		
 		
 	}
 
