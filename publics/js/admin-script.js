@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 			}
 		}else if( e.keyCode == 13){
 			
-			if( $('.names_pages_selected') > 0 ){
+			if( $('.names_pages_selected').length > 0 ){
 				var name_ = $('.names_pages_selected');
 				var table = document.getElementById('table_result');
 				var id = name_.children('.dyn_ajax_id').val();
