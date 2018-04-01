@@ -37,11 +37,14 @@ class Class_request_dynil
 
 		global $wpdb;
 		$name = $_POST['name'];		
-		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
+		$sql = "SELECT ID, post_title, post_date FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
 		$resultes = dynil_create_wpdb( $sql );
 
 		foreach ( $resultes as $result ) {
-			echo dynil_wrap_content( $result->post_title, array(
+			$html_ret = '<span class="dyn_ajax_title">' . $result->post_title . '</span>';
+			$html_ret .= '<input type="hidden" class="dyn_ajax_id" value="' . $result->ID . '" >';
+			$html_ret .= '<input type="hidden" class="dyn_ajax_date" value="' . $result->post_date . '" >';;
+			echo dynil_wrap_content( $html_ret , array(
 				'class' => 'names_pages'
 			) );
 		}

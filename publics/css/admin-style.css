@@ -82,6 +82,7 @@ div#respond{
 div#respond .names_pages{
 	padding:5px 15px;
 	font-size:1.1em;	
+	cursor: pointer;
 }
 .names_pages_selected{
 	background-color:#E6E6E6;

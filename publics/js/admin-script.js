@@ -24,6 +24,22 @@ jQuery(document).ready(function($) {
 				names_select.prev().toggleClass('names_pages_selected');
 				names_select.removeClass('names_pages_selected');
 			}
+		}else if( e.keyCode == 13){
+			
+			if( $('.names_pages_selected') > 0 ){
+				var name_ = $('.names_pages_selected');
+				var table = document.getElementById('table_result');
+				var id = name_.children('.dyn_ajax_id').val();
+				var els = {
+					0:{
+						check: '<input type="checkbox" value="' + id + '" />',
+						id: id,
+						name: name_.children('.dyn_ajax_title').text(),
+						date: name_.children('.dyn_ajax_date').val()					
+					}
+				}
+				var Tab = new dyn_show_table( els , table );
+			}
 		}else if( $(this).val().length > 3 ){
 
 			var request = new Ajax_request({				
@@ -53,7 +69,22 @@ jQuery(document).ready(function($) {
 				eldel.removeClass('names_pages_selected');
 			}		
 			el.toggleClass('names_pages_selected');
-		});
+		})
+		.click(function(){
+			var el = $(this);
+			var table = document.getElementById('table_result');
+			var id = el.children('.dyn_ajax_id').val();
+			var els = {
+				0:{
+					check: '<input type="checkbox" value="' + id + '" />',
+					id: id,
+					name: el.children('.dyn_ajax_title').text(),
+					date: el.children('.dyn_ajax_date').val()					
+				}
+			}
+			var Tab = new dyn_show_table( els , table );
+		})
+		
 	}
 	
 
@@ -79,7 +110,7 @@ jQuery(document).ready(function($) {
 		}	
 			
 		var table = document.getElementById('table_result');
-		var Tables = new dyn_show_table( pages, table, {last_index: 'tr' , class_search: 'dyn_tr_second'} );
+		var Tables = new dyn_show_table( pages, table );
 		
 		
 		

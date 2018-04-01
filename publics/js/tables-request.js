@@ -11,7 +11,7 @@ Object.size = function( element ){
 	return size;
 		
 }
-var dyn_show_table = function( els, place , propy ){
+var dyn_show_table = function( els, place , propy = {last_index: 'tr' , class_search: 'dyn_tr_second'} ){
 
 	this.els = els;
 	var tr_push = '',
