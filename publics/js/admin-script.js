@@ -1,15 +1,4 @@
-function names_on_page(){
-	alert('lakjsdklasd');
-	jQuery('#respond .names_pages').hover(function(){
-		alert('hover');
-		var el = $(this);
-		if ( $('.names_pages_selected').length > 0){
-			var eldel = $('.names_pages_selected');
-			eldel.removeClass('names_pages_selected');
-		}		
-		el.toggleClass('names_pages_selected');
-	});
-}
+
 jQuery(document).ready(function($) {
 
 	var is_unique = false;
@@ -37,17 +26,35 @@ jQuery(document).ready(function($) {
 			}
 		}else if( $(this).val().length > 3 ){
 
-			var request = new Ajax_request('show_pages',{
-				'action':'show_pages',
-				'name': capitalizeFirstLetter( $( this).val()) 
-			}, function( resp ){			
-				$('#respond').empty();			
-				$('#respond').append( resp );
+			var request = new Ajax_request({				
+				data : {
+					'action':'show_pages',
+					'name': capitalizeFirstLetter( $( this).val()),
+				},
+				success:function( resp ){
+					$('#respond').empty();			
+					$('#respond').append( resp );									
+				},
+				complete:function(){
+					names_on_page();	
+				}
 			});
-			request.exec({ complete: names_on_page() });
+			request.exec();
 		}
+		
 	});
-
+	function names_on_page(){	
+		jQuery('#respond .names_pages')
+		.hover(function(){
+			
+			var el = $(this);
+			if ( $('.names_pages_selected').length > 0){
+				var eldel = $('.names_pages_selected');
+				eldel.removeClass('names_pages_selected');
+			}		
+			el.toggleClass('names_pages_selected');
+		});
+	}
 	
 
 	$('#dynil_load_pages').click(function(){

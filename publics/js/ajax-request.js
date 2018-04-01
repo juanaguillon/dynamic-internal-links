@@ -1,20 +1,18 @@
 
-var Ajax_request = function( act, data_, callback ){
+var Ajax_request = function( data_ ){	
 	
-	this.act = act;	
-	this.data = data_
-	this.call = callback;
+	this.data = data_	
+
 }
 
 
-Ajax_request.prototype.exec = function( others = {} ){
+Ajax_request.prototype.exec = function( ){
 	var ajax_default = {
 		url: 'admin-ajax.php',
-		type: 'post',
-		data: this.data,		
-		success: this.call	
+		type: 'post'			
 	}
-	var all_ajax = Object.assign( ajax_default, others )
+
+	var all_ajax = Object.assign( ajax_default, this.data );	
 	jQuery.ajax( all_ajax );
 
 }
