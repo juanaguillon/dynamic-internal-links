@@ -1,3 +1,18 @@
+(function( $ ){
+function dynil_put_in_table(){
+	var name_ = $('.names_pages_selected');
+	var table = document.getElementById('table_result');
+	var id = name_.children('.dyn_ajax_id').val();
+	var els = {
+		0:{
+			check: '<input type="checkbox" value="' + id + '" />',
+			id: id,
+			name: name_.children('.dyn_ajax_title').text(),
+			date: name_.children('.dyn_ajax_date').val()					
+		}
+	}
+	var Tab = new dyn_show_table( els , table );
+}
 
 jQuery(document).ready(function($) {
 
@@ -27,18 +42,7 @@ jQuery(document).ready(function($) {
 		}else if( e.keyCode == 13){
 			
 			if( $('.names_pages_selected').length > 0 ){
-				var name_ = $('.names_pages_selected');
-				var table = document.getElementById('table_result');
-				var id = name_.children('.dyn_ajax_id').val();
-				var els = {
-					0:{
-						check: '<input type="checkbox" value="' + id + '" />',
-						id: id,
-						name: name_.children('.dyn_ajax_title').text(),
-						date: name_.children('.dyn_ajax_date').val()					
-					}
-				}
-				var Tab = new dyn_show_table( els , table );
+				dynil_put_in_table()
 			}
 		}else if( $(this).val().length > 3 ){
 
@@ -71,18 +75,7 @@ jQuery(document).ready(function($) {
 			el.toggleClass('names_pages_selected');
 		})
 		.click(function(){
-			var el = $(this);
-			var table = document.getElementById('table_result');
-			var id = el.children('.dyn_ajax_id').val();
-			var els = {
-				0:{
-					check: '<input type="checkbox" value="' + id + '" />',
-					id: id,
-					name: el.children('.dyn_ajax_title').text(),
-					date: el.children('.dyn_ajax_date').val()					
-				}
-			}
-			var Tab = new dyn_show_table( els , table );
+			dynil_put_in_table();
 		})
 		
 	}
@@ -117,4 +110,5 @@ jQuery(document).ready(function($) {
 	});
 
 });
-
+// End jquery function anonymous
+})(jQuery);
