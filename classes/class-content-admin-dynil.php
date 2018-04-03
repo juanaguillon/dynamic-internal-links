@@ -60,7 +60,7 @@ class Class_content_admin_dynil extends Class_dynil
 		
 		?>					
 			<div class="content">
-				<input type="text" id="dynil_anex_pages">
+				<input type="text" id="dynil_anex_pages" autocomplete="off">
 				<div id="respond"></div>
 			</div>
 			
@@ -72,10 +72,7 @@ class Class_content_admin_dynil extends Class_dynil
 	* HTML resultado de tablas a ser subidas.
 	*/
 	public static function content_table_result(){
-
-		?>
-			
-		
+		?>		
 			<table id="table_result">
 				<thead>
 					<th class="dynil_table_check">&nbsp;</th>
@@ -83,13 +80,10 @@ class Class_content_admin_dynil extends Class_dynil
 					<th class="dynil_table_name"><?php _e('Page Name' , 'dynil') ?></th>
 					<th class="dynil_table_date"><?php _e('Creation Date','dynil') ?></th>
 				</thead>
-				<tbody>
-					
+				<tbody>					
 				</tbody>
-			</table>
+			</table>			
 		<?php	
-
-
 	}
 
 
@@ -126,7 +120,7 @@ class Class_content_admin_dynil extends Class_dynil
 		?>
 		<div class="dynil_submit">
 			<input type="hidden" name="action" value="my_action">			
-			<input type="submit" name="submit">
+			<input type="button" value="<?php echo __('Send Pages','dynil'); ?>" id="dyn_send_pages" class="button button-primary">
 		</div>
 		<?php
 		

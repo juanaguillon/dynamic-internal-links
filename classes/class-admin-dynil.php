@@ -80,24 +80,30 @@ class Class_admin_dynil extends Class_dynil
 		<div class="wrap dynil_content_options">
 			<h1><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h1>
 			<div class="content">
-				<div class="dynil_ajax_section">					
-					<?php $content::content_ajax(); ?>				
-				</div>
-				<div class="dynil_pages_section">
-					<form action="<?php echo admin_url( 'admin-post.php' ); ?>" method="POST">
-					<?php
-						$content::content_pages();	
-						$content::content_load_pages();								
-					?>									
-				</form>		
-				</div>
-				<div class="dynil_table_result">
-					<?php $content::content_table_result(); ?>
-				</div>
+				<form name="dyn_form_send_pages" action="<?php echo admin_url('admin-post.php'); ?>">
+					<div class="dynil_ajax_section">					
+						<?php $content::content_ajax(); ?>				
+					</div>
+					<div class="dynil_pages_section">				
+						<?php
+							$content::content_pages();
+							$content::content_load_pages();								
+						?>						
+					</div>
+					<div class="dynil_table_result">
+						<?php $content::content_table_result(); ?>
+					</div>
+					<div class="dynil_submit">
+						<?php $content::content_submit_pages(); ?>
+					</div>
+				</form>
 			</div>
 		</div>
-		<?php
-		
+		<?php		
+	}
+
+	public function content_settings(){
+		echo "Hello wordld";
 	}
 
 	/** 
@@ -106,7 +112,8 @@ class Class_admin_dynil extends Class_dynil
 	*/
 	public function add_menus(){
 		
-		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( $this , 'content_admin' ) , 'dashicons-star-filled' , 70 );	
+		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( $this , 'content_admin' ) , 'dashicons-star-filled' , 70 );
+		add_submenu_page( 'dynil_menu_admin', __('Dyn Internal Settings','dynil'), __('Settings') , 'manage_options' , 'dynil_menu_settings', array( $this , 'content_settings' ) );	
 	}
 
 	/** 

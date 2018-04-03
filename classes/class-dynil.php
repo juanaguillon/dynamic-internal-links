@@ -201,7 +201,6 @@ class Class_dynil
 	* Ingresa clase AJAX a las propiedad {classes}
 	*/
 	protected function class_ajax(){
-
 		return Class_ajax_dynil::instance();
 	}
 

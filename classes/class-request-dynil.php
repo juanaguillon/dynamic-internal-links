@@ -57,7 +57,7 @@ class Class_request_dynil
 	*/
 	public function my_action_function(){
 		
-		$set_pages = $_POST["dynil_set_pages"];
+		$set_pages = $_POST["dyn_table_checks"];
 		if( update_option('dynil_set_pages', $set_pages ) ){
 			wp_redirect( admin_url('admin.php?page=dynil_menu_admin&update_pages=true') );			
 		}else{
