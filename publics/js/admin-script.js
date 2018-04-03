@@ -41,6 +41,26 @@ function dynil_put_in_table( bucle = false ){
 function dynil_clean_respond( ){ $('#respond').empty(); }
 function dynil_clean_ajax_text(){ $('#dynil_anex_pages').val('') }
 
+function names_on_page(){	
+	jQuery('#respond .names_pages')	
+	.hover(function(){
+
+		var el = $(this);
+		if ( $('.names_pages_selected').length > 0){
+			var eldel = $('.names_pages_selected');
+			eldel.removeClass('names_pages_selected');
+		}		
+		el.toggleClass('names_pages_selected');
+	})
+	.click(function(){
+		if( $(this).hasClass('dyn_ajax_is_put') ){
+			alert(Messages.cantToTable);
+		}else{
+			dynil_put_in_table();
+		}
+	});		
+}
+
 jQuery(document).ready(function($){
 
 	var is_unique = false;	
@@ -113,22 +133,6 @@ jQuery(document).ready(function($){
 		
 	});
 
-	function names_on_page(){	
-		jQuery('#respond .names_pages')
-		.hover(function(){
-			
-			var el = $(this);
-			if ( $('.names_pages_selected').length > 0){
-				var eldel = $('.names_pages_selected');
-				eldel.removeClass('names_pages_selected');
-			}		
-			el.toggleClass('names_pages_selected');
-		})
-		.click(function(){
-			dynil_put_in_table();
-		})
-		
-	}
 	
 
 	$('#dynil_load_pages').click(function(){

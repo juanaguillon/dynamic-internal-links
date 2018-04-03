@@ -78,6 +78,7 @@ div#respond{
 	box-shadow: 0px 2px 3px #808080;
 	position: absolute;
 	background-color:white;
+	z-index: 2;
 }
 div#respond .names_pages{
 	padding:5px 15px;

@@ -64,7 +64,8 @@ class Class_admin_dynil extends Class_dynil
 		$this->import_script( dynil_script_path( 'ajax-request' , 'js' ) , 'ajax-request' , 'admin' );
 		$this->import_script( dynil_script_path('tables-request', 'js' ) , 'tables-request' ,'admin' );
 		$this->import_script( dynil_script_path( 'admin-script' , 'js' ) , 'admin-script' , 'admin' );
-		$this->import_style( dynil_script_path( 'admin-style' , 'css'), 'admin-style' , 'admin' );		
+		$this->import_style( dynil_script_path( 'admin-style' , 'css'), 'admin-style' , 'admin' );	
+
 	}	
 
 
@@ -127,7 +128,12 @@ class Class_admin_dynil extends Class_dynil
 		add_action( 'admin_menu' , array( $this , 'add_menus' ) );
 
 		if ( isset( $_GET['update_pages'] ) ){
-			add_action('admin_notices' , array( $this , 'show_messages') );
+			add_action( 'admin_notices' , array( $this , 'show_messages' ) );
+			
+		}
+
+		if( $this->is_set_page( ) ){
+			add_action( 'admin_head', array( 'Class_content_admin_dynil' , 'messages_scripts' ) );		
 		}
 
 	}

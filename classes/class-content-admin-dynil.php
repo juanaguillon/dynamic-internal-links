@@ -47,9 +47,23 @@ class Class_content_admin_dynil extends Class_dynil
   * @since 1.0
   * Constructor absoluto de la clase
   */
-  public function __construct()  {       
+  public function __construct()  {      
+
   	static::$ajax = parent::class_ajax();
 		static::$pages = parent::class_pages();
+		
+
+  }  
+
+  public function messages_scripts( ){
+  	?>
+		<script type="text/javascript">
+			var Messages = {
+				cantToTable: "<?php _e("This page is already in the table.","dynil"); ?>"
+			}
+			alert('in here');
+		</script>
+  	<?php
   }
 
  	/** 

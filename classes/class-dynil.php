@@ -196,6 +196,19 @@ class Class_dynil
 		
 	}
 
+	/** 
+	* @since 1.0
+	* @return Bool
+	* Verificar si esta en la pagina de seleccion de paginas.
+	*/
+	protected function is_set_page( ){
+		if( $_GET["page"] == 'dynil_menu_admin' ){
+			return true;
+		}
+		return false;
+	}
+
+
 	/**
 	* @since 1.0	
 	* Ingresa clase AJAX a las propiedad {classes}
