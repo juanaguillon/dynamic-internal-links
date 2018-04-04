@@ -5,7 +5,13 @@
 * Aqui se cargaran los scripts con otro tipo de funciones, tales como ajax y ejecuciones entre tablas.
 */
 (function( $ ){
+function disable_box( element ){
 
+	element.checked = false;
+	jQuery(element).attr('disabled',true);
+	jQuery(element).closest('.dyn_box_content').css('background-color','#F0F0F0');
+
+}
 function dynil_put_in_table( bucle = false ){
 	var els = {};
 	if( ! bucle ){
@@ -29,17 +35,39 @@ function dynil_put_in_table( bucle = false ){
 				date : $( bucle[i]).parent().next().find('span').html()  
 			}
 
-			bucle[i].checked = false;
-			jQuery(bucle[i]).attr('disabled',true);
-			jQuery(bucle[i]).closest('.dyn_box_content').css('background-color','#F0F0F0');
+			disable_box( bucle[i] );
 		}
 
 	}
 	var table = document.getElementById('table_result');
 	var Tab = new dyn_show_table( els , table );
 }
+
 function dynil_clean_respond( ){ $('#respond').empty(); }
+
 function dynil_clean_ajax_text(){ $('#dynil_anex_pages').val('') }
+
+function toggle_page_in_table(){
+	var ajx = $( '#respond' ).find('.dyn_ajax_id');
+	var putNow = $('[name="dyn_table_checks[]"]');
+	for ( var i = 0; i < ajx.length; i++ ) {
+		for ( var ix = 0; ix < putNow.length; ix++ ) {										
+			if ( putNow[ix].value == ajx[i].value ){
+				jQuery(ajx[i]).parent().addClass('dyn_ajax_is_put');
+			}														
+		}														
+	}
+}
+function check_boxes( el ){
+	var current_ajax_page = $( el ).children('.dyn_ajax_id').val();
+	var boxes = $('[name="dynil_set_pages[]"]');
+
+	for (var i = 0; i < boxes.length; i++) {
+		if(boxes[i].value == current_ajax_page ){
+			 disable_box( boxes[i] );
+		}
+	}
+}
 
 function names_on_page(){	
 	jQuery('#respond .names_pages')	
@@ -55,8 +83,10 @@ function names_on_page(){
 	.click(function(){
 		if( $(this).hasClass('dyn_ajax_is_put') ){
 			alert(Messages.cantToTable);
-		}else{
+		}else{			
 			dynil_put_in_table();
+			toggle_page_in_table();
+			check_boxes( this );
 		}
 	});		
 }
@@ -97,9 +127,11 @@ jQuery(document).ready(function($){
 				dynil_put_in_table();
 				dynil_clean_respond();
 				dynil_clean_ajax_text();
+				toggle_page_in_table();
+				
 			}
 			return false;
-		}else if( e.keyCode == 27 ){
+		}else if( e.keyCode == 27  ){
 			dynil_clean_respond();
 		}else if( $(this).val().length > 3 ){
 
@@ -115,16 +147,7 @@ jQuery(document).ready(function($){
 					// $('#respond').append( resp );									
 				},
 				complete:function(){
-					var ajx = $( '#respond' ).find('.dyn_ajax_id');
-					var putNow = $('[name="dyn_table_checks[]"]');
-					for ( var i = 0; i < ajx.length; i++ ) {
-						for ( var ix = 0; ix < putNow.length; ix++ ) {
-							console.log( putNow[ix].value + ' and ' + ajx[i].value )
-							if ( putNow[ix].value == ajx[i].value ){
-								jQuery(ajx[i]).parent().addClass('dyn_ajax_is_put');
-							}
-						}						
-					}
+					toggle_page_in_table();
 					names_on_page();	
 				}
 			});

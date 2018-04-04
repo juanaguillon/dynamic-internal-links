@@ -62,6 +62,7 @@ td.dynil_result_list{
 /* Estilos tr alternativos*/
 .dyn_tr_first{
 	background-color: #E0EDFF;
+	
 }
 
 /*Ajax Seccion*/
@@ -89,6 +90,6 @@ div#respond .names_pages{
 	background-color:#E6E6E6;
 	font-weight: bold;
 }
-.dyn_ajax_is_put{
-	background-color: #FFE2E2;
+.dyn_ajax_is_put.names_pages_selected{	
+	opacity:0.6;
 }

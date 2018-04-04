@@ -9,6 +9,7 @@
 * Version: 1.0
 */
 
+
 // Ruta base.
 if( ! defined( 'DYNIL_PATH')){
 	define( 'DYNIL_PATH', dirname(__FILE__));

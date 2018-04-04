@@ -61,7 +61,7 @@ class Class_content_admin_dynil extends Class_dynil
 			var Messages = {
 				cantToTable: "<?php _e("This page is already in the table.","dynil"); ?>"
 			}
-			alert('in here');
+			
 		</script>
   	<?php
   }
@@ -69,7 +69,8 @@ class Class_content_admin_dynil extends Class_dynil
  	/** 
 	* @since 1.0
 	* HTML de ajax
-	*/
+	*/	
+
 	public static function content_ajax(){
 		
 		?>					
