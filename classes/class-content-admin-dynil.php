@@ -134,8 +134,9 @@ class Class_content_admin_dynil extends Class_dynil
 	public static function content_submit_pages(){	
 		?>
 		<div class="dynil_submit">
-			<input type="hidden" name="action" value="my_action">			
+			<input type="hidden" name="action" value="dyn_save_pages">			
 			<input type="button" value="<?php echo __('Send Pages','dynil'); ?>" id="dyn_send_pages" class="button button-primary">
+
 		</div>
 		<?php
 		

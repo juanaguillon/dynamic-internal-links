@@ -55,7 +55,7 @@ class Class_request_dynil
 	* @since 1.0
 	* Actualizara opciones y redirigira a el admin page.
 	*/
-	public function my_action_function(){
+	public function save_pages(){
 		
 		$set_pages = $_POST["dyn_table_checks"];
 		if( update_option('dynil_set_pages', $set_pages ) ){
@@ -65,5 +65,7 @@ class Class_request_dynil
 		}
 		
 	}
+
+	
 }
 

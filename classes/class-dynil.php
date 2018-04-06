@@ -67,12 +67,25 @@ class Class_dynil
 	* Constructor de clase
 	*/
 	public function __construct( ){
-		if ( is_admin( ) ){
 
+		if ( is_admin( ) ){
+			$this->init_hooks();
 			$this->upload_files();
-			self::class_admin();
+			if ( $this->is_set_page() ){
+				self::class_admin();
+				
+			}else if( $this->is_settings_page() ){
+				self::class_settings();
+			}			
 		}
 	}
+	public function add_menus(){
+		
+		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( 'Class_admin_dynil' , 'content_admin' ) , 'dashicons-star-filled' , 70 );
+		add_submenu_page('dynil_menu_admin', __('Dynil Settings','dynil'), __('Settings') , 'manage_options','dynil_menu_settings', array( 'Class_settings_dynil' , 'content_settings') );
+			
+	}	
+	
 
 	/**
 	* @since 1.0
@@ -86,6 +99,7 @@ class Class_dynil
 		// Importando archivos de clases
 		include_once DYNIL_CLASSES . 'class-ajax-dynil.php';
 		include_once DYNIL_CLASSES . 'class-pages-dynil.php';
+		include_once DYNIL_CLASSES . 'class-settings-dynil.php';
 		include_once DYNIL_CLASSES . 'class-admin-dynil.php';
 		
 	}	
@@ -108,8 +122,6 @@ class Class_dynil
 				if ( ! array_key_exists( $hande_script , $this->scripts_admin ) ){
 								$this->scripts_admin[ $hande_script ] = $base_url;	
 
-				}else{
-					echo '<script>alert("El escript ya existe en admin")</script>';	
 				}
 				break;	
 
@@ -117,8 +129,6 @@ class Class_dynil
 			case 'site':
 				if ( ! array_key_exists($hande_script , $this->scripts_site ) ){
 					$this->scripts_site[ $hande_script ] = $base_url;					
-				}else{
-					echo '<script>alert("El escript ya existe en admin")</script>';	
 				}
 				break;
 			}		
@@ -196,6 +206,10 @@ class Class_dynil
 		
 	}
 
+	public function init_hooks(){
+		add_action('admin_menu',array( $this , 'add_menus') );
+	}
+
 	/** 
 	* @since 1.0
 	* @return Bool
@@ -203,6 +217,13 @@ class Class_dynil
 	*/
 	protected function is_set_page( ){
 		if( $_GET["page"] == 'dynil_menu_admin' ){
+			return true;
+		}
+		return false;
+	}
+
+	protected function is_settings_page(){
+		if( $_GET["page"] == 'dynil_menu_settings'){
 			return true;
 		}
 		return false;
@@ -231,6 +252,10 @@ class Class_dynil
 	*/
 	protected function class_admin(){
 		return Class_admin_dynil::instance();
+	}
+
+	protected function class_settings(){
+		return Class_settings_dynil::instance();
 	}
 
 

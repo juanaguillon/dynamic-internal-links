@@ -99,7 +99,8 @@ jQuery(document).ready(function($){
 			e.preventDefault();
 		
 	});
-	// $('#dynil_anex_pages').on('blur', dynil_clean_respond );
+	$('body').on('click', dynil_clean_respond );
+	$('.dynil_ajax_section .content').click(function(e ){ e.stopPropagation() });
 	$('#dynil_anex_pages').keyup(function( e ){		
 		
 		if( $( this ).val( ) == "" || e.keyCode == 8){
@@ -124,11 +125,13 @@ jQuery(document).ready(function($){
 			
 			if( $('.names_pages_selected').length > 0 ){
 				
+				var x = document.getElementsByClassName('names_pages_selected');				
+				check_boxes( x );
 				dynil_put_in_table();
 				dynil_clean_respond();
 				dynil_clean_ajax_text();
 				toggle_page_in_table();
-				
+
 			}
 			return false;
 		}else if( e.keyCode == 27  ){
