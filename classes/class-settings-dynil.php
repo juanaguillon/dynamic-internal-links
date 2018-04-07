@@ -40,6 +40,7 @@ class Class_settings_dynil extends Class_dynil
 		include_once DYNIL_CLASSES . 'class-content-settings-dynil.php';
 		static::$content = Class_content_settings_dynil::instance();
 	}
+	
 
 	public function content_settings(){
 		

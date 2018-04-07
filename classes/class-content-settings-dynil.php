@@ -43,8 +43,23 @@ class Class_content_settings_dynil extends Class_dynil
 		if ( $id_pages = get_option( 'dynil_set_pages' ) ){
 
 			foreach ( $id_pages as $id ){
-				echo dynil_wrap_content( get_the_title( $id ) );
+				echo dynil_wrap_content( get_the_title( $id ) , array( 
+					"class" => "dyn_all_pages"
+				) );
 			}
+		}else{
+			$this->pages_not_found();
 		}
-	}    
+	} 
+	
+	public function pages_not_found(){
+
+		?>
+		<div class="dyn_pages_not_found">
+			<h3><?php _e('You have not selected pages. Direct to your pages.','dynil'); ?></h3>
+			<button class="redirect"><?php _e('Let´t Go There','dynil'); ?></button>
+		</div>	
+		<?php
+		
+	}
 }

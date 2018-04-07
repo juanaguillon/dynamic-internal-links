@@ -60,5 +60,12 @@ function dynil_clean_pages( $pages ){
 
 }
 
+function dynil_is_set_page(){
+
+	if( isset( $_GET['dynil_menu_admin'] )) return true;
+	
+	return false;
+	
+}
 
  ?>

@@ -69,14 +69,12 @@ class Class_dynil
 	public function __construct( ){
 
 		if ( is_admin( ) ){
+			
 			$this->init_hooks();
-			$this->upload_files();
-			if ( $this->is_set_page() ){
-				self::class_admin();
-				
-			}else if( $this->is_settings_page() ){
-				self::class_settings();
-			}			
+			$this->upload_files();			
+			self::class_admin();
+			self::class_settings();
+					
 		}
 	}
 	public function add_menus(){
@@ -208,25 +206,6 @@ class Class_dynil
 
 	public function init_hooks(){
 		add_action('admin_menu',array( $this , 'add_menus') );
-	}
-
-	/** 
-	* @since 1.0
-	* @return Bool
-	* Verificar si esta en la pagina de seleccion de paginas.
-	*/
-	protected function is_set_page( ){
-		if( $_GET["page"] == 'dynil_menu_admin' ){
-			return true;
-		}
-		return false;
-	}
-
-	protected function is_settings_page(){
-		if( $_GET["page"] == 'dynil_menu_settings'){
-			return true;
-		}
-		return false;
 	}
 
 

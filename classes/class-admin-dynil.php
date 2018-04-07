@@ -124,7 +124,7 @@ class Class_admin_dynil extends Class_dynil
 			add_action( 'admin_notices' , array( $this , 'show_messages' ) );			
 		}
 
-		if( $this->is_set_page( ) ){
+		if( dynil_is_set_page( ) ){
 			add_action( 'admin_head', array( 'Class_content_admin_dynil' , 'messages_scripts' ) );		
 		}
 
