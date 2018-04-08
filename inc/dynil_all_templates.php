@@ -62,8 +62,16 @@ function dynil_clean_pages( $pages ){
 
 function dynil_is_set_page(){
 
-	if( isset( $_GET['dynil_menu_admin'] )) return true;
+	if( isset( $_GET['page'] ) && $_GET['page'] === "dynil_menu_admin") return true;
 	
+	return false;
+	
+}
+
+function dynil_is_insert_page(){
+
+	if( isset( $_GET['page']) && $_GET['page'] === "dynil_menu_settings") return true;
+
 	return false;
 	
 }

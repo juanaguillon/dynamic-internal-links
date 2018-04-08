@@ -43,7 +43,7 @@ class Class_request_dynil
 		foreach ( $resultes as $result ) {
 			$html_ret = '<span class="dyn_ajax_title">' . $result->post_title . '</span>';
 			$html_ret .= '<input type="hidden" class="dyn_ajax_id" value="' . $result->ID . '" >';
-			$html_ret .= '<input type="hidden" class="dyn_ajax_date" value="' . $result->post_date . '" >';;
+			$html_ret .= '<input type="hidden" class="dyn_ajax_date" value="' . $result->post_date . '" >';
 			echo dynil_wrap_content( $html_ret , array(
 				'class' => 'names_pages'
 			) );

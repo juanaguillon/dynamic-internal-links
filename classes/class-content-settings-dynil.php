@@ -32,21 +32,25 @@ class Class_content_settings_dynil extends Class_dynil
 		}
 	
 		return self::$instance;
-	}
+	}	
 
 	/** 
 	* @since 1.0
 	* Se mostraran las paginas que se han seleccionadas para la ejecucion del plugin.
 	*/
-	public function the_pages_setters( ){
+	public function content_the_pages( ){
 
 		if ( $id_pages = get_option( 'dynil_set_pages' ) ){
-
+			$cont = "";
 			foreach ( $id_pages as $id ){
-				echo dynil_wrap_content( get_the_title( $id ) , array( 
-					"class" => "dyn_all_pages"
-				) );
+				$cont.= "<div class='dyn_page_bd'>";
+				$cont.= "<p>" . get_the_title( $id ) . "</p>";
+				$cont.= "<input type='text' >";
+				$cont.= "<input type='hidden' name='inserting[]' value='{$id}'>";
+				$cont.= "</div>";
 			}
+
+			echo dynil_wrap_content( $cont , ['class'=>'dynil_setter_pages'] );
 		}else{
 			$this->pages_not_found();
 		}
@@ -62,4 +66,13 @@ class Class_content_settings_dynil extends Class_dynil
 		<?php
 		
 	}
+
+	public function content_submit_setters(){
+		?>
+		<div class="dyn_submit_setters">
+			<input type="submit" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">
+		</div>
+		<?php
+	} 
+	
 }
