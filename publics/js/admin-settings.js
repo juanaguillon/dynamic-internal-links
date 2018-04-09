@@ -1,6 +1,7 @@
-jQuery(function( $ ){
+jQuery(function( $ ){ 
 
-  var settings = new Sets( '.dyn_page_bd' );
-  settings.move_it();
+  var sett = new Sets( $('.dyn_page_bd') );
+  sett.mouseMove();
+  
   
 });
