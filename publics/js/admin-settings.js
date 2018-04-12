@@ -5,7 +5,12 @@ jQuery(function( $ ){
 
   
   $('.dyn_page_bd').children(':text').change( function( ){
-    sett.move_text( this, parseInt(jQuery( this ).val()) );
+    if ( isNaN( parseInt( jQuery(this).val() ) ) ) {
+      alert(Messages.noNumbers);
+      $( this ).val('').focus();
+      return;
+    } 
+    sett.move_text( this, $(this).val() ) ;
   }); 
   
   

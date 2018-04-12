@@ -204,8 +204,21 @@ class Class_dynil
 		
 	}
 
+	public function messages_scripts( ){
+  	?>
+		<script type="text/javascript">
+			var Messages = {
+				cantToTable: "<?php _e("This page is already in the table.","dynil"); ?>",
+				noNumbers: "<?php _e("You must enter only numbers.","dynil")  ?>"
+			}
+			
+		</script>
+  	<?php
+  }
+
 	public function init_hooks(){
 		add_action('admin_menu',array( $this , 'add_menus') );
+		add_action( 'admin_head', array( $this , 'messages_scripts' ) );
 	}
 
 

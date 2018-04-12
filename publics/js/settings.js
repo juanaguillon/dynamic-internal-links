@@ -9,11 +9,13 @@ var Sets = function( elements ){
     cloneObject: null,
     elemLength : jQuery( elements ).length,
     previus: false,
-    nextius: false
+    nextius: false,
+    test: 'first'
     
   }
   var objSets = this,
       defaults = objSets.defaults;
+  var vals = 0;
 
   this.mouseMove = function ( direction = 'prev' ){ 
 
@@ -81,19 +83,42 @@ var Sets = function( elements ){
   } 
   
   this.move_text = function( that, int ){
-    if ( isNaN(int) ) return;
-    console.log( 'here');
-    if( this.$el.children( '.val_priority' ) ){
 
-      jQuery(that).parent().prependTo( jQuery('.dynil_setter_pages') );
-
+    var $that = jQuery( that );
+    $that.parent().append('<span class="val_priority">' + int + '</span>');
+    if( this.$el.children( '.val_priority' ).length <= 1 ){
+      
+      $that.parent().prependTo( jQuery('.dynil_setter_pages') );
       
     }else{
       
+      var $elem = this.$el;
+      var childrens = $elem.children('.val_priority');
+      var recx = false;
+      
+      console.log( 'Each00');
+      childrens.each( function(){
+        
+        var th_int = parseInt(jQuery(this).text());
+        if ( th_int > vals ){
+          
+          recx = jQuery( this );
+          vals = parseInt(recx.text( ));
+        }
+        
+      });
+      console.log( vals );
+      console.log( recx );
+      if ( $that.val() > recx.text() ){
+        $that.parent().insertAfter( recx.parent() );
+      }else{
+        $that.parent().insertBefore( recx.parent() );
+      }
     }
+    
+    $that.remove();
 
-    
-    
+
   }
 }
 

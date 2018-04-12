@@ -55,16 +55,7 @@ class Class_content_admin_dynil extends Class_dynil
 
   }  
 
-  public function messages_scripts( ){
-  	?>
-		<script type="text/javascript">
-			var Messages = {
-				cantToTable: "<?php _e("This page is already in the table.","dynil"); ?>"
-			}
-			
-		</script>
-  	<?php
-  }
+  
 
  	/** 
 	* @since 1.0
