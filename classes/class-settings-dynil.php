@@ -59,8 +59,8 @@ class Class_settings_dynil extends Class_dynil
 	}
 	
 	public function scripts(){
-		$this->import_script( dynil_script_path('settings' , 'js' ), 'settings_javs', 'admin' );
-		$this->import_script( dynil_script_path('admin-settings' , 'js' ), 'admin_settings', 'admin' );
+		$this->import_script( dynil_script_path('settings' , 'js', true ), 'settings_javs', 'admin' );
+		$this->import_script( dynil_script_path('admin-settings' , 'js', true ), 'admin_settings', 'admin' );
 		$this->import_style( dynil_script_path('settings-style','css'),'settings_stiles','admin');
 	}
 
@@ -75,13 +75,9 @@ class Class_settings_dynil extends Class_dynil
 			"pages_unset" => array(
 				"message" => __('An error ocurred while inserted the pages. Try again.','dynil'),
 				"class"   => 'notice notice-error'
-			)
-			
-		);
-		
+			)			
+		);		
 	}
-
-
 
 	public function content_settings(){
 		
@@ -89,8 +85,13 @@ class Class_settings_dynil extends Class_dynil
 		<div class="wrap dynil_form_insert_pages">
 		<form action="" name="form_insert_pages" method="post">			
 			<?php 
+			if( get_option( 'dynil_set_pages' ) ){
 				static::$content->content_the_pages();
+				static::$content->content_self_structure();
 				static::$content->content_submit_setters();
+			}else{
+				static::$content->pages_not_found();
+			}
 			?>
 		</form>	
 		</div>
@@ -102,8 +103,18 @@ class Class_settings_dynil extends Class_dynil
 		if( $this->notice == null ) $this->notice_messages();
 	
 		$insertings = $_POST['inserting'];
+		$orderies = $_POST['priority_vals'];
+		$cout = array();
+		foreach ( $insertings as $index => $insert ){
 
-		if( update_option( 'dynil_inserted_pages', $insertings ) ){
+			if( array_key_exists( $index , $orderies ) ){
+				$cout[ $insert ] = $orderies[ $index ];
+			}else{
+				$cout[ $insert ] = '';
+			}
+		}
+
+		if( update_option( 'dynil_inserted_pages', $cout ) ){
 			$this->current_message = true;			
 		}else{
 			$this->current_message = false;

@@ -68,6 +68,8 @@ class Class_dynil
 	*/
 	public function __construct( ){
 
+		// Importando funciones 
+		include_once DYNIL_PATH . '/inc/dynil_all_templates.php';
 		if ( is_admin( ) ){
 			
 			$this->init_hooks();
@@ -75,11 +77,29 @@ class Class_dynil
 			self::class_admin();
 			self::class_settings();
 					
+		}else{
+			$this->init_in_front();
 		}
+	}
+
+	/** 
+	* @since 1.0
+	* Init en lado de front end.
+	*/
+	public function init_in_front( ){
+		include_once DYNIL_CLASSES . 'class-front-dynil.php';
+		
+		
+		if( get_option( 'dynil_inserted_pages' ) ){
+			$this->class_front(  );
+
+		}
+
+
 	}
 	public function add_menus(){
 		
-		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( 'Class_admin_dynil' , 'content_admin' ) , 'dashicons-star-filled' , 70 );
+		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( 'Class_admin_dynil' , 'content_admin' ) , 'dashicons-schedule' , 70 );
 		add_submenu_page('dynil_menu_admin', __('Dynil Settings','dynil'), __('Settings') , 'manage_options','dynil_menu_settings', array( 'Class_settings_dynil' , 'content_settings') );
 			
 	}	
@@ -89,10 +109,8 @@ class Class_dynil
 	* @since 1.0
 	* Inclue los archivos base, tales como clases y funciones princpales
 	*/
-	public function upload_files(){
+	public function upload_files(){		
 		
-		// Importando funciones 
-		include_once DYNIL_PATH . '/inc/dynil_all_templates.php';
 
 		// Importando archivos de clases
 		include_once DYNIL_CLASSES . 'class-ajax-dynil.php';
@@ -101,6 +119,8 @@ class Class_dynil
 		include_once DYNIL_CLASSES . 'class-admin-dynil.php';
 		
 	}	
+
+
 
 	/**
 	* @since 1.0
@@ -148,8 +168,8 @@ class Class_dynil
 
 				/** Cargar styles desde el sitio. */
 			case 'site':
-				if ( ! array_key_exists($handle_style , $this->scripts_site ) ){
-					$this->scripts_site[ $handle_style ] = $base_url;					
+				if ( ! array_key_exists($handle_style , $this->styles_site ) ){
+					$this->styles_site[ $handle_style ] = $base_url;					
 				}
 				break;
 			}		
@@ -248,6 +268,10 @@ class Class_dynil
 
 	protected function class_settings(){
 		return Class_settings_dynil::instance();
+	}
+
+	protected function class_front( $id = null ){
+		return Class_front_dynil::instance( $id );
 	}
 
 

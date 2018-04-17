@@ -1,0 +1,19 @@
+.dyn_cr_pages{  
+  text-align: center;
+  max-height: 280px;
+  min-height: 280px;
+  padding: 1em;  
+  box-shadow: 0 0 3px #dadada;  
+}
+.dyn_lined_pages{
+  width: 31.5%;
+  display: inline-block;
+  box-sizing: border-box;  
+  vertical-align: top;
+  margin: 0.5em;
+}
+.dyn_all_pages{
+  max-width: 1000px;
+  width: 98%;
+  margin: 0 auto;
+}

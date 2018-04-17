@@ -1,3 +1,58 @@
-.bd_clone,.dyn_page_bd{
-  cursor:move;
+*{
+  box-sizing: border-box;
+}
+
+.dyn_page_bd > p{
+  margin: 0;
+  width: 30%;
+  padding: 10px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin-bottom: 0.5em;
+  box-shadow: 0 0 3px lightgrey;
+}
+.dyn_page_bd > span {
+  padding: 10px;
+  display: inline-block;
+  background-color: #e6e6e6;
+  box-shadow: 0 0 3px #c4c4c4;
+  width: 40px;
+  color: #2b2828;
+  font-size: 14px;
+}
+
+input.dyn_input_change {
+    padding: 10px;
+    display: inline-block;
+    background-color: #e6e6e6;
+    box-shadow: 0 0 3px #c4c4c4;
+    width: 40px;
+    color: #2b2828;
+    font-size: 14px;
+}
+
+/* Estructura */
+.dyn_cr_structure{
+  margin-bottom:5px;
+}
+.dyn_box_structure{
+  width: 31%;  
+  box-shadow: 0 1px 1px #c7c7c7;
+  background-color: white;   
+  display: block;
+  overflow: hidden;
+}
+code.dyn_val_str{
+  font-size:13px;
+  font-weight: bold;
+  color:#4b4b4b;
+  width: 45px;
+  float: right;
+  padding: 12px 8px;
+  margin: 0;
+  text-align: center;
+}
+.dyn_wh_str{
+  padding:12px 8px;
+  float: left;  
 }

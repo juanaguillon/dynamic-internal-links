@@ -147,7 +147,6 @@ jQuery(document).ready(function($){
 					dynil_clean_respond();
 					$('#respond').append( resp );
 					
-					// $('#respond').append( resp );									
 				},
 				complete:function(){
 					toggle_page_in_table();

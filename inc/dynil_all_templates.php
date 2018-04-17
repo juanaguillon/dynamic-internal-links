@@ -1,8 +1,9 @@
 <?php 
 
-function dynil_script_path( $name, $typ ){
+function dynil_script_path( $name, $typ, $min = false ){
 
-	return plugins_url( 'publics/' . $typ . '/' .$name . '.' . $typ , dirname(__FILE__) );
+	$mins = ! $min ? '' : 'min.';
+	return plugins_url( 'publics/' . $typ . '/' .$name . '.' . $mins . $typ , dirname(__FILE__) );
 }
 
 function dynil_wrap_content( $content, $attrs = array() ){
@@ -76,4 +77,4 @@ function dynil_is_insert_page(){
 	
 }
 
- ?>
+

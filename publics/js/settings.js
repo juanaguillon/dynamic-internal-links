@@ -14,8 +14,10 @@ var Sets = function( elements ){
     
   }
   var objSets = this,
-      defaults = objSets.defaults;
-  var vals = 0;
+      defaults = objSets.defaults,
+      vals = 0,
+      recx = false,
+      minVal = 0;
 
   this.mouseMove = function ( direction = 'prev' ){ 
 
@@ -81,45 +83,123 @@ var Sets = function( elements ){
       console.log("|ePage| => " + ePage + " and |Starting| => " + starting );
     });    
   } 
-  
-  this.move_text = function( that, int ){
 
+  this.createAttrs = function( obj ){
+    var attrs = '';    
+    for( var k in obj ){
+      if ( !obj.hasOwnProperty( k ) ) continue;
+
+      attrs += ' ' + k + '="' + obj[k] + '"';
+    }
+    return attrs;
+  }
+
+  this.createInput = function( attrs ){
+    var html = '<input';
+    html += this.createAttrs( attrs );
+    html += ' >';
+    return html;
+  }
+
+  this.createElement = function( content, attrs ){
+    attrs.elem = attrs.elem || 'div';
+    var element = '<' + attrs.elem;
+    element+= this.createAttrs( attrs );
+    element+= ' >' + content + '</' + attrs.elem + '>';
+    return element
+    
+  }
+  
+  /**
+	* function Move Text
+	* Se usara esta funcion para mover los elementos (paginas) seleccionadas en la seccion de settings de plugin, por medio de integers.
+  */
+  this.move_text = function( that, int ){
     var $that = jQuery( that );
-    $that.parent().append('<span class="val_priority">' + int + '</span>');
-    if( this.$el.children( '.val_priority' ).length <= 1 ){
+    var op = {
+    	dir: 'after',
+    	parent: $that.parent(),
+
+    }    
+    
+    $that.after( this.createElement( int, { 'elem': 'span', 'class':'val_priority dyn_chance'} ));
+    $that.after(this.createInput({
+      type: 'hidden',
+      name: "priority_vals[]",
+      value: int
+    }));
+    
+
+    if( this.$el.children( '.val_priority' ).length == 1 ){
       
-      $that.parent().prependTo( jQuery('.dynil_setter_pages') );
+      op.parent.prependTo( jQuery('.dynil_setter_pages') );
       
-    }else{
-      
-      var $elem = this.$el;
-      var childrens = $elem.children('.val_priority');
-      var recx = false;
-      
-      console.log( 'Each00');
+    }else{      
+      var $elem = this.$el = jQuery( '.dyn_page_bd'),
+      	  childrens = $elem.children('.val_priority');
+
       childrens.each( function(){
+        op.th = jQuery( this );
+        op.th_int = parseInt( op.th.text() );
+        op.th_parent = op.th.parent();
+
+        var pos = {
+        	next: op.th_parent.next(),        	
+          prev: op.th_parent.prev()               	
+        }                   
+
+     		pos.next_children = pos.next.children('.val_priority');
+     		pos.prev_children = pos.prev.children('.val_priority');
         
-        var th_int = parseInt(jQuery(this).text());
-        if ( th_int > vals ){
-          
-          recx = jQuery( this );
-          vals = parseInt(recx.text( ));
+        if ( pos.next_children.length > 0 ){         
+          if (int >= op.th_int && parseInt( pos.next_children.text() ) >= int  ){
+
+            recx = op.th_parent;
+            vals = parseInt( recx.children('.val_priority').text() );
+
+          }else if( int <= op.th_int && ( parseInt( pos.prev.length ) == 0 || parseInt( pos.prev_children.text() >= int ) ) ){
+
+          	recx = op.th_parent;
+          	vals = parseInt( recx.children('.val_priority').text() );
+          	op.dir = 'before';
+
+          }
+        }else{
+          if( int > op.th_int ){           
+            recx = op.th_parent;
+            vals = parseInt( recx.children('.val_priority').text() );
+          }
         }
         
       });
-      console.log( vals );
-      console.log( recx );
-      if ( $that.val() > recx.text() ){
-        $that.parent().insertAfter( recx.parent() );
-      }else{
-        $that.parent().insertBefore( recx.parent() );
-      }
+
     }
-    
+    if( op.dir == 'after' ){
+
+      $that.parent().insertAfter( recx );
+
+    }else if( op.dir == 'before'){
+
+      $that.parent().insertBefore(recx);
+    }
     $that.remove();
 
 
   }
+
+  this.changeValue1 = function( elem ){
+
+    var clicked = $( elem );
+
+    this.TEtext = clicked.html();
+
+    clicked.after('<input type="text" class="dyn_input_change" value="' + this.TEtext + '">');
+    clicked.remove();
+  }
+
+  this.changeValue2 = function( elem ){
+
+  }  
 }
 
   
