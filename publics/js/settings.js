@@ -187,19 +187,45 @@ var Sets = function( elements ){
 
   }
 
-  this.changeValue1 = function( elem ){
+  this.change = function( elem, befSpan = false ){
+    
+    var clicked = jQuery( elem );
+    if ( clicked.hasClass('dyn_chance') ){                 
 
-    var clicked = $( elem );
+      var text = jQuery(this).html();
+      jQuery(this).after(objSets.createInput({
+        "type": "text",
+        "class": "dyn_input_change",
+        "value": text
+      }));
+      
+    }else if( clicked.hasClass('dyn_input_change')) {
+      var elemVal = jQuery( elem ).val();
+      if( befSpan ){
+        this.move_text( elem,  elemVal );
+      }else{
+        clicked.after( this.createElement( elemVal, {
+          elem: 'code',
+          class: 'dyn_val_str dyn_chance'
+        } ) );
+        
+      }      
 
-    this.TEtext = clicked.html();
+    }
+    // else {
+      
+    //   clicked.change( function( ){
 
-    clicked.after('<input type="text" class="dyn_input_change" value="' + this.TEtext + '">');
-    clicked.remove();
+    //     var text = jQuery( this ).val( );
+    //     jQuery( this ).after( )
+        
+    //   });
+      
+    // }   
+    // clicked.remove();
+
   }
-
-  this.changeValue2 = function( elem ){
-
-  }  
+ 
 }
 
   

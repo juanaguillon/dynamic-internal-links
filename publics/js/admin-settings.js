@@ -8,10 +8,12 @@ jQuery(function( $ ){
       alert(Messages.noNumbers);
       $( this ).val('').focus();
       return;
-    }
-    sett.move_text(this, $(this).val());      
-    
-  });     
+    }          
+    sett.change( $( this ), true );
+
+  });  
+  
+  // sett.change( $('.dyn_chance') );
   
 
   $('#dyn_submit_setter').click( function( ){
