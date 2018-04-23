@@ -9,11 +9,24 @@ jQuery(function( $ ){
       $( this ).val('').focus();
       return;
     }          
-    sett.change( $( this ), true );
+    sett.move_text( this );
 
-  });  
+  }); 
   
-  // sett.change( $('.dyn_chance') );
+  if( $('.val_priority').length > 0 ){
+
+    $('.val_priority').dblclick( function( ){
+      sett.toInput( this );
+      $('.change_text').click( function( ){
+        
+        var elm = $( this ).prev( 'input' );           
+        sett.move_text( elm );
+        return false;
+
+      });
+    });
+    
+  }
   
 
   $('#dyn_submit_setter').click( function( ){

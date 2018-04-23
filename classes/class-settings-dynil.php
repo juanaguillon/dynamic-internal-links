@@ -38,6 +38,7 @@ class Class_settings_dynil extends Class_dynil
 	public static function instance(){
 		if ( self::$instance == null ){
 			self::$instance = new self();
+			
 		}
 	
 		return self::$instance;

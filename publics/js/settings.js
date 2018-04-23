@@ -84,10 +84,11 @@ var Sets = function( elements ){
     });    
   } 
 
-  this.createAttrs = function( obj ){
+  this.createAttrs = function( obj, exc ){
     var attrs = '';    
     for( var k in obj ){
       if ( !obj.hasOwnProperty( k ) ) continue;
+      if( obj[k] == exc )continue;
 
       attrs += ' ' + k + '="' + obj[k] + '"';
     }
@@ -104,7 +105,7 @@ var Sets = function( elements ){
   this.createElement = function( content, attrs ){
     attrs.elem = attrs.elem || 'div';
     var element = '<' + attrs.elem;
-    element+= this.createAttrs( attrs );
+    element+= this.createAttrs( attrs, attrs.elem  );
     element+= ' >' + content + '</' + attrs.elem + '>';
     return element
     
@@ -114,32 +115,30 @@ var Sets = function( elements ){
 	* function Move Text
 	* Se usara esta funcion para mover los elementos (paginas) seleccionadas en la seccion de settings de plugin, por medio de integers.
   */
-  this.move_text = function( that, int ){
+  this.move_text = function( that ){
+    
     var $that = jQuery( that );
+    var int = $that.val()
     var op = {
     	dir: 'after',
     	parent: $that.parent(),
 
     }    
-    
-    $that.after( this.createElement( int, { 'elem': 'span', 'class':'val_priority dyn_chance'} ));
-    $that.after(this.createInput({
-      type: 'hidden',
-      name: "priority_vals[]",
-      value: int
-    }));
-    
 
     if( this.$el.children( '.val_priority' ).length == 1 ){
       
       op.parent.prependTo( jQuery('.dynil_setter_pages') );
       
+      
     }else{      
+     
       var $elem = this.$el = jQuery( '.dyn_page_bd'),
       	  childrens = $elem.children('.val_priority');
-
+      console.log('start loop');
       childrens.each( function(){
+        
         op.th = jQuery( this );
+        console.log( op.th[0] );
         op.th_int = parseInt( op.th.text() );
         op.th_parent = op.th.parent();
 
@@ -182,47 +181,32 @@ var Sets = function( elements ){
 
       $that.parent().insertBefore(recx);
     }
+    $that.after(this.createElement(int, { 'elem': 'span', 'class': 'val_priority dyn_chance' }));
+    $that.after(this.createInput({
+      type: 'hidden',
+      name: "priority_vals[]",
+      value: int
+    }));
     $that.remove();
 
 
   }
 
-  this.change = function( elem, befSpan = false ){
-    
-    var clicked = jQuery( elem );
-    if ( clicked.hasClass('dyn_chance') ){                 
+  this.toInput = function( elem ){
+    var elem = jQuery( elem );
+    elem.next('input[name="priority_vals[]"]').remove();
+    elem.after( this.createElement( Messages.save, {
+      "elem": 'button',
+      "class":'button change_text',
 
-      var text = jQuery(this).html();
-      jQuery(this).after(objSets.createInput({
-        "type": "text",
-        "class": "dyn_input_change",
-        "value": text
-      }));
-      
-    }else if( clicked.hasClass('dyn_input_change')) {
-      var elemVal = jQuery( elem ).val();
-      if( befSpan ){
-        this.move_text( elem,  elemVal );
-      }else{
-        clicked.after( this.createElement( elemVal, {
-          elem: 'code',
-          class: 'dyn_val_str dyn_chance'
-        } ) );
-        
-      }      
+    } ));
+    elem.after( this.createInput({
+      "value": elem.html(),
+      "class": 'dyn_input_change',
+      "type":'text'
+    }) );
 
-    }
-    // else {
-      
-    //   clicked.change( function( ){
-
-    //     var text = jQuery( this ).val( );
-    //     jQuery( this ).after( )
-        
-    //   });
-      
-    // }   
-    // clicked.remove();
+    elem.remove();
 
   }
  
