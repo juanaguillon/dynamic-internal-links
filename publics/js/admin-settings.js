@@ -16,17 +16,14 @@ jQuery(function( $ ){
   if( $('.val_priority').length > 0 ){
 
     $('.val_priority').dblclick( function( ){
-      sett.toInput( this );
-      $('.change_text').click( function( ){
-        
-        var elm = $( this ).prev( 'input' );           
-        sett.move_text( elm );
-        return false;
-
-      });
+      sett.toInput( this );     
     });
     
   }
+
+  $('.dyn_val_str').dblclick( function( ){
+    sett.inCode( this );
+  })
   
 
   $('#dyn_submit_setter').click( function( ){

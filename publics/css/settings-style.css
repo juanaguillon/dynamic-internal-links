@@ -42,6 +42,11 @@ input.dyn_input_change {
   display: block;
   overflow: hidden;
 }
+.dyn_box_structure > .dyn_input_change{
+  float:right;
+  font-family: monospace;
+  width: 15%;
+}
 code.dyn_val_str{
   font-size:13px;
   font-weight: bold;
@@ -54,5 +59,30 @@ code.dyn_val_str{
 }
 .dyn_wh_str{
   padding:12px 8px;
-  float: left;  
+  float: left; 
+}
+.dyn_page_bd .button-cc{
+  background-color:#991b1b;
+}
+.dyn_page_bd .button-save{
+  background-color: #1b994b;
+}
+.button-save, .button-cc{
+  border:none;
+  border-radius: 3px;
+  padding:5px 10px;
+  width: 85px;
+  margin:0 3px;
+  color:white;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.9;
+  box-shadow: 1px 1px 1px #808080;
+  text-shadow: 1px 2px 2px #000000;
+}
+.button-cc:hover, .button-save:hover{
+  opacity: 1;
+  box-shadow:2px 2px 3px #4e4e4e;
+  
 }

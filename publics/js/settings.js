@@ -134,11 +134,10 @@ var Sets = function( elements ){
      
       var $elem = this.$el = jQuery( '.dyn_page_bd'),
       	  childrens = $elem.children('.val_priority');
-      console.log('start loop');
+      
       childrens.each( function(){
         
-        op.th = jQuery( this );
-        console.log( op.th[0] );
+        op.th = jQuery( this );      
         op.th_int = parseInt( op.th.text() );
         op.th_parent = op.th.parent();
 
@@ -188,26 +187,66 @@ var Sets = function( elements ){
       value: int
     }));
     $that.remove();
-
-
+    jQuery( '.val_priority').dblclick(function( ){
+      objSets.toInput( this );
+      console.log('toIn')
+    });
   }
 
   this.toInput = function( elem ){
     var elem = jQuery( elem );
     elem.next('input[name="priority_vals[]"]').remove();
-    elem.after( this.createElement( Messages.save, {
-      "elem": 'button',
-      "class":'button change_text',
-
-    } ));
-    elem.after( this.createInput({
-      "value": elem.html(),
-      "class": 'dyn_input_change',
-      "type":'text'
-    }) );
+    
+    var button_save = this.createElement(Messages.save, {
+          "elem": 'button',
+          "class": 'button-save change_text'
+        }),
+        button_cancl = this.createElement(Messages.cancel, {
+          "class": "button-cc cancel_text",
+          "elem": 'button'
+        }),
+        inp = this.createInput({
+          "value": elem.html(),
+          "class": 'dyn_input_change',
+          "type": 'text'
+        });
+    
+    elem.after( [inp,button_save,button_cancl] );
 
     elem.remove();
+    jQuery('.change_text').click( function( ){
+      var elm = jQuery(this).prev('input');
+      jQuery( this ).next('.cancel_text').remove();
+      jQuery( this ).remove();
+      objSets.move_text( elm );      
+      return false;      
+    });
+    jQuery('.cancel_text').click( function( ){
+      
+      var elm = jQuery(this).parent().children('input.dyn_input_change');
+      jQuery(this).prev('.change_text').remove();
+      jQuery(this).remove();
+      objSets.move_text(elm);
+      return false; 
 
+    });
+
+  }
+  this.inCode = function( elm ){
+    var this_el = jQuery( elm );
+    var text = this_el.text();
+    
+    this_el.after( this.createInput({
+      "value": text,
+      "type": 'text',
+      "class":'dyn_input_change'      
+    }));
+    this_el.remove();
+
+
+
+
+    
   }
  
 }

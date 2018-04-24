@@ -230,7 +230,8 @@ class Class_dynil
 			var Messages = {
 				cantToTable: "<?php _e("This page is already in the table.","dynil"); ?>",
 				noNumbers: "<?php _e("You must enter only numbers.","dynil")  ?>",
-				save: "<?php _e("Save") ?>"
+				save: "<?php _e("Save") ?>",
+				cancel: "<?php _e('Cancel') ?>"
 			}
 			
 		</script>
