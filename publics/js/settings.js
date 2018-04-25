@@ -1,6 +1,48 @@
+var Elmt = function( ){
+  this.structures = {};
+  this.manyElements = function( elems ){
+    var allElm = '';
+    for( var i = 0; i < elems.length ; i++ ){
+      allElm += elems[i];
+    }
+    return allElm;
+  }
+  this.createCroqs = function( id, sctructure ){
+    if ( ! ( id in this.structures ) ){
+      var archive = '';
+
+      if( sctructure === Array ){
+        // If is a array
+        
+        archive = this.manyElements( sctructure );
+      }else if( typeof sctructure == 'string' ){
+        // If is a string
+        
+        archive = sctructure;
+      }else if( typeof sctructure == 'object' ){
+        
+        
+        // if is object (not array)
+        for ( var k in sctructure ){
+          if( ! sctructure.hasOwnProperty( k ) ) return;
+          
+          archive += sctructure[k];
+        }
+      }
+      this.structures[ id ] = archive;      
+    }    
+  } 
+
+  this.getCroqs = function( id ){    
+    if(  this.structures.hasOwnProperty( id ) ){      
+      return this.structures[ id ] ;
+    }
+  }
+}
+
 var Sets = function( elements ){ 
 
-  
+  this.theElements = new Elmt();
   this.$el = jQuery(elements);
   
   this.defaults = {    
@@ -125,7 +167,7 @@ var Sets = function( elements ){
 
     }    
 
-    if( this.$el.children( '.val_priority' ).length == 1 ){
+    if( this.$el.children( '.val_priority' ).length == 0 ){
       
       op.parent.prependTo( jQuery('.dynil_setter_pages') );
       
@@ -180,6 +222,7 @@ var Sets = function( elements ){
 
       $that.parent().insertBefore(recx);
     }
+    
     $that.after(this.createElement(int, { 'elem': 'span', 'class': 'val_priority dyn_chance' }));
     $that.after(this.createInput({
       type: 'hidden',
@@ -193,45 +236,21 @@ var Sets = function( elements ){
     });
   }
 
-  this.toInput = function( elem ){
+  this.toInput = function( elem, add, func = null ){
     var elem = jQuery( elem );
     elem.next('input[name="priority_vals[]"]').remove();
+    var input = this.createInput( {
+      'value': elem.html(),
+      'type':'text',
+      "class": 'dyn_input_change',
+    } );
     
-    var button_save = this.createElement(Messages.save, {
-          "elem": 'button',
-          "class": 'button-save change_text'
-        }),
-        button_cancl = this.createElement(Messages.cancel, {
-          "class": "button-cc cancel_text",
-          "elem": 'button'
-        }),
-        inp = this.createInput({
-          "value": elem.html(),
-          "class": 'dyn_input_change',
-          "type": 'text'
-        });
-    
-    elem.after( [inp,button_save,button_cancl] );
-
+    elem.after( [ input, add ] );
     elem.remove();
-    jQuery('.change_text').click( function( ){
-      var elm = jQuery(this).prev('input');
-      jQuery( this ).next('.cancel_text').remove();
-      jQuery( this ).remove();
-      objSets.move_text( elm );      
-      return false;      
-    });
-    jQuery('.cancel_text').click( function( ){
-      
-      var elm = jQuery(this).parent().children('input.dyn_input_change');
-      jQuery(this).prev('.change_text').remove();
-      jQuery(this).remove();
-      objSets.move_text(elm);
-      return false; 
-
-    });
-
+    
+    func;    
   }
+
   this.inCode = function( elm ){
     var this_el = jQuery( elm );
     var text = this_el.text();
@@ -243,10 +262,6 @@ var Sets = function( elements ){
     }));
     this_el.remove();
 
-
-
-
-    
   }
  
 }

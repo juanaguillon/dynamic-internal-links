@@ -104,14 +104,16 @@ class Class_settings_dynil extends Class_dynil
 		if( $this->notice == null ) $this->notice_messages();
 	
 		$insertings = $_POST['inserting'];
-		$orderies = $_POST['priority_vals'];
+		$orderies = $_POST['priority_vals'] ;
 		$cout = array();
 		foreach ( $insertings as $index => $insert ){
+			if( ! empty ($orderies) ){
 
-			if( array_key_exists( $index , $orderies ) ){
-				$cout[ $insert ] = $orderies[ $index ];
-			}else{
-				$cout[ $insert ] = '';
+				if( array_key_exists( $index , $orderies ) ){
+					$cout[ $insert ] = $orderies[ $index ];
+				}else{
+					$cout[ $insert ] = '';
+				}
 			}
 		}
 

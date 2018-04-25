@@ -56,21 +56,38 @@ class Class_front_dynil extends Class_dynil
 
   public function get_html_another_pages( $id ){  	
 		$count_per = count($this->pages) * ( 70 / 100 );
-		$arr_total = array_rand( $this->pages, $count_per );
-  	foreach( $arr_total as $id_page ){			
-			if ( $id == $id_page ){
-				continue;
+		$arr_total = array_rand( $this->pages, $count_per ) ;
+		if(  $count_per < 1 ){ return; }
+		
+		if( ! is_array( $arr_total ) ){
+			if ( $id == $arr_total ){
+				return;		
 			}
-
-			$html .= '<a href="' . get_permalink( $id_page ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
+			$html = '<a href="' . get_permalink( $arr_total ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
 			
-  		$html .= '<h3>' . get_the_title( $id_page ) . '</h3>';
-      if( has_post_thumbnail( $id_page ) ){
-        $html.= get_the_post_thumbnail( $id_page, 'thumbnail' );
+  		$html .= '<h3>' . get_the_title( $arr_total ) . '</h3>';
+      if( has_post_thumbnail( $arr_total ) ){
+        $html.= get_the_post_thumbnail( $arr_total, 'thumbnail' );
       }
 
       $html .= '</div></a>';
-  	}
+		}else{
+			foreach( $arr_total as $id_page ){			
+				if ( $id == $id_page ){
+					continue;
+				}
+	
+				$html .= '<a href="' . get_permalink( $id_page ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
+				
+				$html .= '<h3>' . get_the_title( $id_page ) . '</h3>';
+				if( has_post_thumbnail( $id_page ) ){
+					$html.= get_the_post_thumbnail( $id_page, 'thumbnail' );
+				}
+	
+				$html .= '</div></a>';
+			}
+
+		}
   	
   	return $html;
 
@@ -79,7 +96,8 @@ class Class_front_dynil extends Class_dynil
   public function change_hook( $content ){
   	$returned = $content;
     global $post;
-    $this->this_page = $post->ID;
+		$this->this_page = $post->ID;
+		
   	foreach( $this->pages as $id_page => $order ){
   		if( is_page() && $this->this_page == $id_page  ){
 
