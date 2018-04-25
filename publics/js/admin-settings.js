@@ -20,7 +20,7 @@ jQuery(function( $ ){
       return false;
     });
   }
-  xxxxxx
+  
   
 
   var prefEl = {
