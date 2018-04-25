@@ -10,6 +10,7 @@ jQuery(function( $ ){
       sett.move_text(elm);
       return false;
     });
+    
     $('.cancel_text').click(function () {
       
       var elm = $(this).parent().children('input.dyn_input_change');
