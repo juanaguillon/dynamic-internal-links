@@ -106,7 +106,7 @@ class Class_content_settings_dynil extends Class_dynil
 		foreach( $struct as $str => $wh ){
 
 			$html .= '<div class="dyn_cr_structure"><div class="dyn_box_structure">';			
-			$html .= '<span class="dyn_wh_str">' . $wh . ': </span><code class="dyn_val_str dyn_chance">'. $str . '</code>';
+			$html .= '<p class="dyn_wh_str">' . $wh . ': </p><code class="dyn_val_str dyn_chance">'. $str . '</code>';
 			$html .= '</div></div>';
 			
 		}

@@ -34,37 +34,38 @@ input.dyn_input_change {
 /* Estructura */
 .dyn_cr_structure{
   margin-bottom:5px;
+  position:relative;
 }
-.dyn_box_structure{
-  width: 31%;  
-  box-shadow: 0 1px 1px #c7c7c7;
-  background-color: white;   
-  display: block;
-  overflow: hidden;
-}
-.dyn_box_structure > .dyn_input_change{
-  float:right;
+.dyn_box_structure > .dyn_input_change{  
   font-family: monospace;
-  width: 15%;
+  vertical-align: top;
 }
 code.dyn_val_str{
   font-size:13px;
   font-weight: bold;
   color:#4b4b4b;
-  width: 45px;
-  float: right;
+  min-width: 45px;
   padding: 12px 8px;
+  display: inline-block;
+  vertical-align: top;
   margin: 0;
   text-align: center;
 }
 .dyn_wh_str{
+  box-shadow: 0 1px 1px #c7c7c7;
+  background-color: white;   
   padding:12px 8px;
-  float: left; 
+  width: 25%;
+  display: inline-block;
+  margin: 0;
 }
-.dyn_page_bd .button-cc{
+.dyn_box_structure > .dyn_input_change{
+  width: 60px;
+}
+button.button-cc{
   background-color:#991b1b;
 }
-.dyn_page_bd .button-save{
+button.button-save{
   background-color: #1b994b;
 }
 .button-save, .button-cc{

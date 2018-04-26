@@ -236,7 +236,7 @@ var Sets = function( elements ){
     });
   }
 
-  this.toInput = function( elem, add, func = null ){
+  this.toInput = function (elem, add, callback = function() {} ){
     var elem = jQuery( elem );
     elem.next('input[name="priority_vals[]"]').remove();
     var input = this.createInput( {
@@ -247,20 +247,21 @@ var Sets = function( elements ){
     
     elem.after( [ input, add ] );
     elem.remove();
+    callback();
     
-    func;    
   }
 
-  this.inCode = function( elm ){
+  this.inCode = function( elm, add, callback = function(){} ){
     var this_el = jQuery( elm );
     var text = this_el.text();
-    
-    this_el.after( this.createInput({
+    var inpt = this.createInput( {
       "value": text,
       "type": 'text',
-      "class":'dyn_input_change'      
-    }));
+      "class": 'dyn_input_change'   
+    });
+    this_el.after([inpt, add ]);
     this_el.remove();
+    callback();
 
   }
  
