@@ -1,3 +1,4 @@
+alert('jeje');
 var Elmt = function( ){
   this.structures = {};
   this.manyElements = function( elems ){
@@ -13,39 +14,39 @@ var Elmt = function( ){
 
       if( sctructure === Array ){
         // If is a array
-        
+
         archive = this.manyElements( sctructure );
       }else if( typeof sctructure == 'string' ){
         // If is a string
-        
+
         archive = sctructure;
       }else if( typeof sctructure == 'object' ){
-        
-        
+
+
         // if is object (not array)
         for ( var k in sctructure ){
           if( ! sctructure.hasOwnProperty( k ) ) return;
-          
+
           archive += sctructure[k];
         }
       }
-      this.structures[ id ] = archive;      
-    }    
-  } 
+      this.structures[ id ] = archive;
+    }
+  }
 
-  this.getCroqs = function( id ){    
-    if(  this.structures.hasOwnProperty( id ) ){      
+  this.getCroqs = function( id ){
+    if(  this.structures.hasOwnProperty( id ) ){
       return this.structures[ id ] ;
     }
   }
 }
 
-var Sets = function( elements ){ 
+var Sets = function( elements ){
 
   this.theElements = new Elmt();
   this.$el = jQuery(elements);
-  
-  this.defaults = {    
+
+  this.defaults = {
     clicking: false,
     start: 0,
     cloneObject: null,
@@ -53,7 +54,7 @@ var Sets = function( elements ){
     previus: false,
     nextius: false,
     test: 'first'
-    
+
   }
   var objSets = this,
       defaults = objSets.defaults,
@@ -61,16 +62,16 @@ var Sets = function( elements ){
       recx = false,
       minVal = 0;
 
-  this.mouseMove = function ( direction = 'prev' ){ 
+  this.mouseMove = function ( direction = 'prev' ){
 
     this.$el.mousedown( function(  ){
 
       if ( defaults.elemLength < 2 ){
         return;
-      }      
-      
+      }
+
       objSets.defaults.clicking = true;
-      
+
       var thatEl = jQuery( this );
       thatEl.prev( ).length > 0 ? defaults.previus = true : false ;
       thatEl.next( ).length > 0 ? defaults.nextius = true: false;
@@ -83,7 +84,7 @@ var Sets = function( elements ){
       }
 
       var cloned = objSets.defaults.cloneObject = jQuery( this ).clone();
-      
+
     });
 
     jQuery( document ).mouseup( function( ){
@@ -94,24 +95,24 @@ var Sets = function( elements ){
       if( cloned != null ){
         // jQuery('.bd_clone').remove();
       }
-      
+
     });
 
     this.$el.mousemove( function( e ){
 
-      
-      if ( ! objSets.defaults.clicking  ) return false; 
-      
+
+      if ( ! objSets.defaults.clicking  ) return false;
+
       var cloned = objSets.defaults.cloneObject;
-      
+
       cloned.css({
         "position":"absolute",
         "left": ( e.pageX - (jQuery('#wpbody').offset().left ) - (cloned.width() / 2) ) ,
         "top": ( e.pageY - (jQuery('#wpbody').offset().top ) - (cloned.height() / 2) )
-        
+
       }).addClass( 'bd_clone' ).prop('disabled',true);
       jQuery(this).after(cloned);
-      
+
       console.log( this );
 
       var ePage = e.pageY - ( jQuery('#wpbody').offset().top ),
@@ -123,11 +124,11 @@ var Sets = function( elements ){
         console.log( 'box Changed');
       }
       console.log("|ePage| => " + ePage + " and |Starting| => " + starting );
-    });    
-  } 
+    });
+  }
 
   this.createAttrs = function( obj, exc ){
-    var attrs = '';    
+    var attrs = '';
     for( var k in obj ){
       if ( !obj.hasOwnProperty( k ) ) continue;
       if( obj[k] == exc )continue;
@@ -150,48 +151,48 @@ var Sets = function( elements ){
     element+= this.createAttrs( attrs, attrs.elem  );
     element+= ' >' + content + '</' + attrs.elem + '>';
     return element
-    
+
   }
-  
+
   /**
 	* function Move Text
 	* Se usara esta funcion para mover los elementos (paginas) seleccionadas en la seccion de settings de plugin, por medio de integers.
   */
   this.move_text = function( that ){
-    
+
     var $that = jQuery( that );
     var int = $that.val()
     var op = {
     	dir: 'after',
     	parent: $that.parent(),
 
-    }    
+    }
 
     if( this.$el.children( '.val_priority' ).length == 0 ){
-      
+
       op.parent.prependTo( jQuery('.dynil_setter_pages') );
-      
-      
-    }else{      
-     
+
+
+    }else{
+
       var $elem = this.$el = jQuery( '.dyn_page_bd'),
       	  childrens = $elem.children('.val_priority');
-      
+
       childrens.each( function(){
-        
-        op.th = jQuery( this );      
+
+        op.th = jQuery( this );
         op.th_int = parseInt( op.th.text() );
         op.th_parent = op.th.parent();
 
         var pos = {
-        	next: op.th_parent.next(),        	
-          prev: op.th_parent.prev()               	
-        }                   
+        	next: op.th_parent.next(),
+          prev: op.th_parent.prev()
+        }
 
      		pos.next_children = pos.next.children('.val_priority');
      		pos.prev_children = pos.prev.children('.val_priority');
-        
-        if ( pos.next_children.length > 0 ){         
+
+        if ( pos.next_children.length > 0 ){
           if (int >= op.th_int && parseInt( pos.next_children.text() ) >= int  ){
 
             recx = op.th_parent;
@@ -205,12 +206,12 @@ var Sets = function( elements ){
 
           }
         }else{
-          if( int > op.th_int ){           
+          if( int > op.th_int ){
             recx = op.th_parent;
             vals = parseInt( recx.children('.val_priority').text() );
           }
         }
-        
+
       });
 
     }
@@ -222,7 +223,7 @@ var Sets = function( elements ){
 
       $that.parent().insertBefore(recx);
     }
-    
+
     $that.after(this.createElement(int, { 'elem': 'span', 'class': 'val_priority dyn_chance' }));
     $that.after(this.createInput({
       type: 'hidden',
@@ -244,11 +245,11 @@ var Sets = function( elements ){
       'type':'text',
       "class": 'dyn_input_change',
     } );
-    
+
     elem.after( [ input, add ] );
     elem.remove();
     callback();
-    
+
   }
 
   this.inCode = function( elm, add, callback = function(){} ){
@@ -257,14 +258,12 @@ var Sets = function( elements ){
     var inpt = this.createInput( {
       "value": text,
       "type": 'text',
-      "class": 'dyn_input_change'   
+      "class": 'dyn_input_change'
     });
     this_el.after([inpt, add ]);
     this_el.remove();
     callback();
 
   }
- 
-}
 
-  
+}

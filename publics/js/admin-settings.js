@@ -25,39 +25,44 @@ jQuery(function( $ ){
   }
 
   // Input to code
-  function sec_int( ){
-    function get_the_code( elem ){
+  function sec_int( current ){
 
-      return Element.manyElements( [
-      sett.createElement($(elem).val(), {
-        elem: 'code',
-        class: 'dyn_val_str dyn_chance'
-      }),
-      sett.createInput({
-        type: 'hidden',
-        name: 'interk_structures',
-        value: $( elem).val()
-      })
-      
-      ] )
+    function get_the_code( elem, inHidden = true ){
+
+      var proccess = [
+        sett.createElement( elem , {
+          elem: 'code',
+          class: 'dyn_val_str dyn_chance'
+        })
+      ];
+      if( inHidden ){
+
+        proccess.push( sett.createInput( {
+          type: 'hidden',
+          name: 'interk_structures',
+          value: elem
+        } ) );
+      }
+      return Element.manyElements( proccess )
       
     }
+    var current_value = $(current);
     $('.change_text').click(function () {     
 
       var elm = $(this).parent().children('input');
       $(this).next('.cancel_text').remove();
       $(this).remove();  
-      elm.after( get_the_code( elm ) ); 
+      elm.after( get_the_code( elm.val() ) ); 
       elm.remove();  
       return false;
     });
 
     $('.cancel_text').click(function () {
 
-      var elm = $(this).parent().children('input.dyn_input_change');
+      var elm = $(this).parent().children('input:text');
       $(this).prev('.change_text').remove();
       $(this).remove();
-      elm.after(get_the_code( elm )); 
+      elm.after( get_the_code( $(current_value).text(), false )); 
       elm.remove();        
       return false;
     });
@@ -72,9 +77,9 @@ jQuery(function( $ ){
     button_cancel: sett.createElement(Messages.cancel, {
       "class": "button-cc cancel_text",
       "elem": 'button'
-    })
-    
+    })    
   }
+  
   Element.createCroqs( 'save_cancel', prefEl );  
   
   $('.dyn_page_bd').children(':text').change( function( ){
@@ -99,7 +104,10 @@ jQuery(function( $ ){
   }
 
   $('.dyn_val_str').dblclick( function( ){
-    sett.inCode( this, Element.getCroqs( 'save_cancel'), sec_int );
+    var objC = this;
+    sett.inCode( this, Element.getCroqs( 'save_cancel'), function( ){
+      sec_int( objC );
+    } );
   })
   
 
