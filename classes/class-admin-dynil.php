@@ -79,7 +79,7 @@ class Class_admin_dynil extends Class_dynil
 		?>
 		
 		<div class="wrap dynil_content_options">
-			<h1><?php _e('Internal Link Options', DYNIL_DOMAIN ); ?></h1>
+			<h1><?php _e('Internal Link Options', 'dynil' ); ?></h1>
 			<div class="content">
 				<form name="dyn_form_send_pages" method="post" action="<?php echo admin_url('admin-post.php'); ?>">
 					<div class="dynil_ajax_section">					

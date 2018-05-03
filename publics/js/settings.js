@@ -1,4 +1,4 @@
-alert('jeje');
+
 var Elmt = function( ){
   this.structures = {};
   this.manyElements = function( elems ){
@@ -230,11 +230,7 @@ var Sets = function( elements ){
       name: "priority_vals[]",
       value: int
     }));
-    $that.remove();
-    jQuery( '.val_priority').dblclick(function( ){
-      objSets.toInput( this );
-      console.log('toIn')
-    });
+    $that.remove();    
   }
 
   this.toInput = function (elem, add, callback = function() {} ){

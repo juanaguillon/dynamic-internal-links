@@ -74,6 +74,12 @@ class Class_content_settings_dynil extends Class_dynil
 		}
 	} 
 	
+	/**
+	* @since 1.0
+	* 
+	* Si no ha seleccionado ninguna pagina en la seccion de seleccion de pagginas del plugin
+	* se mostrara un mensaje informando que no se ha seleccionado paginas para modificar.
+	*/
 	public function pages_not_found(){
 
 		?>
@@ -85,35 +91,65 @@ class Class_content_settings_dynil extends Class_dynil
 		
 	}
 
+	/**
+	* @since 1.0
+	* 
+	* Input | Enviar el formulario
+	*/
+
 	public function content_submit_setters(){
 		?>
 		<div class="dyn_submit_setters">
-			<input type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">
+			<input type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">			
 		</div>
 		<?php
 	} 
 	
+	/**
+	* @since 1.0
+	* 
+	*	Esta funcion dejara que el usuario (Admin) logre añadir su respectivo HTML.
+	* Por defecto viene con la estructura h3 - div - p 
+	*/
+	
 	public function content_self_structure( ){
 
-		$struct = get_option( 'dynil_self_structure' ) == true ? get_option( 'dynil_self_structure' ): array(
-			'h3'  => __('The title post', 'dynil') ,
-			'div' => __('The parent element of Image', 'dynil') ,
-			'p'	  => __('The description of page', 'dynil')
+		$texting = array( 
+			__("The page's title",'dynil'),
+			__("The parent element of image",'dynil'),
+			__('The description of page','dynil')
 		);
 
-		$html = '<div class="dyn_self_structure">';
-		
-		foreach( $struct as $str => $wh ){
+		$htmls = !get_option( 'dynil_structure_html' ) ? ['h3', 'div', 'p'] : get_option( 'dynil_structure_html' );		
+		$struct = array_combine( $htmls, $texting );
 
+		$html = '<div class="dyn_self_structure">';
+
+		foreach( $struct as $str => $wh ){				
 			$html .= '<div class="dyn_cr_structure"><div class="dyn_box_structure">';			
-			$html .= '<p class="dyn_wh_str">' . $wh . ': </p><code class="dyn_val_str dyn_chance">'. $str . '</code>';
+			$html .= '<p class="dyn_wh_str">' . $wh . ': </p><code class="dyn_val_str dyn_chance">'. $str . '</code><input type="hidden" name="interk_structures[]" value="' . $str . '" >';
 			$html .= '</div></div>';
 			
 		}
+		
 		$html .= '</div>';
 		
 		echo $html;
 		
+	}
+	/**
+	* @since 1.0
+	* 
+	* Posibilidad de agregar estilos propios en el sitio
+	*/
+	public function content_self_styles( ){
+		?>
+		<div class="dynil_self_styles">
+			<div class="dyn_stl_all_content">
+
+			</div>
+		</div>
+		<?php
 	}
 	
 }

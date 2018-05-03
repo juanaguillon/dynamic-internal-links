@@ -32,7 +32,7 @@ class Class_settings_dynil extends Class_dynil
 
 	private $notice = null;
 
-	private $current_message = null;
+	private $current_message = false;
 
 
 	public static function instance(){
@@ -50,9 +50,13 @@ class Class_settings_dynil extends Class_dynil
 		include_once DYNIL_CLASSES . 'class-content-settings-dynil.php';
 		static::$content = Class_content_settings_dynil::instance();
 		
+		if( isset( $_POST['interk_structures'] ) ){
+			$this->insert_structure();
+		}
 		if( isset( $_POST['inserting'] ) )  {
 			$this->insert_pages();
 		}
+		$this->init_hooks();
 		if( dynil_is_insert_page() ){
 			$this->scripts();
 			$this->enqueue_scripts();
@@ -99,11 +103,21 @@ class Class_settings_dynil extends Class_dynil
 		<?php
 	}
 
+	public function insert_structure(){
+		
+		$ins = $_POST['interk_structures'];
+
+		if( update_option('dynil_structure_html', $ins) ){
+			$this->current_message = true;
+		}
+		
+	}
+
 	public function insert_pages(){
 		
 		if( $this->notice == null ) $this->notice_messages();
 	
-		$insertings = $_POST['inserting'];
+		$insertings = $_POST['inserting'];	
 		$orderies = $_POST['priority_vals'] ;
 		$cout = array();
 		foreach ( $insertings as $index => $insert ){
@@ -119,12 +133,13 @@ class Class_settings_dynil extends Class_dynil
 
 		if( update_option( 'dynil_inserted_pages', $cout ) ){
 			$this->current_message = true;			
-		}else{
-			$this->current_message = false;
-		}		
+		}	
+		
 
-		add_action('admin_notices',array( $this , 'show_message') );
+	}
 
+	public function init_hooks( ){
+		add_action('admin_notices',array( $this , 'show_message' ) );
 	}
 	
 	public function show_message( ){
@@ -133,5 +148,7 @@ class Class_settings_dynil extends Class_dynil
 		echo dynil_wrap_content("<p>" . $notice['message'] . "</p>", [ "class" => $notice['class'] ] ) ;
 
 	}
+
+
 
 }

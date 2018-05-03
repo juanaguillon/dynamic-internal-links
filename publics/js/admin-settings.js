@@ -2,7 +2,7 @@ jQuery(function( $ ){
   var Element = new Elmt();
   var sett = new Sets($('.dyn_page_bd')); 
 
-  // First input
+  // Botones en la seccion de "Propridad de paginas."
   function firsIn( ){
         
     $('.change_text').click(function () {
@@ -24,10 +24,12 @@ jQuery(function( $ ){
     });
   }
 
-  // Input to code
+  // Botones en la estructura secundaria.
+  // Cancelar operacion y guardar.
+  
   function sec_int( current ){
 
-    function get_the_code( elem, inHidden = true ){
+    function get_the_code( elem  ){
 
       var proccess = [
         sett.createElement( elem , {
@@ -35,21 +37,15 @@ jQuery(function( $ ){
           class: 'dyn_val_str dyn_chance'
         })
       ];
-      if( inHidden ){
-
-        proccess.push( sett.createInput( {
-          type: 'hidden',
-          name: 'interk_structures',
-          value: elem
-        } ) );
-      }
+      
       return Element.manyElements( proccess )
       
     }
     var current_value = $(current);
     $('.change_text').click(function () {     
 
-      var elm = $(this).parent().children('input');
+      var elm = $(this).parent().children('input:text');
+      $(this).parent().children('input:hidden').val( elm.val() );
       $(this).next('.cancel_text').remove();
       $(this).remove();  
       elm.after( get_the_code( elm.val() ) ); 
@@ -62,7 +58,7 @@ jQuery(function( $ ){
       var elm = $(this).parent().children('input:text');
       $(this).prev('.change_text').remove();
       $(this).remove();
-      elm.after( get_the_code( $(current_value).text(), false )); 
+      elm.after( get_the_code( $(current_value).text() )); 
       elm.remove();        
       return false;
     });
