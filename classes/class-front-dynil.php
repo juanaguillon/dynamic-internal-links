@@ -64,7 +64,8 @@ class Class_front_dynil extends Class_dynil
 			if ( $id == $arr_total ){
 				return;		
 			}
-			$html = '<a href="' . get_permalink( $arr_total ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
+			$html = '<div class="dyn_parent_link">';
+			$html .= '<a href="' . get_permalink( $arr_total ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
 			
   		$html .= '<' . $html_struct['0'] .'>' . get_the_title( $arr_total ) . '</'. $html_struct['0'] . '>';
       if( has_post_thumbnail( $arr_total ) ){
@@ -74,13 +75,14 @@ class Class_front_dynil extends Class_dynil
 				) ) ;
       }
 
-      $html .= '</div></a>';
+      $html .= '</div></a></div>';
 		}else{
+			$html = '';
 			foreach( $arr_total as $id_page ){			
 				if ( $id == $id_page ){
 					continue;
 				}
-	
+				
 				$html .= '<a href="' . get_permalink( $id_page ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
 				
 				$html .= '<' . $html_struct['0'] .'>' . get_the_title( $id_page ) . '</'. $html_struct['0'] . '>';

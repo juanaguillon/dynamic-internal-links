@@ -9,8 +9,8 @@
   width: 31.5%;
   display: inline-block;
   box-sizing: border-box;  
-  vertical-align: top;
-  margin: 0.5em;
+  vertical-align: top;  
+ 
 }
 .dyn_all_pages{
   max-width: 1000px;

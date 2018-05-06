@@ -93,3 +93,11 @@ div#respond .names_pages{
 .dyn_ajax_is_put.names_pages_selected{	
 	opacity:0.6;
 }
+.dynil_load_pages input.button-save{
+	color: #41883e;
+}
+.dynil_load_pages input.button-cc{
+	color: #883e3e;
+}
+
+

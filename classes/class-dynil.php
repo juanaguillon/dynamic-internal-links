@@ -99,9 +99,9 @@ class Class_dynil
 	}
 	public function add_menus(){
 		
-		add_menu_page( __('Dyn Internal Links Options', 'dynil' )  , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , array( 'Class_admin_dynil' , 'content_admin' ) , 'dashicons-schedule' , 70 );
+		add_menu_page( __('Dyn Internal Links Options', 'dynil' ) , 'Dyn Internal Links' , 'manage_options' , 'dynil_menu_admin' , null , 'dashicons-schedule' , 70 );
+		add_submenu_page( 'dynil_menu_admin', __('Dynil Selection Pages','dynil'),__('Selection','dynil') , 'manage_options', 'dynil_menu_admin', array( 'Class_admin_dynil' , 'content_admin' ) );
 		add_submenu_page('dynil_menu_admin', __('Dynil Settings','dynil'), __('Settings') , 'manage_options','dynil_menu_settings', array( 'Class_settings_dynil' , 'content_settings') );
-			
 	}	
 	
 

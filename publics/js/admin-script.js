@@ -167,10 +167,28 @@ jQuery(document).ready(function($){
 		
 	});
 
+	// Click en seleccionar todas las paginas	
+	$('#dyn_select_all_pages').click(function(){
+
+		
+		var ck = $('.dyn_box_content input:checkbox');	
+		console.log( ck.attr('checked') );
+
+		// if( ck.prop('checked').length == ck.length ){
+		// 	return;
+		// }
+		ck.attr('checked', !ck.attr('checked'));	
+		
+		
+			
+	});
+
 	$('#dyn_send_pages').click(function(e){
 		document.dyn_form_send_pages.submit();
 	});
 
+
 });
+
 // End jquery function anonymous
 })(jQuery);

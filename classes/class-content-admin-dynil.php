@@ -112,6 +112,8 @@ class Class_content_admin_dynil extends Class_dynil
 		?>
 		<div class="dynil_load_pages">
 			<input type="button" id="dynil_load_pages" value="<?php _e('Move Pages','dynil'); ?>" class="button">
+			<input type="button" id="dyn_select_all_pages" class="button button-save" value="<?php _e('Select Pages','dynil') ?>">			
+
 		</div>
 
 		<?php
