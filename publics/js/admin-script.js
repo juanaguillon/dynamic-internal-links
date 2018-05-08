@@ -172,16 +172,32 @@ jQuery(document).ready(function($){
 
 		
 		var ck = $('.dyn_box_content input:checkbox');	
-		console.log( ck.attr('checked') );
-
-		// if( ck.prop('checked').length == ck.length ){
-		// 	return;
-		// }
-		ck.attr('checked', !ck.attr('checked'));	
-		
-		
-			
+		var count_checks = 0;
+		ck.each(function( ){
+			if( $(this).prop('checked') ){
+				count_checks++;
+			}
+		});
+		if( ck.length == count_checks ){
+			return;
+		}			
+		ck.attr('checked','checked');	
 	});
+
+	// Click deseleccion de todas las paginas.
+	$('#dyn_unselect_all_pages').click(function(){
+		var ck = $('.dyn_box_content input:checkbox');
+		var count_checks = 0;
+		ck.each(function () {
+			if ( ! $(this).prop('checked')) {
+				count_checks++;
+			}
+		});
+		if (ck.length == count_checks) {
+			return;
+		}
+		ck.attr('checked', false);	
+	})
 
 	$('#dyn_send_pages').click(function(e){
 		document.dyn_form_send_pages.submit();

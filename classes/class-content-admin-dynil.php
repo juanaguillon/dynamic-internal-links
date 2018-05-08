@@ -112,7 +112,8 @@ class Class_content_admin_dynil extends Class_dynil
 		?>
 		<div class="dynil_load_pages">
 			<input type="button" id="dynil_load_pages" value="<?php _e('Move Pages','dynil'); ?>" class="button">
-			<input type="button" id="dyn_select_all_pages" class="button button-save" value="<?php _e('Select Pages','dynil') ?>">			
+			<input type="button" id="dyn_select_all_pages" class="button button-save" value="<?php _e('Select Pages','dynil') ?>">		
+			<input type="button" id="dyn_unselect_all_pages" class="button button-cc" value="<?php _e('Unselect Pages','dynil') ?>">			
 
 		</div>
 
@@ -129,6 +130,7 @@ class Class_content_admin_dynil extends Class_dynil
 		<div class="dynil_submit">
 			<input type="hidden" name="action" value="dyn_save_pages">			
 			<input type="button" value="<?php echo __('Send Pages','dynil'); ?>" id="dyn_send_pages" class="button button-primary">
+			
 
 		</div>
 		<?php

@@ -84,8 +84,8 @@ class Class_content_settings_dynil extends Class_dynil
 
 		?>
 		<div class="dyn_pages_not_found">
-			<h3><?php _e('You have not selected pages. Direct to your pages.','dynil'); ?></h3>
-			<button class="redirect"><?php _e('Let´t Go There','dynil'); ?></button>
+			<h3><?php _e('You have not selected pages. Direct to select your pages.','dynil'); ?></h3>
+			<a href="<?php menu_page_url('dynil_menu_admin') ?>"><input type="button" class="button dyn_linked_max" value="<?php _e('Let´s Go There','dynil'); ?>"></a>
 		</div>	
 		<?php
 		
