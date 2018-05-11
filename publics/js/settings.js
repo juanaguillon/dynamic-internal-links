@@ -170,29 +170,46 @@ var Sets = function( elements ){
 
     if( this.$el.children( '.val_priority' ).length == 0 ){
 
-      op.parent.prependTo( jQuery('.dynil_setter_pages') );
+      op.parent.prependTo( jQuery('.dynil_setter_pages') );   
 
 
     }else{
 
       var $elem = this.$el = jQuery( '.dyn_page_bd'),
       	  childrens = $elem.children('.val_priority');
-
+          console.log( childrens );
       childrens.each( function(){
 
+        /**
+         * Se comenzara un bucle para leer cada valor agregado previamente.
+         * Buscar un valor de prioridad para ser ingresado una nueva prioridad.
+         */
+
+        // Elemento actual.
         op.th = jQuery( this );
+
+        // Valor de prioridad actual
         op.th_int = parseInt( op.th.text() );
+
+        // Elemento padre actual
         op.th_parent = op.th.parent();
 
+        // Pos (Posicion) de elemento padre actual
         var pos = {
         	next: op.th_parent.next(),
           prev: op.th_parent.prev()
         }
 
+        /**
+         * Posicion de valores anteriores y siguientes
+         */
      		pos.next_children = pos.next.children('.val_priority');
      		pos.prev_children = pos.prev.children('.val_priority');
 
-        if ( pos.next_children.length > 0 ){
+        //  Si existe en un valor despues de la valor actual
+        if ( pos.next_children.length > 0 ){  
+          alert('pimer if');         
+          // En caso que el valor a ingresar sea mayor o igual a el valor actual y adicionalmente que el siguiente valor, sea mayor a el valor a ingresar 
           if (int >= op.th_int && parseInt( pos.next_children.text() ) >= int  ){
 
             recx = op.th_parent;
@@ -205,11 +222,20 @@ var Sets = function( elements ){
           	op.dir = 'before';
 
           }
+        // Si no existe un valor despues de el valor actual
         }else{
-          if( int > op.th_int ){
-            recx = op.th_parent;
-            vals = parseInt( recx.children('.val_priority').text() );
+                   
+
+          /**
+           * Aplicando en caso de el valor a ingresar sea menor a el valor actual
+           */
+          if( int < op.th_int && pos.next_children.text() > int ){            
+           op.dir = 'before';
+           console.log( 'en linea 234');
           }
+          recx = op.th_parent;
+          vals = parseInt(recx.children('.val_priority').text());
+
         }
 
       });

@@ -86,6 +86,8 @@ jQuery(function( $ ){
       return;
     }          
     sett.move_text( this );
+    $('.dyn_submit_setters').children('span').remove();
+    $('.dyn_submit_setters').children('input').prop('disabled',false);
 
   }); 
   

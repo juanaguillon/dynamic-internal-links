@@ -100,7 +100,8 @@ class Class_content_settings_dynil extends Class_dynil
 	public function content_submit_setters(){
 		?>
 		<div class="dyn_submit_setters">
-			<input type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">			
+			<span style="display:block"><?php _e('You must enter the priority at least one page.','dyinil') ?></span>
+			<input disabled="disabled" type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">			
 		</div>
 		<?php
 	} 
