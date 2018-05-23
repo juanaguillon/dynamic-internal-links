@@ -32,7 +32,7 @@ jQuery(function( $ ){
     function get_the_code( elem  ){
 
       var proccess = [
-        sett.createElement( elem , {
+        Element.createElement( elem , {
           elem: 'code',
           class: 'dyn_val_str dyn_chance'
         })
@@ -63,14 +63,16 @@ jQuery(function( $ ){
       return false;
     });
   }
+
+  sett.text_ajax();
   
 
   var prefEl = {
-    button_save:  sett.createElement( Messages.save, {
+    button_save:  Element.createElement( Messages.save, {
       "elem": 'button',
       "class": 'button-save change_text'
     }),
-    button_cancel: sett.createElement(Messages.cancel, {
+    button_cancel: Element.createElement(Messages.cancel, {
       "class": "button-cc cancel_text",
       "elem": 'button'
     })    
@@ -85,10 +87,7 @@ jQuery(function( $ ){
       $( this ).val('').focus();
       return;
     }          
-    sett.move_text( this );
-    $('.dyn_submit_setters').children('span').remove();
-    $('.dyn_submit_setters').children('input').prop('disabled',false);
-
+    sett.move_text( this );    
   }); 
   
   if( $('.val_priority').length > 0 ){

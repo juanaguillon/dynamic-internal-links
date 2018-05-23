@@ -41,17 +41,7 @@ class Class_content_settings_dynil extends Class_dynil
 	public function content_the_pages( ){
 		if( ! get_option('dynil_inserted_pages') ){
 			
-			$id_pages = get_option( 'dynil_set_pages' );
-			$cont = "";
-			foreach ( $id_pages as $id ){
-				$cont.= "<div class='dyn_page_bd '>";
-				$cont.= "<p>" . get_the_title( $id ) . "</p>";
-				$cont.= "<input type='text' class='dyn_input_change'>";
-				$cont.= "<input type='hidden' name='inserting[]' value='{$id}'>";
-				$cont.= "</div>";
-			}
-
-			echo dynil_wrap_content( $cont , ['class'=>'dynil_setter_pages'] );
+			$this->content_select_first_prioroty();
 			
 		}else{
 
@@ -73,6 +63,32 @@ class Class_content_settings_dynil extends Class_dynil
 
 		}
 	} 
+
+	/** @since 1.0 
+	 * Contenido modal para ingresar la primera pagina a ser procesada (Obligario).
+	 */
+	
+	public function content_select_first_prioroty( ){
+
+		$all_pages = get_option( 'dynil_inserted_pages' );		
+		?>
+		<div class="dynil_modal_content">
+			<div class="dynil_modal">
+				<div class="dyn_content_header">
+					<h3><?php _e('Select the least searched page','dynil') ?></h3>
+				</div>
+				<div class="dyn_content_desc">
+					<p><i><?php _e('This information will allow us to know on what basis to process.','dynil') ?></i></p>		
+				</div>
+				<div class="dyn_content">
+					<input type="text" id="dyn_search_top_page">
+				</div>
+				<div class="dyn_topping_respond">
+				</div>
+			</div>
+		</div>
+		<?php		
+	}
 	
 	/**
 	* @since 1.0
@@ -99,9 +115,8 @@ class Class_content_settings_dynil extends Class_dynil
 
 	public function content_submit_setters(){
 		?>
-		<div class="dyn_submit_setters">
-			<span style="display:block"><?php _e('You must enter the priority at least one page.','dyinil') ?></span>
-			<input disabled="disabled" type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">			
+		<div class="dyn_submit_setters">			
+			<input type="button" class="button button-primary" id="dyn_submit_setter" value="<?php _e('Update Pages', 'dynil'); ?>">			
 		</div>
 		<?php
 	} 

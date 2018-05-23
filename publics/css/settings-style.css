@@ -87,3 +87,29 @@ button.button-save{
   box-shadow:2px 2px 3px #4e4e4e;
   
 }
+
+/*
+*Estilo de ajax.
+*/
+#dyn_search_top_page{
+  width: 80%;
+}
+.dynil_modal_content{
+  background-color: white;
+  padding:8px;
+  margin-bottom: 1em;
+  box-shadow: 0 1px 1px #999999;
+  width: 60%;
+}
+.dyn_topping_respond{  
+  margin:6px 0;
+  box-shadow: 0 0px 4px #a7a7a7; 
+  width: 80%;
+}
+.dyn_topping_respond .names_pages{
+  cursor:pointer;
+  font-size:15px;
+  padding: 5px;
+}
+
+

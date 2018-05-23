@@ -64,6 +64,7 @@ class Class_settings_dynil extends Class_dynil
 	}
 	
 	public function scripts(){
+		$this->import_script( dynil_script_path('ajax-request','js'),'ajax_request','admin' );
 		$this->import_script( dynil_script_path('settings' , 'js' ), 'settings_javs', 'admin' );
 		$this->import_script( dynil_script_path('admin-settings' , 'js' ), 'admin_settings', 'admin' );
 		$this->import_style( dynil_script_path('settings-style','css'),'settings_stiles','admin');
