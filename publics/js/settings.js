@@ -78,7 +78,13 @@ var Elmt = function () {
   }
 
   this.createElement = function (content, attrs) {
-    attrs.elem = attrs.elem || 'div';
+    var x = {
+      prop : 'xxx'
+    }
+    if( typeof x.pre === undefined ){
+      console.log('is undefined');
+    }
+    // attrs.elem = typeof attrs.elem !== undefined ? attrs.elem : 'div';
     var element = '<' + attrs.elem;
     element += this.createAttrs(attrs, attrs.elem);
     element += ' >' + content + '</' + attrs.elem + '>';
@@ -87,8 +93,8 @@ var Elmt = function () {
   }
 }
 
-var Sets = function (elements) {
 
+var Sets = function (elements) {
   this.theElements = new Elmt();
   this.$el = jQuery(elements);
 
@@ -326,6 +332,7 @@ var Sets = function (elements) {
           },
           success: function (e) {
             jQuery('.dyn_topping_respond').append(e);
+            objSets.process_the_ajax();
           }
         });
 
@@ -345,14 +352,14 @@ var Sets = function (elements) {
   this.process_the_ajax = function () {
     jQuery('.names_pages').mouseover(function () {
 
-      jQuery('.ajax_page_selected').removeClass('.ajax_page_selected');
+      jQuery('.ajax_page_selected').removeClass('ajax_page_selected');
       jQuery(this).addClass('ajax_page_selected');
 
       jQuery('.ajax_page_selected').click(function () {
 
         var select = jQuery(this);
         var props = {
-          title: theElems.createElement( select.children('.dyn_ajax_title').text(), ),
+          title: theElems.createElement( select.children('.dyn_ajax_title').text() ),
           id: theElems.createElement( select.children('.dyn_ajax_id').val() )
         }
 

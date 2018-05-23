@@ -111,5 +111,8 @@ button.button-save{
   font-size:15px;
   padding: 5px;
 }
+.ajax_page_selected{
+  background-color:rgba(0 ,0,0,0.1)
+}
 
 
