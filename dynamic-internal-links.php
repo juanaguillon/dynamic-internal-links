@@ -23,6 +23,7 @@ if ( ! defined( 'DYNIL_CLASSES') ) {
 include_once DYNIL_CLASSES . 'class-dynil.php';
 
 function dynil(){
+	
 	return Class_dynil::init_class();
 }
 

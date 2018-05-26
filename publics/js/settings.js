@@ -9,8 +9,17 @@ var Elmt = function () {
       }
       return allElm;
 
+    }else if( typeof elems === 'object' && !Array.isArray( elems ) ){
+      // Agregar en caso de ser un objeto.
+      var returned = '';
+      for ( k in elems ){
+        if( !elems.hasOwnProperty( k ) ) continue;
+
+        returned += elems[ k ];
+      }
+
+      return returned;
     }
-    // Agregar en caso de ser un objeto.
   }
 
   /**
@@ -77,14 +86,8 @@ var Elmt = function () {
     return html;
   }
 
-  this.createElement = function (content, attrs) {
-    var x = {
-      prop : 'xxx'
-    }
-    if( typeof x.pre === undefined ){
-      console.log('is undefined');
-    }
-    // attrs.elem = typeof attrs.elem !== undefined ? attrs.elem : 'div';
+  this.createElement = function (content, attrs = {elem: 'div' }) {
+       
     var element = '<' + attrs.elem;
     element += this.createAttrs(attrs, attrs.elem);
     element += ' >' + content + '</' + attrs.elem + '>';
@@ -362,10 +365,11 @@ var Sets = function (elements) {
           title: theElems.createElement( select.children('.dyn_ajax_title').text() ),
           id: theElems.createElement( select.children('.dyn_ajax_id').val() )
         }
+        console.log( props.title );
 
-        var allStr = theElems.createElement( theElems.manyElements(  ) )
+        var allStr = theElems.createElement( theElems.manyElements( props ) );
 
-        jQuery('.dyn_topping_respond').after();
+        jQuery('.dyn_topping_respond').after( allStr );
       });
 
     });
