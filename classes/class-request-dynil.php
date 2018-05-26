@@ -37,7 +37,7 @@ class Class_request_dynil
 
 		global $wpdb;
 		$name = $_POST['name'];		
-		$sql = "SELECT ID, post_title, post_date FROM {$wpdb->posts} WHERE post_title LIKE '{$name}%' AND post_type = 'page' ";
+		$sql = "SELECT ID, post_title, post_date FROM {$wpdb->posts} WHERE post_title LIKE '%{$name}%' AND post_type = 'page' ";
 		$resultes = dynil_create_wpdb( $sql );
 
 		foreach ( $resultes as $result ) {

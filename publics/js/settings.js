@@ -10,13 +10,14 @@ var Elmt = function () {
       return allElm;
 
     }else if( typeof elems === 'object' && !Array.isArray( elems ) ){
-      // Agregar en caso de ser un objeto.
+      // Agregar en caso de ser un objeto.      
       var returned = '';
       for ( k in elems ){
         if( !elems.hasOwnProperty( k ) ) continue;
 
         returned += elems[ k ];
       }
+      
 
       return returned;
     }
@@ -87,7 +88,7 @@ var Elmt = function () {
   }
 
   this.createElement = function (content, attrs = {elem: 'div' }) {
-       
+    
     var element = '<' + attrs.elem;
     element += this.createAttrs(attrs, attrs.elem);
     element += ' >' + content + '</' + attrs.elem + '>';
@@ -97,6 +98,41 @@ var Elmt = function () {
 }
 
 
+// Funciones adicionales
+
+function clickToAfter( ){
+  
+  if (jQuery('.ajax_page_selected').length > 0 ) {
+    jQuery('#dyn_search_top_page').val('');
+    // Si anteriormente se ha seleccioado la pagina topping, se removera
+    if (jQuery('.dyn_topping_selected').length > 0) {
+      jQuery('.dyn_topping_selected').remove();
+    }
+    var Elm = new Elmt;
+
+
+    var select = jQuery('.ajax_page_selected'),
+      props = {
+        title: Elm.createElement(select.children('.dyn_ajax_title').text()),
+        id: Elm.createInput({
+          type: 'hidden',
+          value: select.children('.dyn_ajax_id').val(),
+          name: 'dynil_top_selected'
+        })
+      },
+      allStr = Elm.createElement(Elm.manyElements(props), { class: 'dyn_topping_selected', elem: 'div' });
+
+    jQuery('.dyn_topping_respond').after(allStr);
+
+  }
+  // Remover todo el contenido de la tabla de seleccion topping ( Despleglable de input text principal )
+  jQuery('.dyn_topping_respond').empty();
+}
+/**
+ * 
+ * @param {elements} elements 
+ * Clase principal de settings.
+ */
 var Sets = function (elements) {
   this.theElements = new Elmt();
   this.$el = jQuery(elements);
@@ -196,7 +232,7 @@ var Sets = function (elements) {
       parent: $that.parent(),
 
     }
-
+    alert('to mushc');
     if (this.$el.children('.val_priority').length == 0) {
 
       op.parent.prependTo(jQuery('.dynil_setter_pages'));
@@ -272,7 +308,7 @@ var Sets = function (elements) {
 
       $that.parent().insertBefore(recx);
     }
-
+    
     $that.after(theElems.createElement(int, {
       'elem': 'span',
       'class': 'val_priority dyn_chance'
@@ -322,25 +358,60 @@ var Sets = function (elements) {
 
     // Input text de busqueda
     var input = jQuery('#dyn_search_top_page');
-
-    input.keyup(function () {
-      if (jQuery(this).val().length > 3) {
-        /**
-         * Creando la llamada ajax para regresar las paginas a seleccionar.
-         */
-        var reqs = new Ajax_request({
-          data: {
-            action: 'show_pages',
-            name: input.val()
-          },
-          success: function (e) {
-            jQuery('.dyn_topping_respond').append(e);
-            objSets.process_the_ajax();
-          }
-        });
-
-        reqs.exec();
+    input.keypress(function(e){
+      if (e.keyCode == 13) {
+        e.preventDefault();
       }
+
+    })
+    input.keyup(function ( e ) { 
+          
+      
+      // En caso de oprimir la tecla "borrar (bacspace)" o "escape", se borrara el contenido de la tabla
+      if (e.keyCode == 8 || e.keyCode == 27 ){
+        jQuery('.dyn_topping_respond').empty();
+      }else if (e.keyCode == 40) {
+        
+        if (jQuery('.ajax_page_selected').length > 0) {
+          var names_select = jQuery('.ajax_page_selected');
+          names_select.next().toggleClass('ajax_page_selected');
+          names_select.removeClass('ajax_page_selected');
+        } else {
+          jQuery('.dyn_topping_respond').children().first().toggleClass('ajax_page_selected');
+        }
+
+      } else if (e.keyCode == 38) {
+        if (jQuery('.ajax_page_selected').length > 0) {
+          var names_select = jQuery('.ajax_page_selected');
+          names_select.prev().toggleClass('ajax_page_selected');
+          names_select.removeClass('ajax_page_selected');
+        }
+      }else if( e.keyCode == 13){
+        clickToAfter();
+      }else{
+        if (jQuery(this).val().length > 3) {
+          /**
+           * Creando la llamada ajax para regresar las paginas a seleccionar.
+           */
+          var reqs = new Ajax_request({
+            data: {
+              action: 'show_pages',
+              name: input.val()
+            },
+            success: function (e) {
+              if (jQuery('.dyn_topping_respond').children().length > 0) {
+                jQuery('.dyn_topping_respond').empty();
+              }
+              jQuery('.dyn_topping_respond').append(e);
+              objSets.process_the_ajax();
+            }
+          });
+  
+          reqs.exec();
+        }
+
+      }
+
     })
 
 
@@ -353,25 +424,15 @@ var Sets = function (elements) {
    * Tal como el mouseover o al oprimir teclas de direcciones, enter y escape.
    */
   this.process_the_ajax = function () {
-    jQuery('.names_pages').mouseover(function () {
-
+    jQuery('.names_pages').hover(function () {
+      
       jQuery('.ajax_page_selected').removeClass('ajax_page_selected');
       jQuery(this).addClass('ajax_page_selected');
+      
 
-      jQuery('.ajax_page_selected').click(function () {
-
-        var select = jQuery(this);
-        var props = {
-          title: theElems.createElement( select.children('.dyn_ajax_title').text() ),
-          id: theElems.createElement( select.children('.dyn_ajax_id').val() )
-        }
-        console.log( props.title );
-
-        var allStr = theElems.createElement( theElems.manyElements( props ) );
-
-        jQuery('.dyn_topping_respond').after( allStr );
-      });
-
+    }).click(function(){
+      clickToAfter();
+      
     });
   }
 

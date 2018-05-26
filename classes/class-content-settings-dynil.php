@@ -81,7 +81,7 @@ class Class_content_settings_dynil extends Class_dynil
 					<p><i><?php _e('This information will allow us to know on what basis to process.','dynil') ?></i></p>		
 				</div>
 				<div class="dyn_content">
-					<input type="text" id="dyn_search_top_page">
+					<input type="text" id="dyn_search_top_page" autocomplete="off">
 				</div>
 				<div class="dyn_topping_respond">
 				</div>
