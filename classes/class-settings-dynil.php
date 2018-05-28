@@ -48,19 +48,28 @@ class Class_settings_dynil extends Class_dynil
 	public function __construct( ){
 
 		include_once DYNIL_CLASSES . 'class-content-settings-dynil.php';
-		static::$content = Class_content_settings_dynil::instance();
-		
+		static::$content = Class_content_settings_dynil::instance();		
+		$this->process_request();
+		$this->init_hooks();
+		if( dynil_is_insert_page() ){
+			$this->scripts();
+			$this->enqueue_scripts();
+		}
+	}
+
+	public function process_request(){
+
 		if( isset( $_POST['interk_structures'] ) ){
 			$this->insert_structure();
 		}
 		if( isset( $_POST['inserting'] ) )  {
 			$this->insert_pages();
 		}
-		$this->init_hooks();
-		if( dynil_is_insert_page() ){
-			$this->scripts();
-			$this->enqueue_scripts();
+		if( isset( $_POST['sending_topping_page']) ){
+			$this->set_topping_page();
 		}
+
+		
 	}
 	
 	public function scripts(){
@@ -93,8 +102,7 @@ class Class_settings_dynil extends Class_dynil
 			<?php 
 			if( get_option( 'dynil_set_pages' ) ){
 				static::$content->content_the_pages();
-				static::$content->content_self_structure();
-				static::$content->content_submit_setters();
+				
 			}else{
 				static::$content->pages_not_found();
 			}
@@ -137,6 +145,10 @@ class Class_settings_dynil extends Class_dynil
 		}	
 		
 
+	}
+	public function set_topping_page(){
+		$page = $_POST['dynil_top_selected'];
+		update_option('dynil_inserted_pages', array( $page => 0 ) );
 	}
 
 	public function init_hooks( ){

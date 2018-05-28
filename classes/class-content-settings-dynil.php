@@ -60,6 +60,8 @@ class Class_content_settings_dynil extends Class_dynil
 				$cont.= "</div>";
 			}
 			echo dynil_wrap_content( $cont , ['class'=>'dynil_setter_pages'] );
+			$this->content_self_structure();
+			$this->content_submit_setters();
 
 		}
 	} 
@@ -72,21 +74,24 @@ class Class_content_settings_dynil extends Class_dynil
 
 		$all_pages = get_option( 'dynil_inserted_pages' );		
 		?>
-		<div class="dynil_modal_content">
-			<div class="dynil_modal">
-				<div class="dyn_content_header">
-					<h3><?php _e('Select the least searched page','dynil') ?></h3>
-				</div>
-				<div class="dyn_content_desc">
-					<p><i><?php _e('This information will allow us to know on what basis to process.','dynil') ?></i></p>		
-				</div>
-				<div class="dyn_content">
-					<input type="text" id="dyn_search_top_page" autocomplete="off">
-				</div>
-				<div class="dyn_topping_respond">
+		<form action="" id="dynil_select_topping">		
+			<div class="dynil_modal_content">
+				<div class="dynil_modal">
+					<div class="dyn_content_header">
+						<h3><?php _e('Select the least searched page','dynil') ?></h3>
+					</div>
+					<div class="dyn_content_desc">
+						<p><i><?php _e('This information will allow us to know on what basis to process.','dynil') ?></i></p>		
+					</div>
+					<div class="dyn_content">
+						<input type="text" id="dyn_search_top_page" autocomplete="off">
+					</div>
+					<div class="dyn_topping_respond">
+					</div>
+					<input type="submit" name="sending_topping_page" class="button button-primary" value="<?php esc_attr_e( 'Set Top Page', 'dynil' ) ?>">	
 				</div>
 			</div>
-		</div>
+		</form>
 		<?php		
 	}
 	

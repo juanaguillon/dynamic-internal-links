@@ -123,6 +123,9 @@ button.button-save{
   width: 300px;
   font-size:16px;
   color:#464646;
+  display: inline-block;
+  margin-right: 3px;
+  vertical-align: bottom;
   
 }
 
