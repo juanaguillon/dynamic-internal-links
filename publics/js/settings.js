@@ -232,7 +232,7 @@ var Sets = function (elements) {
       parent: $that.parent(),
 
     }
-    alert('to mushc');
+    
     if (this.$el.children('.val_priority').length == 0) {
 
       op.parent.prependTo(jQuery('.dynil_setter_pages'));
@@ -313,6 +313,7 @@ var Sets = function (elements) {
       'elem': 'span',
       'class': 'val_priority dyn_chance'
     }));
+    
     $that.after(theElems.createInput({
       type: 'hidden',
       name: "priority_vals[]",

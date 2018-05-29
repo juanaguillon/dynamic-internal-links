@@ -58,7 +58,9 @@ class Class_request_dynil
 	public function save_pages(){
 		
 		$set_pages = $_POST["dyn_table_checks"];
-		if( update_option('dynil_set_pages', $set_pages ) && update_option( 'dynil_inserted_pages' , false ) ){
+		update_option('dynil_set_pages',false);
+		update_option( 'dynil_inserted_pages' , false );
+		if( update_option('dynil_set_pages', $set_pages ) ){
 			wp_redirect( admin_url('admin.php?page=dynil_menu_admin&update_pages=true') );			
 		}else{
 			wp_redirect( admin_url('admin.php?page=dynil_menu_admin&update_pages=false') );

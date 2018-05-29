@@ -148,7 +148,16 @@ class Class_settings_dynil extends Class_dynil
 	}
 	public function set_topping_page(){
 		$page = $_POST['dynil_top_selected'];
-		update_option('dynil_inserted_pages', array( $page => 0 ) );
+
+		$all_page = get_option('dynil_set_pages');
+		$new_arr = [$page => '0'];
+		
+		foreach ( $all_page as $order ){
+			$new_arr[ $order ] = '';
+		}
+		
+		print_r( $page );
+		update_option('dynil_inserted_pages', $new_arr );
 	}
 
 	public function init_hooks( ){
