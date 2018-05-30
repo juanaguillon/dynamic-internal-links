@@ -39,12 +39,20 @@ class Class_content_settings_dynil extends Class_dynil
 	* Se mostraran las paginas que se han seleccionadas para la ejecucion del plugin.
 	*/
 	public function content_the_pages( ){
+		
 		if( ! get_option('dynil_inserted_pages') ){
 			
 			$this->content_select_first_prioroty();
 			
 		}else{
-
+			?>
+			<div class="dynil_info">
+				<h4 class="dynil_title_info"><?php _e('Order of Pages','dynil'); ?></h4>
+				<p class="dynil_desc_info">
+					<?php _e('Edit and move the pages to your liking, adding numbers descendingly. The least searched page should be at the top of this list.','dynil') ?>
+				</p>
+			</div>
+			<?php
 			$cont = "";
 			$id_pages = get_option('dynil_inserted_pages');
 			foreach( $id_pages as $id => $order ){
@@ -74,6 +82,7 @@ class Class_content_settings_dynil extends Class_dynil
 
 		$all_pages = get_option( 'dynil_inserted_pages' );		
 		?>
+		
 		<form action="" id="dynil_select_topping">		
 			<div class="dynil_modal_content">
 				<div class="dynil_modal">
@@ -154,7 +163,14 @@ class Class_content_settings_dynil extends Class_dynil
 		}
 		
 		$html .= '</div>';
-		
+		?>
+		<div class="dynil_info">
+			<h4 class="dynil_title_info"><?php _e('The HTML Struct','dynil'); ?></h4>
+			<p class="dynil_desc_info">
+				<?php _e('In these three boxes, you can edit, what structure will be used in direct links between pages.','dynil') ?>
+			</p>
+		</div>
+		<?php
 		echo $html;
 		
 	}

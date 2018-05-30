@@ -396,7 +396,7 @@ var Sets = function (elements) {
            */
           var reqs = new Ajax_request({
             data: {
-              action: 'show_pages',
+              action: 'show_setting_page',
               name: input.val()
             },
             success: function (e) {

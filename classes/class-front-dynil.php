@@ -54,48 +54,68 @@ class Class_front_dynil extends Class_dynil
 		$this->enqueue_scripts();
 	}
 
+	/**
+	 * @since 1.0
+	 * Crea la estructrua global de la estructura html en el blucle (segun su caso) de las paginas seleccionadas.
+	 * 
+	 * De otra manera, esta funcion creara la estructura html que se proporcionara en el front-end, ya que se usara en caso de que sea necesario ejecutar el bucle, o no (para evitar errores).
+	 */
+
+	public function generic_html( $index, $html_struct, $bucle = false ){
+
+		
+		
+		if( ! $bucle ){
+			$html = '<div class="dyn_parent_link">';
+		}else{
+			global $global_html;
+			$html .= '<div class="dyn_parent_link">';
+		}		
+		
+		$html .= '<a href="' . get_permalink( $index ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';		
+		// Title post
+		$html .= '<' . $html_struct['0'] .' class="dyn_title_post">' . get_the_title( $index ) . '</'. $html_struct['0'] . '>';
+
+		if( has_post_thumbnail( $index ) ){
+			
+			$html.= dynil_wrap_content( get_the_post_thumbnail( $index, 'medium', array('class'=>'dyn_image_interk') ), array(
+				'wrap_content' => $html_struct['1']
+			) ) ;
+		}
+
+		$html .= '</div></a></div>';
+		return $html;
+
+	}
+
   public function get_html_another_pages( $id ){  	
 		$count_per = count($this->pages) * ( 70 / 100 );
-		if(  $count_per < 1 ){ return; }
+		if(  $count_per < 1 ) return;
 		$html_struct = get_option('dynil_structure_html');
-		$arr_total = array_rand( $this->pages, $count_per ) ;
+		$arr_total = array_rand( $this->pages, $count_per );
+
+		
 		
 		if( ! is_array( $arr_total ) ){
 			if ( $id == $arr_total ){
-				return;		
-			}
-			$html = '<div class="dyn_parent_link">';
-			$html .= '<a href="' . get_permalink( $arr_total ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
-			
-  		$html .= '<' . $html_struct['0'] .'>' . get_the_title( $arr_total ) . '</'. $html_struct['0'] . '>';
-      if( has_post_thumbnail( $arr_total ) ){
-				
-        $html.= dynil_wrap_content( get_the_post_thumbnail( $arr_total, 'thumbnail' ), array(
-					'wrap_content' => $html_struct['1']
-				) ) ;
-      }
+				return;
+			}	
+			$html = $this->generic_html( $id_page, $html_struct );		
 
-      $html .= '</div></a></div>';
 		}else{
-			$html = '';
-			foreach( $arr_total as $id_page ){			
+
+			$global_html = '';
+			foreach( $arr_total as $id_page ){	
+
 				if ( $id == $id_page ){
 					continue;
-				}
+				}		
 				
-				$html .= '<a href="' . get_permalink( $id_page ) . '" class="dyn_lined_pages"><div class="dyn_cr_pages">';
+				$html .= $this->generic_html( $id_page,$html_struct, true );
 				
-				$html .= '<' . $html_struct['0'] .'>' . get_the_title( $id_page ) . '</'. $html_struct['0'] . '>';
-				if( has_post_thumbnail( $id_page ) ){
-					$html.= dynil_wrap_content( get_the_post_thumbnail( $id_page, 'thumbnail' ), array(
-					'wrap_content' => $html_struct['1']
-				) ) ;
-				}
-	
-				$html .= '</div></a>';
 			}
 
-		}
+		}		
   	
   	return $html;
 

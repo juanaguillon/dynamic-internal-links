@@ -64,7 +64,10 @@ class Class_content_admin_dynil extends Class_dynil
 
 	public static function content_ajax(){
 		
-		?>					
+		?>	
+			<div class="dynil_info">
+				<h4 class="dynil_title_info"><?php _e('Selection by Search','dynil'); ?></h4>				
+			</div>			
 			<div class="content">
 				<input type="text" id="dynil_anex_pages" autocomplete="off">
 				<div id="respond"></div>
@@ -79,6 +82,12 @@ class Class_content_admin_dynil extends Class_dynil
 	*/
 	public static function content_table_result(){
 		?>		
+		<div class="dynil_info">
+			<h4 class="dynil_title_info"><?php _e('Table of Pages','dynil'); ?></h4>
+			<p class="dynil_desc_info">
+				<?php _e('This section will be showing the pages that will be selected to work as links on the site.','dynil') ?>
+			</p>
+		</div>
 			<table id="table_result">
 				<thead>
 					<th class="dynil_table_check">&nbsp;</th>

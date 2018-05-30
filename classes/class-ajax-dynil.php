@@ -85,6 +85,7 @@ class Class_ajax_dynil extends Class_dynil
 	private function load_ajax(){
 		include_once DYNIL_CLASSES . 'class-request-dynil.php';
 		$this->set_ajax_request( 'show_pages' , array( Class_request_dynil::instance(), 'get_name_page' ) );
+		$this->set_ajax_request( 'show_setting_page', array( Class_request_dynil::instance(), 'get_setting_pages' ) );
 	}
 
 	/**

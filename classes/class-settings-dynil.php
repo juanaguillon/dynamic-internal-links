@@ -150,13 +150,18 @@ class Class_settings_dynil extends Class_dynil
 		$page = $_POST['dynil_top_selected'];
 
 		$all_page = get_option('dynil_set_pages');
-		$new_arr = [$page => '0'];
+		$new_arr = [];
 		
 		foreach ( $all_page as $order ){
+			if( $order == $page ){
+				$new_arr[ $order ] = '0'; 
+				continue;
+			} 
 			$new_arr[ $order ] = '';
 		}
+
+		$new_arr = array( $page => $new_arr[$page] ) + $new_arr;
 		
-		print_r( $page );
 		update_option('dynil_inserted_pages', $new_arr );
 	}
 

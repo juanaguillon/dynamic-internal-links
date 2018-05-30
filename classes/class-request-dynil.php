@@ -51,6 +51,15 @@ class Class_request_dynil
 		die();
 	}
 
+	public function get_setting_pages(){
+		global $wpdb;
+		$name = $_POST['name'];
+		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_ ";
+		$pages_settings = get_option( 'dynil_set_pages' );
+		echo '<pre>' . print_r( $pages_settings, true ) . '</pre>';
+		die();
+	}
+
 	/** 
 	* @since 1.0
 	* Actualizara opciones y redirigira a el admin page.

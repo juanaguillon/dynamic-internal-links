@@ -85,7 +85,11 @@ class Class_admin_dynil extends Class_dynil
 					<div class="dynil_ajax_section">					
 						<?php $content::content_ajax(); ?>				
 					</div>
-					<div class="dynil_pages_section">				
+
+					<div class="dynil_pages_section">	
+						<div class="dyn_info">
+							<h4 class="dyn_title_info"><?php _e('Or select One by One','dynil') ?></h4>
+						</div>			
 						<?php
 							$content::content_pages();
 							$content::content_load_pages();								
