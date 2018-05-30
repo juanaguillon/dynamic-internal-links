@@ -51,12 +51,29 @@ class Class_request_dynil
 		die();
 	}
 
+	/**
+	* @since 1.0
+	* Funcion de llamada para las paginas establecidas por el usuario.
+	* Se usará, para mostrar las paginas establecidas por el usuario en la pagina de ajustes ( Version 1.0 )
+	*/
 	public function get_setting_pages(){
 		global $wpdb;
 		$name = $_POST['name'];
-		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_ ";
 		$pages_settings = get_option( 'dynil_set_pages' );
-		echo '<pre>' . print_r( $pages_settings, true ) . '</pre>';
+		$pages_settings = implode( ',' , $pages_settings );
+		$sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_title LIKE '%{$name}%' AND ID IN ({$pages_settings})";
+		$results = dynil_create_wpdb( $sql );
+		
+		// Bucle mostrando los resultados
+		foreach( $results as $result ){
+			$html_ret = '<span class="dyn_ajax_title">' . $result->post_title . '</span>';
+			$html_ret .= '<input type="hidden" class="dyn_ajax_id" value="' . $result->ID . '" >';
+			
+			echo dynil_wrap_content( $html_ret , array(
+				'class' => 'names_pages'
+			) );
+		}
+		
 		die();
 	}
 
